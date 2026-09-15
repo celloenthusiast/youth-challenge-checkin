@@ -1,0 +1,548 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#0b609d">
+  <meta http-equiv="Cache-Control" content="no-store, no-cache, must-revalidate, max-age=0">
+  <meta http-equiv="Pragma" content="no-cache">
+  <meta http-equiv="Expires" content="0">
+  <title>Youth Challenge Check-In</title>
+  <link rel="icon" href="./favicon.ico" sizes="any">
+  <link rel="icon" type="image/png" sizes="32x32" href="./favicon-32.png">
+  <link rel="apple-touch-icon" href="./apple-touch-icon.png">
+  <link rel="manifest" href="./manifest.webmanifest">
+  <style>
+    :root{
+      --bg:#f4f6f8;--card:#fff;--text:#17202a;--muted:#667085;--border:#dfe4ea;
+      --accent:#0b609d;--accent2:#e8f2f9;--success:#1f7a4f;--danger:#a13d2d;
+      --warning:#9a6700;--lodge:#7b2cbf;--orange:#ff6726;--shadow:0 2px 12px rgba(16,24,40,.08);--radius:16px;
+    }
+    *{box-sizing:border-box}
+    html,body{margin:0;min-height:100%;font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;color:var(--text);background:var(--bg)}
+    button,input,select{font:inherit}button{cursor:pointer}.hidden{display:none!important}
+
+    .login-wrap{min-height:100vh;display:grid;place-items:center;padding:24px}
+    .login-card{width:min(420px,100%);background:var(--card);border:1px solid var(--border);border-radius:22px;padding:28px;box-shadow:var(--shadow)}
+    .login-logo{display:block;width:180px;max-width:60%;height:auto;margin:0 auto 16px}
+    .login-card h1{font-size:1.55rem;margin:0 0 8px;text-align:center}.login-card p{color:var(--muted);margin:0 0 20px;text-align:center}
+    .pin{width:100%;padding:14px 16px;border:1px solid var(--border);border-radius:12px;font-size:1.25rem;letter-spacing:.16em;text-align:center}
+    .primary{width:100%;border:0;background:var(--accent);color:#fff;padding:13px 16px;border-radius:12px;font-weight:700;margin-top:12px}
+    .error{color:var(--danger);min-height:1.3em;margin-top:10px;font-size:.92rem;text-align:center}
+    .version-label{margin-top:12px;text-align:center;font-size:.7rem;color:#98a2b3}
+    .config-error{background:#fff3f0;border:1px solid #efc5bb;color:#7c2d20;padding:12px;border-radius:10px;margin:12px 0;font-size:.85rem}
+
+    header{position:sticky;top:0;z-index:10;background:rgba(244,246,248,.96);backdrop-filter:blur(12px);border-bottom:1px solid var(--border)}
+    .topbar{max-width:1200px;margin:auto;padding:14px 18px 12px}
+    .title-row{display:flex;gap:12px;align-items:center;justify-content:space-between;margin-bottom:10px}
+    .brand-title{display:flex;align-items:center;gap:9px;min-width:0}.brand-mark{width:34px;height:34px;object-fit:contain;flex:none}.title-row h1{font-size:1.25rem;margin:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+    .title-meta{display:flex;align-items:center;gap:10px}.count{font-size:.9rem;color:var(--muted)}.header-version{font-size:.7rem;color:#98a2b3;white-space:nowrap}
+    .search{width:100%;border:1px solid var(--border);background:#fff;border-radius:13px;padding:12px 14px;outline:none}
+    .search:focus{border-color:var(--accent);box-shadow:0 0 0 3px rgba(11,96,157,.12)}
+    .filters{display:flex;gap:8px;overflow-x:auto;padding:10px 0 2px;scrollbar-width:none}.filters::-webkit-scrollbar{display:none}
+    .chip{white-space:nowrap;border:1px solid var(--border);background:#fff;border-radius:999px;padding:8px 11px;color:#344054;font-size:.9rem}
+    .chip.active{background:var(--accent);color:#fff;border-color:var(--accent)}.chip.lodge.active{background:var(--lodge);border-color:var(--lodge)}
+    .filter-select{border:1px solid var(--border);background:#fff;border-radius:999px;padding:7px 30px 7px 11px;color:#344054}
+
+    main{max-width:1200px;margin:auto;padding:16px 18px 90px}
+    .dashboard-head{display:flex;justify-content:space-between;gap:12px;align-items:end;margin:2px 0 10px}
+    .dashboard-head h2{font-size:1rem;margin:0}.dashboard-note{font-size:.78rem;color:var(--muted);text-align:right}
+    .meal-dashboard{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;margin-bottom:18px}
+    .meal-summary{background:#fff;border:1px solid var(--border);border-radius:14px;padding:12px;box-shadow:0 1px 4px rgba(16,24,40,.04)}
+    .meal-summary.over{border-color:#e4b5ad;background:#fff8f7}.meal-summary h3{font-size:.9rem;margin:0 0 10px}
+    .summary-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
+    .stat{background:#f8fafb;border-radius:9px;padding:7px 8px}.stat-label{font-size:.66rem;text-transform:uppercase;letter-spacing:.04em;color:var(--muted)}.stat-value{font-size:1.08rem;font-weight:800;margin-top:1px}
+    .stat.extras{grid-column:1/-1}.stat.extras.good .stat-value{color:var(--success)}.stat.extras.bad .stat-value{color:var(--danger)}
+    .extra-actions{display:flex;gap:6px;margin-top:9px}.small-btn{flex:1;border:1px solid var(--border);background:#fff;border-radius:9px;padding:7px 8px;font-size:.76rem;font-weight:750;color:#344054}.small-btn.add{background:var(--accent2);border-color:#c6dbe3;color:#24556b}.small-btn:disabled{opacity:.4;cursor:not-allowed}
+    .extra-note{font-size:.7rem;color:var(--muted);margin-top:6px}
+
+    .list{display:grid;gap:10px}.person{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);box-shadow:0 1px 4px rgba(16,24,40,.04);overflow:hidden}.person.lodge-person{border-left:6px solid var(--lodge)}
+    .person-main{display:grid;grid-template-columns:minmax(180px,1.4fr) minmax(110px,.6fr) minmax(300px,1.6fr) auto;gap:12px;align-items:center;padding:14px}
+    .name{font-size:1.05rem;font-weight:800}.sub{font-size:.86rem;color:var(--muted);margin-top:2px}
+    .badges{display:flex;gap:6px;flex-wrap:wrap}.badge{display:inline-flex;align-items:center;border-radius:999px;padding:4px 8px;background:#eef2f6;font-size:.76rem;font-weight:700;color:#475467}.badge.adult{background:#e8f1f5;color:#24556b}.badge.camper{background:#eef6eb;color:#416b34}.badge.lodge{background:#f0e5fb;color:#6f249f}
+    .meal-tickets{display:flex;gap:6px;flex-wrap:wrap}.ticket-label{display:inline-flex;align-items:center;gap:6px;border:1px solid #cbd5dc;border-radius:9px;padding:6px 8px;background:#fff;font-size:.74rem;font-weight:700}.ticket-label.issued{background:#e9f7ef;border-color:#b8dfc8;color:#236442}.ticket-label input{width:17px;height:17px;margin:0;accent-color:var(--success)}.meal-none{color:var(--muted);font-size:.82rem;font-style:italic}
+    .check-stack{display:grid;gap:8px}.check-wrap{display:flex;align-items:center;gap:8px;font-weight:700;white-space:nowrap}.check-wrap input{width:22px;height:22px;accent-color:var(--success)}
+    .person-actions{display:flex;justify-content:flex-end;padding:0 14px 13px}.details-btn{border:0;background:transparent;color:var(--accent);font-weight:700;padding:5px 0}.empty{text-align:center;color:var(--muted);padding:46px 16px}
+
+    dialog{width:min(760px,calc(100% - 24px));max-height:90vh;border:0;border-radius:20px;padding:0;box-shadow:0 24px 80px rgba(16,24,40,.3)}dialog::backdrop{background:rgba(15,23,42,.48)}
+    .modal-head{position:sticky;top:0;background:#fff;border-bottom:1px solid var(--border);padding:18px;display:flex;justify-content:space-between;gap:12px;align-items:flex-start;z-index:2}.modal-head h2{font-size:1.25rem;margin:0 0 6px}.close{border:0;background:#eef2f6;width:36px;height:36px;border-radius:50%;font-size:1.25rem}
+    .modal-body{padding:18px;background:#fff}.section{margin-bottom:22px}.section h3{font-size:.88rem;text-transform:uppercase;letter-spacing:.05em;color:var(--muted);margin:0 0 10px}.status-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.status-card{border:1px solid var(--border);border-radius:12px;padding:12px;background:#fafbfc}.status-card label{display:flex;align-items:center;gap:9px;font-weight:700}.status-card input{width:22px;height:22px;accent-color:var(--success)}
+    .detail-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px 18px}.detail{border-bottom:1px solid #edf0f2;padding:0 0 9px}.detail-label{font-size:.76rem;color:var(--muted);margin-bottom:3px}.detail-value{font-size:.94rem;word-break:break-word;white-space:pre-wrap}
+    .toast{position:fixed;left:50%;bottom:20px;transform:translateX(-50%);background:#17202a;color:#fff;padding:10px 14px;border-radius:10px;z-index:50;box-shadow:var(--shadow);font-size:.9rem;max-width:calc(100% - 28px);text-align:center}
+
+    @media(max-width:980px){.meal-dashboard{grid-template-columns:repeat(2,minmax(0,1fr))}.person-main{grid-template-columns:minmax(170px,1.2fr) minmax(260px,1.5fr) auto}.category-cell{display:none}}
+    @media(max-width:700px){.topbar,main{padding-left:12px;padding-right:12px}.dashboard-head{align-items:start;flex-direction:column}.dashboard-note{text-align:left}.person-main{grid-template-columns:1fr auto;gap:10px}.meals-cell{grid-column:1/-1}.check-cell{grid-row:1/2;grid-column:2/3;align-self:center}.status-grid,.detail-grid{grid-template-columns:1fr}.brand-mark{width:30px;height:30px}}
+    @media(max-width:470px){.meal-dashboard{grid-template-columns:1fr}.title-row h1{font-size:1.05rem}.count{font-size:.8rem}.header-version{display:none}.person-main{padding:12px}.name{font-size:1rem}.check-wrap{font-size:.78rem;white-space:normal}.check-wrap input{width:20px;height:20px}.ticket-label{font-size:.72rem}.login-logo{width:160px}}
+  </style>
+</head>
+<body>
+  <section id="loginView" class="login-wrap">
+    <div class="login-card">
+      <img class="login-logo" src="./yc-logo.png" alt="Youth Challenge">
+      <h1>Youth Challenge Check-In</h1>
+      <p>Enter the staff passcode to open registration.</p>
+      <div id="configError" class="config-error hidden"></div>
+      <input id="pin" class="pin" type="password" inputmode="numeric" autocomplete="one-time-code" maxlength="12" placeholder="••••">
+      <button id="loginButton" class="primary" onclick="login()">Open Check-In</button>
+      <div id="loginError" class="error"></div>
+      <div class="version-label">v<span id="loginVersion">2.0.0</span></div>
+    </div>
+  </section>
+
+  <section id="appView" class="hidden">
+    <header>
+      <div class="topbar">
+        <div class="title-row">
+          <div class="brand-title"><img class="brand-mark" src="./yc-logo.png" alt=""><h1 id="appTitle">Youth Challenge Check-In</h1></div>
+          <div class="title-meta"><div id="count" class="count"></div><div class="header-version">v<span id="headerVersion">2.0.0</span></div></div>
+        </div>
+        <input id="search" class="search" type="search" placeholder="Search name, church, phone, lodging…" autocomplete="off">
+        <div class="filters">
+          <button class="chip active" data-category="all">Everyone</button>
+          <button class="chip" data-category="adult">Adults</button>
+          <button class="chip" data-category="camper">Campers</button>
+          <button class="chip lodge" id="lodgeFilter">Lodge Room</button>
+          <button class="chip" id="uncheckedFilter">Not Checked In</button>
+          <select id="lodgingSelect" class="filter-select"><option value="">All lodging</option></select>
+        </div>
+      </div>
+    </header>
+
+    <main>
+      <div class="dashboard-head">
+        <h2>Meal Availability</h2>
+        <div class="dashboard-note">Capacities come from the “Check-In Settings” sheet.</div>
+      </div>
+      <section id="mealDashboard" class="meal-dashboard"></section>
+      <div id="list" class="list"></div>
+      <div id="empty" class="empty hidden">No registrations match this view.</div>
+    </main>
+  </section>
+
+  <dialog id="detailDialog">
+    <div class="modal-head">
+      <div><h2 id="modalName"></h2><div id="modalBadges" class="badges"></div></div>
+      <button class="close" onclick="document.getElementById('detailDialog').close()" aria-label="Close">×</button>
+    </div>
+    <div class="modal-body">
+      <div class="section"><h3>Check-In & Meal Tickets</h3><div id="modalStatus" class="status-grid"></div></div>
+      <div class="section"><h3>Registration Details</h3><div id="modalDetails" class="detail-grid"></div></div>
+    </div>
+  </dialog>
+
+  <div id="toast" class="toast hidden"></div>
+
+<script>
+  const CLIENT_VERSION = '2.0.0';
+  let API_URL = '';
+  let token = sessionStorage.getItem('yc_checkin_token') || '';
+  let people = [];
+  let mealStats = [];
+  let categoryFilter = 'all';
+  let lodgeOnly = false;
+  let uncheckedOnly = false;
+  let currentPersonRow = null;
+
+  const $ = id => document.getElementById(id);
+
+  document.addEventListener('DOMContentLoaded', async () => {
+    $('loginVersion').textContent = CLIENT_VERSION;
+    $('headerVersion').textContent = CLIENT_VERSION;
+    $('pin').addEventListener('keydown', e => { if (e.key === 'Enter') login(); });
+    $('search').addEventListener('input', renderRoster);
+    $('lodgingSelect').addEventListener('change', renderRoster);
+
+    document.querySelectorAll('[data-category]').forEach(btn => btn.addEventListener('click', () => {
+      document.querySelectorAll('[data-category]').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      categoryFilter = btn.dataset.category;
+      renderRoster();
+    }));
+
+    $('lodgeFilter').addEventListener('click', () => {
+      lodgeOnly = !lodgeOnly;
+      $('lodgeFilter').classList.toggle('active', lodgeOnly);
+      renderRoster();
+    });
+
+    $('uncheckedFilter').addEventListener('click', () => {
+      uncheckedOnly = !uncheckedOnly;
+      $('uncheckedFilter').classList.toggle('active', uncheckedOnly);
+      renderRoster();
+    });
+
+    const staticCurrent = await checkStaticVersion();
+    if (!staticCurrent) return;
+
+    await loadConfig();
+    if (!validApiUrl()) {
+      showConfigError('The Apps Script API URL has not been configured yet. Edit config.json and paste the deployed Web App URL that ends in /exec.');
+      return;
+    }
+
+    try {
+      const status = await api('status');
+      if (!status.ok) throw new Error(status.error || 'Backend status check failed.');
+      if (status.version && String(status.version) !== CLIENT_VERSION) {
+        showToast(`Version mismatch: website v${CLIENT_VERSION}, backend v${status.version}. Update both parts of the app.`, true, 7000);
+      }
+      if (token) loadRoster();
+    } catch (err) {
+      showConfigError('Could not reach the Apps Script backend. Check config.json and make sure the Apps Script deployment is set to “Anyone.”');
+      $('loginError').textContent = messageOf(err);
+    }
+
+    // A device left open will notice a new GitHub build within five minutes.
+    setInterval(checkStaticVersion, 5 * 60 * 1000);
+  });
+
+
+  async function loadConfig(){
+    try {
+      const response = await fetch(`./config.json?_ts=${Date.now()}`, { cache: 'no-store' });
+      if (!response.ok) throw new Error('Could not load config.json.');
+      const config = await response.json();
+      API_URL = String((config && config.apiUrl) || '').trim();
+    } catch (err) {
+      API_URL = '';
+    }
+  }
+
+  function validApiUrl(){
+    return /^https:\/\/script\.google\.com\/macros\/s\/.+\/exec(?:\?.*)?$/i.test(API_URL);
+  }
+
+  function showConfigError(message){
+    $('configError').textContent = message;
+    $('configError').classList.remove('hidden');
+    $('loginButton').disabled = true;
+  }
+
+  async function checkStaticVersion(){
+    try {
+      const response = await fetch(`./version.json?_ts=${Date.now()}`, { cache: 'no-store' });
+      if (!response.ok) return true;
+      const info = await response.json();
+      const version = String(info.version || '').trim();
+      if (version && version !== CLIENT_VERSION) {
+        const lastTarget = sessionStorage.getItem('yc_static_reload_target');
+        if (lastTarget === version) {
+          showToast(`A newer build v${version} is available. Refresh this page if it does not update automatically.`, true, 7000);
+          return false;
+        }
+        sessionStorage.setItem('yc_static_reload_target', version);
+        const url = new URL(window.location.href);
+        url.searchParams.set('v', version);
+        url.searchParams.set('_cb', String(Date.now()));
+        window.location.replace(url.toString());
+        return false;
+      }
+      sessionStorage.removeItem('yc_static_reload_target');
+      return true;
+    } catch (err) {
+      // Do not block check-in just because GitHub's version file could not be read.
+      return true;
+    }
+  }
+
+  function api(action, params = {}){
+    return new Promise((resolve, reject) => {
+      if (!validApiUrl()) {
+        reject(new Error('Apps Script API URL is not configured.'));
+        return;
+      }
+
+      const callback = '__yc_cb_' + Date.now() + '_' + Math.random().toString(36).slice(2);
+      const script = document.createElement('script');
+      const url = new URL(API_URL);
+      const timer = setTimeout(() => cleanup(new Error('The server did not respond.')), 20000);
+
+      function cleanup(error, result){
+        clearTimeout(timer);
+        script.remove();
+        try { delete window[callback]; } catch (_) { window[callback] = undefined; }
+        if (error) reject(error); else resolve(result);
+      }
+
+      window[callback] = result => cleanup(null, result);
+      script.onerror = () => cleanup(new Error('Unable to load the Apps Script API.'));
+
+      url.searchParams.set('action', action);
+      url.searchParams.set('callback', callback);
+      url.searchParams.set('_ts', String(Date.now()));
+      Object.entries(params).forEach(([key, value]) => {
+        if (value !== undefined && value !== null) url.searchParams.set(key, String(value));
+      });
+
+      script.src = url.toString();
+      script.async = true;
+      document.head.appendChild(script);
+    });
+  }
+
+  async function login(){
+    $('loginError').textContent = '';
+    const pin = $('pin').value.trim();
+    if (!pin) {
+      $('loginError').textContent = 'Enter the passcode.';
+      return;
+    }
+
+    $('loginButton').disabled = true;
+    try {
+      const result = await api('login', { passcode: pin });
+      if (!result.ok) {
+        $('loginError').textContent = result.error || 'Unable to sign in.';
+        return;
+      }
+      token = result.token;
+      sessionStorage.setItem('yc_checkin_token', token);
+      await loadRoster();
+    } catch (err) {
+      $('loginError').textContent = messageOf(err);
+    } finally {
+      $('loginButton').disabled = false;
+    }
+  }
+
+  async function loadRoster(){
+    try {
+      const data = await api('roster', { token });
+      if (!apiOkay(data)) return;
+      $('loginView').classList.add('hidden');
+      $('appView').classList.remove('hidden');
+      $('appTitle').textContent = data.title || 'Youth Challenge Check-In';
+      people = data.people || [];
+      mealStats = data.mealStats || [];
+      buildLodgingOptions(data.lodgingOptions || []);
+      renderAll();
+    } catch (err) {
+      handleFailure(err);
+    }
+  }
+
+  function apiOkay(result){
+    if (result && result.ok !== false) return true;
+    handleFailure(new Error((result && result.error) || 'The server returned an error.'));
+    return false;
+  }
+
+  function renderAll(){
+    renderMealDashboard();
+    renderRoster();
+  }
+
+  function buildLodgingOptions(options){
+    const select = $('lodgingSelect');
+    const current = select.value;
+    select.innerHTML = '<option value="">All lodging</option>' +
+      options.map(x => `<option value="${escAttr(x)}">${esc(x)}</option>`).join('');
+    if (options.includes(current)) select.value = current;
+  }
+
+  function renderMealDashboard(){
+    $('mealDashboard').innerHTML = mealStats.map(stat => {
+      const capacitySet = stat.capacity !== null;
+      const extras = capacitySet ? stat.extrasAvailable : null;
+      const over = capacitySet && extras < 0;
+      const extrasText = !capacitySet ? 'Not set' : String(extras);
+      const extrasClass = !capacitySet ? '' : extras >= 0 ? 'good' : 'bad';
+      const canAdd = capacitySet && extras > 0;
+      const canRemove = stat.extraUsed > 0;
+
+      return `<article class="meal-summary ${over ? 'over' : ''}">
+        <h3>${esc(stat.label)}</h3>
+        <div class="summary-grid">
+          <div class="stat"><div class="stat-label">Capacity</div><div class="stat-value">${capacitySet ? stat.capacity : '—'}</div></div>
+          <div class="stat"><div class="stat-label">Registered</div><div class="stat-value">${stat.registered}</div></div>
+          <div class="stat"><div class="stat-label">Tickets issued</div><div class="stat-value">${stat.ticketsIssued}</div></div>
+          <div class="stat"><div class="stat-label">Still to hand out</div><div class="stat-value">${stat.stillToDistribute}</div></div>
+          <div class="stat extras ${extrasClass}"><div class="stat-label">Extras available</div><div class="stat-value">${extrasText}</div></div>
+        </div>
+        <div class="extra-actions">
+          <button class="small-btn" ${canRemove ? '' : 'disabled'} onclick="adjustExtra('${stat.key}',-1)">− Undo Extra</button>
+          <button class="small-btn add" ${canAdd ? '' : 'disabled'} onclick="adjustExtra('${stat.key}',1)">+ Use Extra</button>
+        </div>
+        <div class="extra-note">Walk-up extras used: ${stat.extraUsed}</div>
+      </article>`;
+    }).join('');
+  }
+
+  function renderRoster(){
+    const q = $('search').value.trim().toLowerCase();
+    const lodging = $('lodgingSelect').value;
+
+    const filtered = people.filter(p => {
+      if (q && !p.searchable.includes(q)) return false;
+      if (lodging && p.lodging !== lodging) return false;
+      if (categoryFilter === 'adult' && p.category !== 'Adult') return false;
+      if (categoryFilter === 'camper' && p.category !== 'Camper') return false;
+      if (lodgeOnly && !p.lodgeFlag) return false;
+      if (uncheckedOnly && p.checkedIn) return false;
+      return true;
+    });
+
+    $('count').textContent = `${filtered.length} of ${people.length}`;
+    $('empty').classList.toggle('hidden', filtered.length > 0);
+    $('list').innerHTML = filtered.map(personCard).join('');
+  }
+
+  function personCard(p){
+    const badges = `<div class="badges"><span class="badge ${p.category.toLowerCase()}">${esc(p.category)}</span>${p.lodgeFlag ? '<span class="badge lodge">LODGE</span>' : ''}</div>`;
+    const mealDisplay = p.mealEntries.length
+      ? p.mealEntries.map(m => `<label class="ticket-label ${m.issued ? 'issued' : ''}" title="${escAttr(m.label)} ticket"><input type="checkbox" ${m.issued ? 'checked' : ''} onchange="toggleMealTicket(${p.rowNumber},'${m.key}',this.checked)"><span>${esc(m.label)}</span></label>`).join('')
+      : '<span class="meal-none">No meals registered</span>';
+
+    return `<article class="person ${p.lodgeFlag ? 'lodge-person' : ''}" id="person-${p.rowNumber}">
+      <div class="person-main">
+        <div>
+          <div class="name">${esc(p.lastName)}, ${esc(p.firstName)}</div>
+          <div class="sub">${esc(p.lodging)}</div>
+        </div>
+        <div class="category-cell">${badges}</div>
+        <div class="meals-cell meal-tickets">${mealDisplay}</div>
+        <div class="check-cell check-stack">
+          <label class="check-wrap"><input type="checkbox" ${p.checkedIn ? 'checked' : ''} onchange="toggleCheckIn(${p.rowNumber},this.checked)"><span>Checked In</span></label>
+          <label class="check-wrap"><input type="checkbox" ${p.lodgingAssigned ? 'checked' : ''} onchange="toggleLodgingAssigned(${p.rowNumber},this.checked)"><span>Lodging Assigned</span></label>
+        </div>
+      </div>
+      <div class="person-actions"><button class="details-btn" onclick="openDetails(${p.rowNumber})">View full registration →</button></div>
+    </article>`;
+  }
+
+  async function toggleCheckIn(row, checked){
+    const p = people.find(x => x.rowNumber === row);
+    if (p) p.checkedIn = checked;
+    renderRoster();
+    if (currentPersonRow === row) renderDetails(row);
+
+    try {
+      const result = await api('checkin', { token, row, checked: checked ? 1 : 0 });
+      if (!apiOkay(result)) throw new Error(result.error || 'Update failed.');
+      showToast(checked ? 'Checked in' : 'Check-in removed');
+    } catch (err) {
+      if (p) p.checkedIn = !checked;
+      renderRoster();
+      if (currentPersonRow === row) renderDetails(row);
+      handleFailure(err);
+    }
+  }
+
+  async function toggleLodgingAssigned(row, checked){
+    const p = people.find(x => x.rowNumber === row);
+    if (p) p.lodgingAssigned = checked;
+    renderRoster();
+    if (currentPersonRow === row) renderDetails(row);
+
+    try {
+      const result = await api('lodgingAssigned', { token, row, checked: checked ? 1 : 0 });
+      if (!apiOkay(result)) throw new Error(result.error || 'Update failed.');
+      showToast(checked ? 'Lodging marked assigned' : 'Lodging assignment removed');
+    } catch (err) {
+      if (p) p.lodgingAssigned = !checked;
+      renderRoster();
+      if (currentPersonRow === row) renderDetails(row);
+      handleFailure(err);
+    }
+  }
+
+  async function toggleMealTicket(row, key, checked){
+    const p = people.find(x => x.rowNumber === row);
+    const entry = p && p.mealEntries.find(m => m.key === key);
+    if (entry) entry.issued = checked;
+    if (p) p.mealTickets[key] = checked;
+    renderRoster();
+    if (currentPersonRow === row) renderDetails(row);
+
+    try {
+      const result = await api('mealTicket', { token, row, mealKey: key, checked: checked ? 1 : 0 });
+      if (!apiOkay(result)) throw new Error(result.error || 'Update failed.');
+      mealStats = result.mealStats || mealStats;
+      renderMealDashboard();
+      showToast(checked ? 'Meal ticket issued' : 'Meal ticket returned');
+    } catch (err) {
+      if (entry) entry.issued = !checked;
+      if (p) p.mealTickets[key] = !checked;
+      renderRoster();
+      if (currentPersonRow === row) renderDetails(row);
+      handleFailure(err);
+    }
+  }
+
+  async function adjustExtra(key, delta){
+    try {
+      const result = await api('extraMeal', { token, mealKey: key, delta });
+      if (!apiOkay(result)) return;
+      mealStats = result.mealStats || mealStats;
+      renderMealDashboard();
+      showToast(delta > 0 ? 'Extra meal used' : 'Extra meal restored');
+    } catch (err) {
+      handleFailure(err);
+    }
+  }
+
+  function openDetails(row){
+    currentPersonRow = row;
+    renderDetails(row);
+    $('detailDialog').showModal();
+  }
+
+  function renderDetails(row){
+    const p = people.find(x => x.rowNumber === row);
+    if (!p) return;
+
+    $('modalName').textContent = p.displayName;
+    $('modalBadges').innerHTML = `<span class="badge ${p.category.toLowerCase()}">${esc(p.category)}</span>${p.lodgeFlag ? '<span class="badge lodge">LODGE ROOM</span>' : ''}<span class="badge">${esc(p.lodging)}</span>`;
+
+    const checkCard = `<div class="status-card"><label><input type="checkbox" ${p.checkedIn ? 'checked' : ''} onchange="toggleCheckIn(${p.rowNumber},this.checked)"> Checked In</label></div>`;
+    const lodgingCard = `<div class="status-card"><label><input type="checkbox" ${p.lodgingAssigned ? 'checked' : ''} onchange="toggleLodgingAssigned(${p.rowNumber},this.checked)"> Lodging Assigned</label></div>`;
+    const mealCards = p.mealEntries.length
+      ? p.mealEntries.map(m => `<div class="status-card"><label><input type="checkbox" ${m.issued ? 'checked' : ''} onchange="toggleMealTicket(${p.rowNumber},'${m.key}',this.checked)"> ${esc(m.label)} Ticket Issued</label></div>`).join('')
+      : '<div class="status-card"><span class="meal-none">No meals registered</span></div>';
+
+    $('modalStatus').innerHTML = checkCard + lodgingCard + mealCards;
+    $('modalDetails').innerHTML = p.details.map(d => `<div class="detail"><div class="detail-label">${esc(d.label)}</div><div class="detail-value">${linkify(esc(d.value))}</div></div>`).join('');
+  }
+
+  $('detailDialog').addEventListener('close', () => { currentPersonRow = null; });
+
+  function handleFailure(err){
+    const msg = messageOf(err);
+    if (msg.includes('SESSION_EXPIRED')) {
+      sessionStorage.removeItem('yc_checkin_token');
+      token = '';
+      $('appView').classList.add('hidden');
+      $('loginView').classList.remove('hidden');
+      $('loginError').textContent = 'Your session expired. Enter the passcode again.';
+      return;
+    }
+    showToast(msg, true, 5000);
+  }
+
+  function messageOf(err){
+    return (err && err.message) || String(err || 'Unknown error');
+  }
+
+  function showToast(msg, isError, duration = 2200){
+    const t = $('toast');
+    t.textContent = msg;
+    t.classList.remove('hidden');
+    t.style.background = isError ? '#8f2d20' : '#17202a';
+    clearTimeout(window.__toastTimer);
+    window.__toastTimer = setTimeout(() => t.classList.add('hidden'), duration);
+  }
+
+  function esc(s){
+    return String(s ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[c]));
+  }
+
+  function escAttr(s){ return esc(s).replace(/`/g, '&#096;'); }
+
+  function linkify(s){
+    return s
+      .replace(/\b([\w.+-]+@[\w.-]+\.[A-Za-z]{2,})\b/g, '<a href="mailto:$1">$1</a>')
+      .replace(/\b(\+?\d[\d\s().-]{8,}\d)\b/g, m => `<a href="tel:${m.replace(/[^\d+]/g,'')}">${m}</a>`);
+  }
+</script>
+</body>
+</html>

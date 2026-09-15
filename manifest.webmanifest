@@ -1,0 +1,22 @@
+{
+  "name": "Youth Challenge Check-In",
+  "short_name": "YC Check-In",
+  "description": "Youth Challenge registration check-in and meal ticket app",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#f4f6f8",
+  "theme_color": "#0b609d",
+  "icons": [
+    {
+      "src": "./icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "./icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
