@@ -85,7 +85,7 @@
       <input id="pin" class="pin" type="password" inputmode="numeric" autocomplete="one-time-code" maxlength="12" placeholder="••••">
       <button id="loginButton" class="primary" onclick="login()">Open Check-In</button>
       <div id="loginError" class="error"></div>
-      <div class="version-label">v<span id="loginVersion">2.0.0</span></div>
+      <div class="version-label">v<span id="loginVersion">2.0.1</span></div>
     </div>
   </section>
 
@@ -94,7 +94,7 @@
       <div class="topbar">
         <div class="title-row">
           <div class="brand-title"><img class="brand-mark" src="./yc-logo.png" alt=""><h1 id="appTitle">Youth Challenge Check-In</h1></div>
-          <div class="title-meta"><div id="count" class="count"></div><div class="header-version">v<span id="headerVersion">2.0.0</span></div></div>
+          <div class="title-meta"><div id="count" class="count"></div><div class="header-version">v<span id="headerVersion">2.0.1</span></div></div>
         </div>
         <input id="search" class="search" type="search" placeholder="Search name, church, phone, lodging…" autocomplete="off">
         <div class="filters">
@@ -103,6 +103,7 @@
           <button class="chip" data-category="camper">Campers</button>
           <button class="chip lodge" id="lodgeFilter">Lodge Room</button>
           <button class="chip" id="uncheckedFilter">Not Checked In</button>
+          <button class="chip" id="lodgingUnassignedFilter">Lodging Unassigned</button>
           <select id="lodgingSelect" class="filter-select"><option value="">All lodging</option></select>
         </div>
       </div>
@@ -133,7 +134,7 @@
   <div id="toast" class="toast hidden"></div>
 
 <script>
-  const CLIENT_VERSION = '2.0.0';
+  const CLIENT_VERSION = '2.0.1';
   let API_URL = '';
   let token = sessionStorage.getItem('yc_checkin_token') || '';
   let people = [];
@@ -141,6 +142,7 @@
   let categoryFilter = 'all';
   let lodgeOnly = false;
   let uncheckedOnly = false;
+  let lodgingUnassignedOnly = false;
   let currentPersonRow = null;
 
   const $ = id => document.getElementById(id);
@@ -168,6 +170,12 @@
     $('uncheckedFilter').addEventListener('click', () => {
       uncheckedOnly = !uncheckedOnly;
       $('uncheckedFilter').classList.toggle('active', uncheckedOnly);
+      renderRoster();
+    });
+
+    $('lodgingUnassignedFilter').addEventListener('click', () => {
+      lodgingUnassignedOnly = !lodgingUnassignedOnly;
+      $('lodgingUnassignedFilter').classList.toggle('active', lodgingUnassignedOnly);
       renderRoster();
     });
 
@@ -379,6 +387,7 @@
       if (categoryFilter === 'camper' && p.category !== 'Camper') return false;
       if (lodgeOnly && !p.lodgeFlag) return false;
       if (uncheckedOnly && p.checkedIn) return false;
+      if (lodgingUnassignedOnly && p.lodgingAssigned) return false;
       return true;
     });
 
