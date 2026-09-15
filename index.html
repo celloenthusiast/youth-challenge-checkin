@@ -27,7 +27,10 @@
     .login-logo{display:block;width:180px;max-width:60%;height:auto;margin:0 auto 16px}
     .login-card h1{font-size:1.55rem;margin:0 0 8px;text-align:center}.login-card p{color:var(--muted);margin:0 0 20px;text-align:center}
     .pin{width:100%;padding:14px 16px;border:1px solid var(--border);border-radius:12px;font-size:1.25rem;letter-spacing:.16em;text-align:center}
-    .primary{width:100%;border:0;background:var(--accent);color:#fff;padding:13px 16px;border-radius:12px;font-weight:700;margin-top:12px}
+    .primary{width:100%;border:0;background:var(--accent);color:#fff;padding:13px 16px;border-radius:12px;font-weight:700;margin-top:12px;display:flex;align-items:center;justify-content:center;gap:9px;min-height:48px}
+    .primary:disabled{opacity:.78;cursor:wait}
+    .login-spinner{width:18px;height:18px;border:2px solid rgba(255,255,255,.45);border-top-color:#fff;border-radius:50%;animation:login-spin .75s linear infinite;flex:none}
+    @keyframes login-spin{to{transform:rotate(360deg)}}
     .error{color:var(--danger);min-height:1.3em;margin-top:10px;font-size:.92rem;text-align:center}
     .version-label{margin-top:12px;text-align:center;font-size:.7rem;color:#98a2b3}
     .config-error{background:#fff3f0;border:1px solid #efc5bb;color:#7c2d20;padding:12px;border-radius:10px;margin:12px 0;font-size:.85rem}
@@ -83,9 +86,9 @@
       <p>Enter the staff passcode to open registration.</p>
       <div id="configError" class="config-error hidden"></div>
       <input id="pin" class="pin" type="password" inputmode="numeric" autocomplete="one-time-code" maxlength="12" placeholder="••••">
-      <button id="loginButton" class="primary" onclick="login()">Open Check-In</button>
+      <button id="loginButton" class="primary" onclick="login()" aria-busy="false"><span id="loginSpinner" class="login-spinner hidden" aria-hidden="true"></span><span id="loginButtonText">Open Check-In</span></button>
       <div id="loginError" class="error"></div>
-      <div class="version-label">v<span id="loginVersion">2.0.1</span></div>
+      <div class="version-label">v<span id="loginVersion">2.0.2</span></div>
     </div>
   </section>
 
@@ -94,7 +97,7 @@
       <div class="topbar">
         <div class="title-row">
           <div class="brand-title"><img class="brand-mark" src="./yc-logo.png" alt=""><h1 id="appTitle">Youth Challenge Check-In</h1></div>
-          <div class="title-meta"><div id="count" class="count"></div><div class="header-version">v<span id="headerVersion">2.0.1</span></div></div>
+          <div class="title-meta"><div id="count" class="count"></div><div class="header-version">v<span id="headerVersion">2.0.2</span></div></div>
         </div>
         <input id="search" class="search" type="search" placeholder="Search name, church, phone, lodging…" autocomplete="off">
         <div class="filters">
@@ -134,7 +137,7 @@
   <div id="toast" class="toast hidden"></div>
 
 <script>
-  const CLIENT_VERSION = '2.0.1';
+  const CLIENT_VERSION = '2.0.2';
   let API_URL = '';
   let token = sessionStorage.getItem('yc_checkin_token') || '';
   let people = [];
@@ -288,7 +291,23 @@
     });
   }
 
+  function setLoginBusy(isBusy, message = 'Open Check-In'){
+    const button = $('loginButton');
+    const pin = $('pin');
+    const spinner = $('loginSpinner');
+    const text = $('loginButtonText');
+
+    button.disabled = isBusy;
+    pin.disabled = isBusy;
+    spinner.classList.toggle('hidden', !isBusy);
+    text.textContent = isBusy ? message : 'Open Check-In';
+    button.setAttribute('aria-busy', isBusy ? 'true' : 'false');
+  }
+
   async function login(){
+    // Ignore accidental second taps while a sign-in request is already running.
+    if ($('loginButton').disabled) return;
+
     $('loginError').textContent = '';
     const pin = $('pin').value.trim();
     if (!pin) {
@@ -296,7 +315,7 @@
       return;
     }
 
-    $('loginButton').disabled = true;
+    setLoginBusy(true, 'Checking PIN…');
     try {
       const result = await api('login', { passcode: pin });
       if (!result.ok) {
@@ -305,15 +324,19 @@
       }
       token = result.token;
       sessionStorage.setItem('yc_checkin_token', token);
+      setLoginBusy(true, 'Loading registrations…');
       await loadRoster();
     } catch (err) {
       $('loginError').textContent = messageOf(err);
     } finally {
-      $('loginButton').disabled = false;
+      setLoginBusy(false);
     }
   }
 
   async function loadRoster(){
+    const loginVisible = !$('loginView').classList.contains('hidden');
+    if (loginVisible) setLoginBusy(true, 'Loading registrations…');
+
     try {
       const data = await api('roster', { token });
       if (!apiOkay(data)) return;
@@ -326,6 +349,8 @@
       renderAll();
     } catch (err) {
       handleFailure(err);
+    } finally {
+      if (!$('loginView').classList.contains('hidden')) setLoginBusy(false);
     }
   }
 
