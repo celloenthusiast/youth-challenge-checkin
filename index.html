@@ -78,6 +78,11 @@
     .modal-body{padding:18px;background:#fff}.section{margin-bottom:22px}.section h3{font-size:.88rem;text-transform:uppercase;letter-spacing:.05em;color:var(--muted);margin:0 0 10px}.status-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.status-card{border:1px solid var(--border);border-radius:12px;padding:12px;background:#fafbfc}.status-card label{display:flex;align-items:center;gap:9px;font-weight:700}.status-card input{width:22px;height:22px;accent-color:var(--success)}
     .detail-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px 18px}.detail{border-bottom:1px solid #edf0f2;padding:0 0 9px}.detail-label{font-size:.76rem;color:var(--muted);margin-bottom:3px}.detail-value{font-size:.94rem;word-break:break-word;white-space:pre-wrap}
     .toast{position:fixed;left:50%;bottom:20px;transform:translateX(-50%);background:#17202a;color:#fff;padding:10px 14px;border-radius:10px;z-index:50;box-shadow:var(--shadow);font-size:.9rem;max-width:calc(100% - 28px);text-align:center}
+    .print-preview-dialog{width:min(1100px,calc(100% - 18px));max-height:94vh;border:0;border-radius:16px;padding:0;box-shadow:0 24px 80px rgba(16,24,40,.3)}
+    .print-preview-toolbar{position:sticky;top:0;z-index:3;display:flex;justify-content:space-between;align-items:center;gap:10px;padding:12px 14px;background:#fff;border-bottom:1px solid var(--border)}
+    .print-preview-toolbar h2{margin:0;font-size:1rem}.print-preview-actions{display:flex;gap:8px;flex-wrap:wrap}.preview-btn{border:1px solid var(--border);background:#fff;color:#344054;border-radius:10px;padding:9px 12px;font-weight:750}.preview-btn.primary-action{background:var(--accent);border-color:var(--accent);color:#fff}
+    .print-preview-content{padding:14px;background:#fff;overflow:auto}.print-sheet{font-family:Arial,Helvetica,sans-serif;color:#17202a;font-size:9pt}.print-sheet .head{display:flex;align-items:center;gap:12px;border-bottom:2px solid #0b609d;padding-bottom:8px;margin-bottom:9px}.print-sheet .head img{width:72px;height:52px;object-fit:contain}.print-sheet h1{font-size:17pt;margin:0 0 2px}.print-sheet .meta{font-size:8pt;color:#5c6670}.print-sheet table{width:100%;border-collapse:collapse;table-layout:fixed}.print-sheet thead{display:table-header-group}.print-sheet tr{break-inside:avoid;page-break-inside:avoid}.print-sheet th,.print-sheet td{border:1px solid #9aa5ae;padding:4px 5px;vertical-align:top;overflow-wrap:anywhere}.print-sheet th{background:#e8f2f9;font-size:7.5pt;text-transform:uppercase;letter-spacing:.02em;text-align:left}.print-sheet td.name{font-weight:700}.print-sheet td.center,.print-sheet th.center{text-align:center}.print-sheet th:nth-child(1){width:10%}.print-sheet th:nth-child(2){width:9%}.print-sheet th:nth-child(3){width:7%}.print-sheet th:nth-child(4){width:15%}.print-sheet th:nth-child(5){width:10%}.print-sheet th:nth-child(6){width:11%}.print-sheet th:nth-child(7){width:7%}.print-sheet th:nth-child(8){width:7%}.print-sheet th:nth-child(9){width:24%}.print-sheet .footer{margin-top:7px;font-size:7.5pt;color:#667085}
+    @media print{body>*:not(#printPreviewDialog){display:none!important}#printPreviewDialog{display:block!important;position:static!important;width:auto!important;max-width:none!important;max-height:none!important;margin:0!important;padding:0!important;border:0!important;box-shadow:none!important}.print-preview-toolbar{display:none!important}.print-preview-content{padding:0!important;overflow:visible!important}.print-sheet{font-size:9pt!important}@page{size:landscape;margin:.35in}}
 
     @media(max-width:980px){.meal-dashboard{grid-template-columns:repeat(2,minmax(0,1fr))}.person-main{grid-template-columns:minmax(170px,1.2fr) minmax(260px,1.5fr) auto}.category-cell{display:none}}
     @media(max-width:700px){.topbar,main{padding-left:12px;padding-right:12px}.meal-panel>summary{padding:11px 12px}.meal-panel-body{padding:10px}.person-main{grid-template-columns:1fr auto;gap:10px}.meals-cell{grid-column:1/-1}.check-cell{grid-row:1/2;grid-column:2/3;align-self:center}.status-grid,.detail-grid{grid-template-columns:1fr}.brand-mark{width:30px;height:30px}}
@@ -94,7 +99,7 @@
       <input id="pin" class="pin" type="password" inputmode="numeric" autocomplete="one-time-code" maxlength="12" placeholder="••••">
       <button id="loginButton" class="primary" onclick="login()" aria-busy="false"><span id="loginSpinner" class="login-spinner hidden" aria-hidden="true"></span><span id="loginButtonText">Open Check-In</span></button>
       <div id="loginError" class="error"></div>
-      <div class="version-label">v<span id="loginVersion">2.0.4</span></div>
+      <div class="version-label">v<span id="loginVersion">2.0.5</span></div>
     </div>
   </section>
 
@@ -103,7 +108,7 @@
       <div class="topbar">
         <div class="title-row">
           <div class="brand-title"><img class="brand-mark" src="./yc-logo.png" alt=""><h1 id="appTitle">Youth Challenge Check-In</h1></div>
-          <div class="title-meta"><div id="count" class="count"></div><div class="header-version">v<span id="headerVersion">2.0.4</span></div></div>
+          <div class="title-meta"><div id="count" class="count"></div><div class="header-version">v<span id="headerVersion">2.0.5</span></div></div>
         </div>
         <input id="search" class="search" type="search" placeholder="Search name, church, phone, lodging…" autocomplete="off">
         <div class="filters">
@@ -142,10 +147,21 @@
     </div>
   </dialog>
 
+  <dialog id="printPreviewDialog" class="print-preview-dialog">
+    <div class="print-preview-toolbar">
+      <h2>Print Preview</h2>
+      <div class="print-preview-actions">
+        <button class="preview-btn" type="button" onclick="closePrintPreview()">Back to Check-In</button>
+        <button class="preview-btn primary-action" type="button" onclick="window.print()">Print</button>
+      </div>
+    </div>
+    <div id="printPreviewContent" class="print-preview-content"></div>
+  </dialog>
+
   <div id="toast" class="toast hidden"></div>
 
 <script>
-  const CLIENT_VERSION = '2.0.4';
+  const CLIENT_VERSION = '2.0.5';
   let API_URL = '';
   let token = sessionStorage.getItem('yc_checkin_token') || '';
   let people = [];
@@ -459,12 +475,6 @@
       return;
     }
 
-    const popup = window.open('', '_blank');
-    if (!popup) {
-      showToast('The print window was blocked. Allow pop-ups for this site and try again.', true, 5000);
-      return;
-    }
-
     const logoUrl = new URL('./yc-logo.png', window.location.href).href;
     const generated = new Date().toLocaleString();
     const rows = filtered.map(p => {
@@ -486,42 +496,21 @@
       </tr>`;
     }).join('');
 
-    const doc = `<!doctype html>
-<html><head><meta charset="utf-8"><title>Youth Challenge Registration Roster</title>
-<style>
-  @page{size:landscape;margin:.35in}
-  *{box-sizing:border-box}
-  body{font-family:Arial,Helvetica,sans-serif;color:#17202a;margin:0;font-size:9pt}
-  .head{display:flex;align-items:center;gap:12px;border-bottom:2px solid #0b609d;padding-bottom:8px;margin-bottom:9px}
-  .head img{width:72px;height:52px;object-fit:contain}
-  h1{font-size:17pt;margin:0 0 2px}
-  .meta{font-size:8pt;color:#5c6670}
-  table{width:100%;border-collapse:collapse;table-layout:fixed}
-  thead{display:table-header-group}
-  tr{break-inside:avoid;page-break-inside:avoid}
-  th,td{border:1px solid #9aa5ae;padding:4px 5px;vertical-align:top;overflow-wrap:anywhere}
-  th{background:#e8f2f9;font-size:7.5pt;text-transform:uppercase;letter-spacing:.02em;text-align:left}
-  td.name{font-weight:700}
-  td.center,th.center{text-align:center}
-  th:nth-child(1){width:10%} th:nth-child(2){width:9%} th:nth-child(3){width:7%}
-  th:nth-child(4){width:15%} th:nth-child(5){width:10%} th:nth-child(6){width:11%}
-  th:nth-child(7){width:7%} th:nth-child(8){width:7%} th:nth-child(9){width:24%}
-  .footer{margin-top:7px;font-size:7.5pt;color:#667085}
-  @media print{.no-print{display:none!important}}
-</style></head><body>
-  <div class="head"><img src="${logoUrl}" alt=""><div><h1>Youth Challenge Registration Roster</h1><div class="meta">${esc(printFilterSummary())}</div><div class="meta">${filtered.length} registrations • Printed ${esc(generated)}</div></div></div>
-  <table>
-    <thead><tr><th>Last Name</th><th>First Name</th><th>Type</th><th>Church</th><th>Phone</th><th>Lodging</th><th class="center">Lodging Assigned</th><th class="center">Checked In</th><th>Registered Meals (✓ = ticket issued)</th></tr></thead>
-    <tbody>${rows}</tbody>
-  </table>
-  <div class="footer">Generated from Youth Challenge Check-In v${CLIENT_VERSION}.</div>
-</body></html>`;
+    $('printPreviewContent').innerHTML = `<div class="print-sheet">
+      <div class="head"><img src="${logoUrl}" alt=""><div><h1>Youth Challenge Registration Roster</h1><div class="meta">${esc(printFilterSummary())}</div><div class="meta">${filtered.length} registrations • Prepared ${esc(generated)}</div></div></div>
+      <table>
+        <thead><tr><th>Last Name</th><th>First Name</th><th>Type</th><th>Church</th><th>Phone</th><th>Lodging</th><th class="center">Lodging Assigned</th><th class="center">Checked In</th><th>Registered Meals (✓ = ticket issued)</th></tr></thead>
+        <tbody>${rows}</tbody>
+      </table>
+      <div class="footer">Generated from Youth Challenge Check-In v${CLIENT_VERSION}.</div>
+    </div>`;
 
-    popup.document.open();
-    popup.document.write(doc);
-    popup.document.close();
-    popup.focus();
-    setTimeout(() => { try { popup.print(); } catch (_) {} }, 350);
+    $('printPreviewDialog').showModal();
+  }
+
+  function closePrintPreview(){
+    const dialog = $('printPreviewDialog');
+    if (dialog.open) dialog.close();
   }
 
   function personCard(p){
