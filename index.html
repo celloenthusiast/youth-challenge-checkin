@@ -64,6 +64,10 @@
     .stat.extras{grid-column:1/-1}.stat.extras.good .stat-value{color:var(--success)}.stat.extras.bad .stat-value{color:var(--danger)}
     .extra-actions{display:flex;gap:6px;margin-top:9px}.small-btn{flex:1;border:1px solid var(--border);background:#fff;border-radius:9px;padding:7px 8px;font-size:.76rem;font-weight:750;color:#344054}.small-btn.add{background:var(--accent2);border-color:#c6dbe3;color:#24556b}.small-btn:disabled{opacity:.4;cursor:not-allowed}
     .extra-note{font-size:.7rem;color:var(--muted);margin-top:6px}
+    .staff-meals-panel{margin-top:12px;border:1px solid var(--border);border-radius:12px;background:#fafbfc;overflow:hidden}
+    .staff-meals-panel>summary{list-style:none;display:flex;align-items:center;justify-content:space-between;gap:10px;padding:10px 12px;cursor:pointer;font-size:.88rem;font-weight:800;user-select:none}
+    .staff-meals-panel>summary::-webkit-details-marker{display:none}.staff-meals-panel>summary::after{content:'▾';color:var(--muted);transition:transform .18s ease}.staff-meals-panel[open]>summary::after{transform:rotate(180deg)}.staff-meals-panel[open]>summary{border-bottom:1px solid var(--border)}
+    .staff-meals-body{padding:10px}.staff-meals-help{font-size:.75rem;color:var(--muted);margin:0 0 10px}.staff-groups{display:grid;gap:8px}.staff-group{border:1px solid var(--border);border-radius:10px;background:#fff;padding:10px}.staff-group-head{display:flex;justify-content:space-between;gap:10px;align-items:flex-start;margin-bottom:8px}.staff-group-name{font-weight:800}.staff-group-notes{font-size:.72rem;color:var(--muted);text-align:right;max-width:48%}.staff-meal-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:7px}.staff-meal-cell{border:1px solid #e4e8ed;border-radius:9px;padding:8px;background:#fafbfc}.staff-meal-label{font-size:.7rem;font-weight:800;margin-bottom:5px}.staff-meal-meta{font-size:.68rem;color:var(--muted);margin-bottom:5px}.staff-actual-row{display:flex;align-items:center;gap:6px}.staff-actual-row label{font-size:.68rem;color:#475467}.staff-actual-input{width:62px;min-width:0;border:1px solid #cbd5dc;border-radius:7px;padding:6px 7px;text-align:center;background:#fff}.staff-actual-input:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 2px rgba(11,96,157,.1)}.staff-actual-input:disabled{opacity:.6;background:#f2f4f7}.staff-empty{font-size:.82rem;color:var(--muted);padding:8px 2px}.staff-committed{font-size:.67rem;color:var(--success);margin-top:4px;font-weight:700}
 
     .list{display:grid;gap:10px}.person{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);box-shadow:0 1px 4px rgba(16,24,40,.04);overflow:hidden}.person.lodge-person{border-left:6px solid var(--lodge)}
     .person-main{display:grid;grid-template-columns:minmax(180px,1.4fr) minmax(110px,.6fr) minmax(300px,1.6fr) auto;gap:12px;align-items:center;padding:14px}
@@ -84,9 +88,9 @@
     .print-preview-content{padding:14px;background:#fff;overflow:auto}.print-sheet{font-family:Arial,Helvetica,sans-serif;color:#17202a;font-size:9pt}.print-sheet .head{display:flex;align-items:center;gap:12px;border-bottom:2px solid #0b609d;padding-bottom:8px;margin-bottom:9px}.print-sheet .head img{width:72px;height:52px;object-fit:contain}.print-sheet h1{font-size:17pt;margin:0 0 2px}.print-sheet .meta{font-size:8pt;color:#5c6670}.print-sheet table{width:100%;border-collapse:collapse;table-layout:fixed}.print-sheet thead{display:table-header-group}.print-sheet tr{break-inside:avoid;page-break-inside:avoid}.print-sheet th,.print-sheet td{border:1px solid #9aa5ae;padding:4px 5px;vertical-align:top;overflow-wrap:anywhere}.print-sheet th{background:#e8f2f9;font-size:7.5pt;text-transform:uppercase;letter-spacing:.02em;text-align:left}.print-sheet td.name{font-weight:700}.print-sheet td.center,.print-sheet th.center{text-align:center}.print-sheet th:nth-child(1){width:10%}.print-sheet th:nth-child(2){width:9%}.print-sheet th:nth-child(3){width:7%}.print-sheet th:nth-child(4){width:15%}.print-sheet th:nth-child(5){width:10%}.print-sheet th:nth-child(6){width:11%}.print-sheet th:nth-child(7){width:7%}.print-sheet th:nth-child(8){width:7%}.print-sheet th:nth-child(9){width:24%}.print-sheet .footer{margin-top:7px;font-size:7.5pt;color:#667085}
     @media print{body>*:not(#printPreviewDialog){display:none!important}#printPreviewDialog{display:block!important;position:static!important;width:auto!important;max-width:none!important;max-height:none!important;margin:0!important;padding:0!important;border:0!important;box-shadow:none!important}.print-preview-toolbar{display:none!important}.print-preview-content{padding:0!important;overflow:visible!important}.print-sheet{font-size:9pt!important}@page{size:landscape;margin:.35in}}
 
-    @media(max-width:980px){.meal-dashboard{grid-template-columns:repeat(2,minmax(0,1fr))}.person-main{grid-template-columns:minmax(170px,1.2fr) minmax(260px,1.5fr) auto}.category-cell{display:none}}
+    @media(max-width:980px){.meal-dashboard{grid-template-columns:repeat(2,minmax(0,1fr))}.staff-meal-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.person-main{grid-template-columns:minmax(170px,1.2fr) minmax(260px,1.5fr) auto}.category-cell{display:none}}
     @media(max-width:700px){.topbar,main{padding-left:12px;padding-right:12px}.meal-panel>summary{padding:11px 12px}.meal-panel-body{padding:10px}.person-main{grid-template-columns:1fr auto;gap:10px}.meals-cell{grid-column:1/-1}.check-cell{grid-row:1/2;grid-column:2/3;align-self:center}.status-grid,.detail-grid{grid-template-columns:1fr}.brand-mark{width:30px;height:30px}}
-    @media(max-width:470px){.meal-dashboard{grid-template-columns:1fr}.title-row h1{font-size:1.05rem}.count{font-size:.8rem}.header-version{display:none}.person-main{padding:12px}.name{font-size:1rem}.check-wrap{font-size:.78rem;white-space:normal}.check-wrap input{width:20px;height:20px}.ticket-label{font-size:.72rem}.login-logo{width:160px}}
+    @media(max-width:470px){.meal-dashboard{grid-template-columns:1fr}.staff-meal-grid{grid-template-columns:1fr}.staff-group-head{display:block}.staff-group-notes{text-align:left;max-width:none;margin-top:3px}.title-row h1{font-size:1.05rem}.count{font-size:.8rem}.header-version{display:none}.person-main{padding:12px}.name{font-size:1rem}.check-wrap{font-size:.78rem;white-space:normal}.check-wrap input{width:20px;height:20px}.ticket-label{font-size:.72rem}.login-logo{width:160px}}
   </style>
 </head>
 <body>
@@ -99,7 +103,7 @@
       <input id="pin" class="pin" type="password" inputmode="numeric" autocomplete="one-time-code" maxlength="12" placeholder="••••">
       <button id="loginButton" class="primary" onclick="login()" aria-busy="false"><span id="loginSpinner" class="login-spinner hidden" aria-hidden="true"></span><span id="loginButtonText">Open Check-In</span></button>
       <div id="loginError" class="error"></div>
-      <div class="version-label">v<span id="loginVersion">2.0.5</span></div>
+      <div class="version-label">v<span id="loginVersion">2.0.7</span></div>
     </div>
   </section>
 
@@ -108,7 +112,7 @@
       <div class="topbar">
         <div class="title-row">
           <div class="brand-title"><img class="brand-mark" src="./yc-logo.png" alt=""><h1 id="appTitle">Youth Challenge Check-In</h1></div>
-          <div class="title-meta"><div id="count" class="count"></div><div class="header-version">v<span id="headerVersion">2.0.5</span></div></div>
+          <div class="title-meta"><div id="count" class="count"></div><div class="header-version">v<span id="headerVersion">2.0.7</span></div></div>
         </div>
         <input id="search" class="search" type="search" placeholder="Search name, church, phone, lodging…" autocomplete="off">
         <div class="filters">
@@ -129,6 +133,13 @@
         <summary>Meal Availability</summary>
         <div class="meal-panel-body">
           <section id="mealDashboard" class="meal-dashboard"></section>
+          <details id="staffMealsPanel" class="staff-meals-panel">
+            <summary>Staff &amp; Guest Meals <span id="staffGroupCount"></span></summary>
+            <div class="staff-meals-body">
+              <p class="staff-meals-help">Reserved counts are maintained on the “Staff &amp; Guest Meals” sheet. Enter Actual when a group arrives; a blank Actual keeps the reservation committed, while 0 or another number replaces it.</p>
+              <div id="staffMealGroups" class="staff-groups"></div>
+            </div>
+          </details>
         </div>
       </details>
       <div id="list" class="list"></div>
@@ -161,16 +172,20 @@
   <div id="toast" class="toast hidden"></div>
 
 <script>
-  const CLIENT_VERSION = '2.0.5';
+  const CLIENT_VERSION = '2.0.7';
   let API_URL = '';
   let token = sessionStorage.getItem('yc_checkin_token') || '';
   let people = [];
   let mealStats = [];
+  let staffGroups = [];
   let categoryFilter = 'all';
   let lodgeOnly = false;
   let uncheckedOnly = false;
   let lodgingUnassignedOnly = false;
   let currentPersonRow = null;
+  let backgroundRefreshInFlight = false;
+  let pendingWrites = 0;
+  let lastRosterSignature = '';
 
   const $ = id => document.getElementById(id);
 
@@ -229,6 +244,9 @@
 
     // A device left open will notice a new GitHub build within five minutes.
     setInterval(checkStaticVersion, 5 * 60 * 1000);
+
+    // Quietly pull other check-in stations' changes every 10 seconds.
+    setInterval(backgroundRefreshRoster, 10 * 1000);
   });
 
 
@@ -357,6 +375,39 @@
     }
   }
 
+  function rosterSignature(data){
+    return JSON.stringify({
+      people: data.people || [],
+      mealStats: data.mealStats || [],
+      staffGroups: data.staffGroups || [],
+      lodgingOptions: data.lodgingOptions || []
+    });
+  }
+
+  function applyRosterData(data, preservePosition = false){
+    const scrollX = window.scrollX;
+    const scrollY = window.scrollY;
+    const detailsWasOpen = currentPersonRow !== null && $('detailDialog').open;
+
+    $('appTitle').textContent = data.title || 'Youth Challenge Check-In';
+    people = data.people || [];
+    mealStats = data.mealStats || [];
+    staffGroups = data.staffGroups || [];
+    buildLodgingOptions(data.lodgingOptions || []);
+    lastRosterSignature = rosterSignature(data);
+    renderAll();
+
+    if (detailsWasOpen && currentPersonRow !== null) {
+      const stillExists = people.some(p => p.rowNumber === currentPersonRow);
+      if (stillExists) renderDetails(currentPersonRow);
+      else $('detailDialog').close();
+    }
+
+    if (preservePosition) {
+      requestAnimationFrame(() => window.scrollTo(scrollX, scrollY));
+    }
+  }
+
   async function loadRoster(){
     const loginVisible = !$('loginView').classList.contains('hidden');
     if (loginVisible) setLoginBusy(true, 'Loading registrations…');
@@ -366,15 +417,39 @@
       if (!apiOkay(data)) return;
       $('loginView').classList.add('hidden');
       $('appView').classList.remove('hidden');
-      $('appTitle').textContent = data.title || 'Youth Challenge Check-In';
-      people = data.people || [];
-      mealStats = data.mealStats || [];
-      buildLodgingOptions(data.lodgingOptions || []);
-      renderAll();
+      applyRosterData(data, false);
     } catch (err) {
       handleFailure(err);
     } finally {
       if (!$('loginView').classList.contains('hidden')) setLoginBusy(false);
+    }
+  }
+
+  async function backgroundRefreshRoster(){
+    if (!token || backgroundRefreshInFlight || pendingWrites > 0) return;
+    if ($('appView').classList.contains('hidden')) return;
+    if (document.hidden) return;
+    if ($('printPreviewDialog').open) return;
+    if (document.activeElement && document.activeElement.classList && document.activeElement.classList.contains('staff-actual-input')) return;
+
+    backgroundRefreshInFlight = true;
+    try {
+      const data = await api('roster', { token });
+      if (!data || data.ok === false) {
+        const message = String((data && data.error) || '');
+        if (message.includes('SESSION_EXPIRED')) handleFailure(new Error(message));
+        return;
+      }
+
+      const nextSignature = rosterSignature(data);
+      if (nextSignature !== lastRosterSignature) {
+        applyRosterData(data, true);
+      }
+    } catch (err) {
+      // Background syncing must never interrupt check-in for a temporary network failure.
+      if (messageOf(err).includes('SESSION_EXPIRED')) handleFailure(err);
+    } finally {
+      backgroundRefreshInFlight = false;
     }
   }
 
@@ -386,6 +461,7 @@
 
   function renderAll(){
     renderMealDashboard();
+    renderStaffMealGroups();
     renderRoster();
   }
 
@@ -411,7 +487,9 @@
         <h3>${esc(stat.label)}</h3>
         <div class="summary-grid">
           <div class="stat"><div class="stat-label">Capacity</div><div class="stat-value">${capacitySet ? stat.capacity : '—'}</div></div>
-          <div class="stat"><div class="stat-label">Registered</div><div class="stat-value">${stat.registered}</div></div>
+          <div class="stat"><div class="stat-label">Form registered</div><div class="stat-value">${stat.registered}</div></div>
+          <div class="stat"><div class="stat-label">Staff / Guests</div><div class="stat-value">${stat.staffCommitted || 0}</div></div>
+          <div class="stat"><div class="stat-label">Total committed</div><div class="stat-value">${stat.totalCommitted ?? stat.registered}</div></div>
           <div class="stat"><div class="stat-label">Tickets issued</div><div class="stat-value">${stat.ticketsIssued}</div></div>
           <div class="stat"><div class="stat-label">Still to hand out</div><div class="stat-value">${stat.stillToDistribute}</div></div>
           <div class="stat extras ${extrasClass}"><div class="stat-label">Extras available</div><div class="stat-value">${extrasText}</div></div>
@@ -423,6 +501,55 @@
         <div class="extra-note">Walk-up extras used: ${stat.extraUsed}</div>
       </article>`;
     }).join('');
+  }
+
+  function renderStaffMealGroups(){
+    $('staffGroupCount').textContent = staffGroups.length ? `(${staffGroups.length})` : '';
+    if (!staffGroups.length) {
+      $('staffMealGroups').innerHTML = '<div class="staff-empty">No staff/guest groups have been entered yet. Add groups and reserved quantities on the “Staff & Guest Meals” sheet.</div>';
+      return;
+    }
+
+    $('staffMealGroups').innerHTML = staffGroups.map(group => {
+      const cells = mealStats.map(stat => {
+        const info = group.meals && group.meals[stat.key] ? group.meals[stat.key] : { reserved:0, actual:null, actualSet:false, committed:0 };
+        const actualValue = info.actualSet ? String(info.actual ?? 0) : '';
+        return `<div class="staff-meal-cell">
+          <div class="staff-meal-label">${esc(stat.label)}</div>
+          <div class="staff-meal-meta">Reserved: <strong>${Number(info.reserved) || 0}</strong></div>
+          <div class="staff-actual-row"><label>Actual</label><input class="staff-actual-input" type="number" min="0" step="1" inputmode="numeric" value="${escAttr(actualValue)}" placeholder="—" onchange="saveStaffMealActual(${group.rowNumber},'${stat.key}',this.value,this)"></div>
+          <div class="staff-committed">Counting now: ${Number(info.committed) || 0}</div>
+        </div>`;
+      }).join('');
+
+      return `<article class="staff-group">
+        <div class="staff-group-head"><div class="staff-group-name">${esc(group.name)}</div>${group.notes ? `<div class="staff-group-notes">${esc(group.notes)}</div>` : ''}</div>
+        <div class="staff-meal-grid">${cells}</div>
+      </article>`;
+    }).join('');
+  }
+
+  async function saveStaffMealActual(row, key, value, input){
+    const previous = staffGroups.find(g => g.rowNumber === row);
+    const previousInfo = previous && previous.meals ? previous.meals[key] : null;
+    if (input) input.disabled = true;
+    pendingWrites++;
+    try {
+      const result = await api('staffMealActual', { token, row, mealKey: key, actual: value });
+      if (!apiOkay(result)) throw new Error(result.error || 'Update failed.');
+      staffGroups = result.staffGroups || staffGroups;
+      mealStats = result.mealStats || mealStats;
+      renderMealDashboard();
+      renderStaffMealGroups();
+      lastRosterSignature = rosterSignature({ people, mealStats, staffGroups, lodgingOptions: Array.from($('lodgingSelect').options).slice(1).map(o => o.value) });
+      showToast(value === '' ? 'Staff/guest meal restored to reserved count' : 'Staff/guest actual meal count saved');
+    } catch (err) {
+      if (input && previousInfo) input.value = previousInfo.actualSet ? String(previousInfo.actual ?? 0) : '';
+      handleFailure(err);
+    } finally {
+      pendingWrites = Math.max(0, pendingWrites - 1);
+      if (input && document.body.contains(input)) input.disabled = false;
+    }
   }
 
   function getFilteredPeople(){
@@ -542,6 +669,7 @@
     renderRoster();
     if (currentPersonRow === row) renderDetails(row);
 
+    pendingWrites++;
     try {
       const result = await api('checkin', { token, row, checked: checked ? 1 : 0 });
       if (!apiOkay(result)) throw new Error(result.error || 'Update failed.');
@@ -551,6 +679,8 @@
       renderRoster();
       if (currentPersonRow === row) renderDetails(row);
       handleFailure(err);
+    } finally {
+      pendingWrites = Math.max(0, pendingWrites - 1);
     }
   }
 
@@ -560,6 +690,7 @@
     renderRoster();
     if (currentPersonRow === row) renderDetails(row);
 
+    pendingWrites++;
     try {
       const result = await api('lodgingAssigned', { token, row, checked: checked ? 1 : 0 });
       if (!apiOkay(result)) throw new Error(result.error || 'Update failed.');
@@ -569,6 +700,8 @@
       renderRoster();
       if (currentPersonRow === row) renderDetails(row);
       handleFailure(err);
+    } finally {
+      pendingWrites = Math.max(0, pendingWrites - 1);
     }
   }
 
@@ -580,6 +713,7 @@
     renderRoster();
     if (currentPersonRow === row) renderDetails(row);
 
+    pendingWrites++;
     try {
       const result = await api('mealTicket', { token, row, mealKey: key, checked: checked ? 1 : 0 });
       if (!apiOkay(result)) throw new Error(result.error || 'Update failed.');
@@ -592,10 +726,13 @@
       renderRoster();
       if (currentPersonRow === row) renderDetails(row);
       handleFailure(err);
+    } finally {
+      pendingWrites = Math.max(0, pendingWrites - 1);
     }
   }
 
   async function adjustExtra(key, delta){
+    pendingWrites++;
     try {
       const result = await api('extraMeal', { token, mealKey: key, delta });
       if (!apiOkay(result)) return;
@@ -604,6 +741,8 @@
       showToast(delta > 0 ? 'Extra meal used' : 'Extra meal restored');
     } catch (err) {
       handleFailure(err);
+    } finally {
+      pendingWrites = Math.max(0, pendingWrites - 1);
     }
   }
 
