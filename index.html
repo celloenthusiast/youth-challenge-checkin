@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <meta name="theme-color" content="#0b609d">
 
-  <meta name="yc-app-version" content="2.0.9">
+  <meta name="yc-app-version" content="2.0.10">
 
   <meta http-equiv="Cache-Control" content="no-store, no-cache, must-revalidate, max-age=0">
   <meta http-equiv="Pragma" content="no-cache">
@@ -444,12 +444,6 @@
     .small-btn:disabled{
       opacity:.4;
       cursor:not-allowed;
-    }
-
-    .extra-note{
-      font-size:.7rem;
-      color:var(--muted);
-      margin-top:6px;
     }
 
     .staff-meals-panel{
@@ -1233,7 +1227,7 @@
       <div id="loginError" class="error"></div>
 
       <div class="version-label">
-        v<span id="loginVersion">2.0.9</span>
+        v<span id="loginVersion">2.0.10</span>
       </div>
 
     </div>
@@ -1259,7 +1253,7 @@
             <div id="count" class="count"></div>
 
             <div class="header-version">
-              v<span id="headerVersion">2.0.9</span>
+              v<span id="headerVersion">2.0.10</span>
             </div>
           </div>
 
@@ -1277,59 +1271,35 @@
 
         <div class="filters">
 
-          <button
-            class="chip active"
-            data-category="all"
-          >
+          <button class="chip active" data-category="all">
             Everyone
           </button>
 
-          <button
-            class="chip"
-            data-category="adult"
-          >
+          <button class="chip" data-category="adult">
             Adults
           </button>
 
-          <button
-            class="chip"
-            data-category="camper"
-          >
+          <button class="chip" data-category="camper">
             Campers
           </button>
 
-          <button
-            class="chip"
-            data-category="staff"
-          >
+          <button class="chip" data-category="staff">
             Staff
           </button>
 
-          <button
-            class="chip lodge"
-            id="lodgeFilter"
-          >
+          <button class="chip lodge" id="lodgeFilter">
             Lodge Room
           </button>
 
-          <button
-            class="chip"
-            id="uncheckedFilter"
-          >
+          <button class="chip" id="uncheckedFilter">
             Not Checked In
           </button>
 
-          <button
-            class="chip"
-            id="lodgingUnassignedFilter"
-          >
+          <button class="chip" id="lodgingUnassignedFilter">
             Lodging Unassigned
           </button>
 
-          <select
-            id="lodgingSelect"
-            class="filter-select"
-          >
+          <select id="lodgingSelect" class="filter-select">
             <option value="">
               All lodging
             </option>
@@ -1501,7 +1471,7 @@
 
 <script>
 
-  const CLIENT_VERSION = '2.0.9';
+  const CLIENT_VERSION = '2.0.10';
 
   let API_URL = '';
 
@@ -2736,7 +2706,7 @@
 
                   <div class="stat">
                     <div class="stat-label">
-                      Form Meals
+                      Registered
                     </div>
                     <div class="stat-value">
                       ${stat.formMeals}
@@ -2745,7 +2715,7 @@
 
                   <div class="stat">
                     <div class="stat-label">
-                      Staff / Guest Meals
+                      Staff / Guest
                     </div>
                     <div class="stat-value">
                       ${stat.staffMeals || 0}
@@ -2754,7 +2724,7 @@
 
                   <div class="stat">
                     <div class="stat-label">
-                      Walk-up Extras Used
+                      Extras Used
                     </div>
                     <div class="stat-value">
                       ${stat.walkUpExtrasUsed || 0}
@@ -3236,13 +3206,6 @@
   }
 
 
-  /*
-   * Staff entries do not have lodging,
-   * Checked In, or Lodging Assigned fields.
-   *
-   * Therefore they remain in Everyone unless
-   * a registration-only filter is turned on.
-   */
   function staffCanAppearInEveryone() {
 
     return (
@@ -3254,10 +3217,6 @@
   }
 
 
-  /*
-   * Combine registrations and Staff sheet entries.
-   * Matching names are intentionally NOT removed.
-   */
   function getEveryoneRows() {
 
     const registrationRows =
@@ -3333,9 +3292,6 @@
 
   function renderRoster() {
 
-    /*
-     * Staff-only view
-     */
     if (
       categoryFilter === 'staff'
     ) {
@@ -3369,14 +3325,6 @@
     }
 
 
-    /*
-     * Everyone now means:
-     *
-     * - all normal registrations
-     * - all Staff & Guest Meals entries
-     *
-     * A person on both sheets appears twice.
-     */
     if (
       categoryFilter === 'all'
     ) {
@@ -3428,9 +3376,6 @@
     }
 
 
-    /*
-     * Adult / Camper views
-     */
     const filtered =
       getFilteredPeople();
 
