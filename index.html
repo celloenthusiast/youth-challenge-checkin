@@ -2,64 +2,21 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <meta
-    name="viewport"
-    content="width=device-width, initial-scale=1, viewport-fit=cover"
-  >
-  <meta
-    name="theme-color"
-    content="#0b609d"
-  >
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#0b609d">
 
-  <!--
-    The app checks a fresh copy of index.html
-    itself for this value. version.json is no
-    longer used.
-  -->
-  <meta
-    name="yc-app-version"
-    content="2.0.8"
-  >
+  <meta name="yc-app-version" content="2.0.9">
 
-  <meta
-    http-equiv="Cache-Control"
-    content="no-store, no-cache, must-revalidate, max-age=0"
-  >
-  <meta
-    http-equiv="Pragma"
-    content="no-cache"
-  >
-  <meta
-    http-equiv="Expires"
-    content="0"
-  >
+  <meta http-equiv="Cache-Control" content="no-store, no-cache, must-revalidate, max-age=0">
+  <meta http-equiv="Pragma" content="no-cache">
+  <meta http-equiv="Expires" content="0">
 
-  <title>
-    Youth Challenge Check-In
-  </title>
+  <title>Youth Challenge Check-In</title>
 
-  <link
-    rel="icon"
-    href="./favicon.ico"
-    sizes="any"
-  >
-
-  <link
-    rel="icon"
-    type="image/png"
-    sizes="32x32"
-    href="./favicon-32.png"
-  >
-
-  <link
-    rel="apple-touch-icon"
-    href="./apple-touch-icon.png"
-  >
-
-  <link
-    rel="manifest"
-    href="./manifest.webmanifest"
-  >
+  <link rel="icon" href="./favicon.ico" sizes="any">
+  <link rel="icon" type="image/png" sizes="32x32" href="./favicon-32.png">
+  <link rel="apple-touch-icon" href="./apple-touch-icon.png">
+  <link rel="manifest" href="./manifest.webmanifest">
 
   <style>
     :root{
@@ -80,51 +37,43 @@
     }
 
     *{
-      box-sizing:border-box
+      box-sizing:border-box;
     }
 
     html,
     body{
       margin:0;
       min-height:100%;
-      font-family:
-        Inter,
-        ui-sans-serif,
-        system-ui,
-        -apple-system,
-        BlinkMacSystemFont,
-        "Segoe UI",
-        sans-serif;
+      font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
       color:var(--text);
-      background:var(--bg)
+      background:var(--bg);
     }
 
     button,
     input,
     select{
-      font:inherit
+      font:inherit;
     }
 
     button{
-      cursor:pointer
+      cursor:pointer;
     }
 
     button:disabled,
     select:disabled{
       opacity:.45;
-      cursor:not-allowed
+      cursor:not-allowed;
     }
 
     .hidden{
-      display:none!important
+      display:none!important;
     }
-
 
     .login-wrap{
       min-height:100vh;
       display:grid;
       place-items:center;
-      padding:24px
+      padding:24px;
     }
 
     .login-card{
@@ -133,7 +82,7 @@
       border:1px solid var(--border);
       border-radius:22px;
       padding:28px;
-      box-shadow:var(--shadow)
+      box-shadow:var(--shadow);
     }
 
     .login-logo{
@@ -141,19 +90,19 @@
       width:180px;
       max-width:60%;
       height:auto;
-      margin:0 auto 16px
+      margin:0 auto 16px;
     }
 
     .login-card h1{
       font-size:1.55rem;
       margin:0 0 8px;
-      text-align:center
+      text-align:center;
     }
 
     .login-card p{
       color:var(--muted);
       margin:0 0 20px;
-      text-align:center
+      text-align:center;
     }
 
     .pin{
@@ -163,7 +112,7 @@
       border-radius:12px;
       font-size:1.25rem;
       letter-spacing:.16em;
-      text-align:center
+      text-align:center;
     }
 
     .primary{
@@ -179,12 +128,12 @@
       align-items:center;
       justify-content:center;
       gap:9px;
-      min-height:48px
+      min-height:48px;
     }
 
     .primary:disabled{
       opacity:.78;
-      cursor:wait
+      cursor:wait;
     }
 
     .login-spinner{
@@ -194,12 +143,12 @@
       border-top-color:#fff;
       border-radius:50%;
       animation:login-spin .75s linear infinite;
-      flex:none
+      flex:none;
     }
 
     @keyframes login-spin{
       to{
-        transform:rotate(360deg)
+        transform:rotate(360deg);
       }
     }
 
@@ -208,14 +157,14 @@
       min-height:1.3em;
       margin-top:10px;
       font-size:.92rem;
-      text-align:center
+      text-align:center;
     }
 
     .version-label{
       margin-top:12px;
       text-align:center;
       font-size:.7rem;
-      color:#98a2b3
+      color:#98a2b3;
     }
 
     .config-error{
@@ -225,9 +174,8 @@
       padding:12px;
       border-radius:10px;
       margin:12px 0;
-      font-size:.85rem
+      font-size:.85rem;
     }
-
 
     header{
       position:sticky;
@@ -235,13 +183,13 @@
       z-index:10;
       background:rgba(244,246,248,.96);
       backdrop-filter:blur(12px);
-      border-bottom:1px solid var(--border)
+      border-bottom:1px solid var(--border);
     }
 
     .topbar{
       max-width:1200px;
       margin:auto;
-      padding:14px 18px 12px
+      padding:14px 18px 12px;
     }
 
     .title-row{
@@ -249,21 +197,21 @@
       gap:12px;
       align-items:center;
       justify-content:space-between;
-      margin-bottom:10px
+      margin-bottom:10px;
     }
 
     .brand-title{
       display:flex;
       align-items:center;
       gap:9px;
-      min-width:0
+      min-width:0;
     }
 
     .brand-mark{
       width:34px;
       height:34px;
       object-fit:contain;
-      flex:none
+      flex:none;
     }
 
     .title-row h1{
@@ -271,24 +219,24 @@
       margin:0;
       white-space:nowrap;
       overflow:hidden;
-      text-overflow:ellipsis
+      text-overflow:ellipsis;
     }
 
     .title-meta{
       display:flex;
       align-items:center;
-      gap:10px
+      gap:10px;
     }
 
     .count{
       font-size:.9rem;
-      color:var(--muted)
+      color:var(--muted);
     }
 
     .header-version{
       font-size:.7rem;
       color:#98a2b3;
-      white-space:nowrap
+      white-space:nowrap;
     }
 
     .search{
@@ -297,14 +245,12 @@
       background:#fff;
       border-radius:13px;
       padding:12px 14px;
-      outline:none
+      outline:none;
     }
 
     .search:focus{
       border-color:var(--accent);
-      box-shadow:
-        0 0 0 3px
-        rgba(11,96,157,.12)
+      box-shadow:0 0 0 3px rgba(11,96,157,.12);
     }
 
     .filters{
@@ -312,11 +258,11 @@
       gap:8px;
       overflow-x:auto;
       padding:10px 0 2px;
-      scrollbar-width:none
+      scrollbar-width:none;
     }
 
     .filters::-webkit-scrollbar{
-      display:none
+      display:none;
     }
 
     .chip{
@@ -326,54 +272,48 @@
       border-radius:999px;
       padding:8px 11px;
       color:#344054;
-      font-size:.9rem
+      font-size:.9rem;
     }
 
     .chip.active{
       background:var(--accent);
       color:#fff;
-      border-color:var(--accent)
+      border-color:var(--accent);
     }
 
     .chip.lodge.active{
       background:var(--lodge);
-      border-color:var(--lodge)
+      border-color:var(--lodge);
     }
 
     .filter-select{
       border:1px solid var(--border);
       background:#fff;
       border-radius:999px;
-      padding:
-        7px 30px
-        7px 11px;
-      color:#344054
+      padding:7px 30px 7px 11px;
+      color:#344054;
     }
 
     .print-chip{
       border-color:#b7c9d6;
       background:#eef6fb;
       color:#174f73;
-      font-weight:750
+      font-weight:750;
     }
-
 
     main{
       max-width:1200px;
       margin:auto;
-      padding:16px 18px 90px
+      padding:16px 18px 90px;
     }
-
 
     .meal-panel{
       margin:0 0 18px;
       background:#fff;
       border:1px solid var(--border);
       border-radius:14px;
-      box-shadow:
-        0 1px 4px
-        rgba(16,24,40,.04);
-      overflow:hidden
+      box-shadow:0 1px 4px rgba(16,24,40,.04);
+      overflow:hidden;
     }
 
     .meal-panel>summary{
@@ -386,37 +326,36 @@
       cursor:pointer;
       font-size:1rem;
       font-weight:800;
-      user-select:none
+      user-select:none;
     }
 
     .meal-panel>summary::-webkit-details-marker{
-      display:none
+      display:none;
     }
 
     .meal-panel>summary::after{
       content:'▾';
       font-size:1rem;
       color:var(--muted);
-      transition:transform .18s ease
+      transition:transform .18s ease;
     }
 
     .meal-panel[open]>summary::after{
-      transform:rotate(180deg)
+      transform:rotate(180deg);
     }
 
     .meal-panel[open]>summary{
-      border-bottom:1px solid var(--border)
+      border-bottom:1px solid var(--border);
     }
 
     .meal-panel-body{
-      padding:12px
+      padding:12px;
     }
 
     .meal-dashboard{
       display:grid;
-      grid-template-columns:
-        repeat(4,minmax(0,1fr));
-      gap:10px
+      grid-template-columns:repeat(4,minmax(0,1fr));
+      gap:10px;
     }
 
     .meal-summary{
@@ -424,68 +363,65 @@
       border:1px solid var(--border);
       border-radius:14px;
       padding:12px;
-      box-shadow:
-        0 1px 4px
-        rgba(16,24,40,.04)
+      box-shadow:0 1px 4px rgba(16,24,40,.04);
     }
 
     .meal-summary.over{
       border-color:#e4b5ad;
-      background:#fff8f7
+      background:#fff8f7;
     }
 
     .meal-summary h3{
       font-size:.9rem;
-      margin:0 0 10px
+      margin:0 0 10px;
     }
 
     .summary-grid{
       display:grid;
-      grid-template-columns:
-        repeat(2,minmax(0,1fr));
-      gap:8px
+      grid-template-columns:repeat(2,minmax(0,1fr));
+      gap:8px;
     }
 
     .stat{
       background:#f8fafb;
       border-radius:9px;
-      padding:7px 8px
+      padding:7px 8px;
     }
 
     .stat-label{
       font-size:.66rem;
       text-transform:uppercase;
       letter-spacing:.04em;
-      color:var(--muted)
+      color:var(--muted);
     }
 
     .stat-value{
       font-size:1.08rem;
       font-weight:800;
-      margin-top:1px
+      margin-top:1px;
     }
 
     .stat.total{
       grid-column:1/-1;
-      background:#eef6fb
+      background:#eef6fb;
     }
 
     .stat.extras{
-      grid-column:1/-1
+      grid-column:1/-1;
     }
 
     .stat.extras.good .stat-value{
-      color:var(--success)
+      color:var(--success);
     }
 
     .stat.extras.bad .stat-value{
-      color:var(--danger)
+      color:var(--danger);
     }
 
     .extra-actions{
       display:flex;
       gap:6px;
-      margin-top:9px
+      margin-top:9px;
     }
 
     .small-btn{
@@ -496,33 +432,32 @@
       padding:7px 8px;
       font-size:.76rem;
       font-weight:750;
-      color:#344054
+      color:#344054;
     }
 
     .small-btn.add{
       background:var(--accent2);
       border-color:#c6dbe3;
-      color:#24556b
+      color:#24556b;
     }
 
     .small-btn:disabled{
       opacity:.4;
-      cursor:not-allowed
+      cursor:not-allowed;
     }
 
     .extra-note{
       font-size:.7rem;
       color:var(--muted);
-      margin-top:6px
+      margin-top:6px;
     }
-
 
     .staff-meals-panel{
       margin-top:12px;
       border:1px solid var(--border);
       border-radius:12px;
       background:#fafbfc;
-      overflow:hidden
+      overflow:hidden;
     }
 
     .staff-meals-panel>summary{
@@ -535,48 +470,47 @@
       cursor:pointer;
       font-size:.88rem;
       font-weight:800;
-      user-select:none
+      user-select:none;
     }
 
     .staff-meals-panel>summary::-webkit-details-marker{
-      display:none
+      display:none;
     }
 
     .staff-meals-panel>summary::after{
       content:'▾';
       color:var(--muted);
-      transition:transform .18s ease
+      transition:transform .18s ease;
     }
 
     .staff-meals-panel[open]>summary::after{
-      transform:rotate(180deg)
+      transform:rotate(180deg);
     }
 
     .staff-meals-panel[open]>summary{
-      border-bottom:
-        1px solid var(--border)
+      border-bottom:1px solid var(--border);
     }
 
     .staff-meals-body{
-      padding:10px
+      padding:10px;
     }
 
     .staff-meals-help{
       font-size:.75rem;
       color:var(--muted);
-      margin:0 0 10px
+      margin:0 0 10px;
     }
 
     .staff-groups{
       display:grid;
-      gap:8px
+      gap:8px;
     }
 
     .staff-group{
       border:1px solid var(--border);
       border-radius:10px;
       background:#fff;
-      padding:10px
+      padding:10px;
     }
 
     .staff-group-head{
@@ -584,55 +518,54 @@
       justify-content:space-between;
       gap:10px;
       align-items:flex-start;
-      margin-bottom:8px
+      margin-bottom:8px;
     }
 
     .staff-group-name{
-      font-weight:800
+      font-weight:800;
     }
 
     .staff-group-notes{
       font-size:.72rem;
       color:var(--muted);
       text-align:right;
-      max-width:48%
+      max-width:48%;
     }
 
     .staff-meal-grid{
       display:grid;
-      grid-template-columns:
-        repeat(4,minmax(0,1fr));
-      gap:7px
+      grid-template-columns:repeat(4,minmax(0,1fr));
+      gap:7px;
     }
 
     .staff-meal-cell{
       border:1px solid #e4e8ed;
       border-radius:9px;
       padding:8px;
-      background:#fafbfc
+      background:#fafbfc;
     }
 
     .staff-meal-label{
       font-size:.7rem;
       font-weight:800;
-      margin-bottom:5px
+      margin-bottom:5px;
     }
 
     .staff-meal-meta{
       font-size:.68rem;
       color:var(--muted);
-      margin-bottom:5px
+      margin-bottom:5px;
     }
 
     .staff-actual-row{
       display:flex;
       align-items:center;
-      gap:6px
+      gap:6px;
     }
 
     .staff-actual-row label{
       font-size:.68rem;
-      color:#475467
+      color:#475467;
     }
 
     .staff-actual-input{
@@ -642,82 +575,73 @@
       border-radius:7px;
       padding:6px 7px;
       text-align:center;
-      background:#fff
+      background:#fff;
     }
 
     .staff-actual-input:focus{
       outline:none;
       border-color:var(--accent);
-      box-shadow:
-        0 0 0 2px
-        rgba(11,96,157,.1)
+      box-shadow:0 0 0 2px rgba(11,96,157,.1);
     }
 
     .staff-actual-input:disabled{
       opacity:.6;
-      background:#f2f4f7
+      background:#f2f4f7;
     }
 
     .staff-empty{
       font-size:.82rem;
       color:var(--muted);
-      padding:8px 2px
+      padding:8px 2px;
     }
 
     .staff-committed{
       font-size:.67rem;
       color:var(--success);
       margin-top:4px;
-      font-weight:700
+      font-weight:700;
     }
-
 
     .list{
       display:grid;
-      gap:10px
+      gap:10px;
     }
 
     .person{
       background:var(--card);
       border:1px solid var(--border);
       border-radius:var(--radius);
-      box-shadow:
-        0 1px 4px
-        rgba(16,24,40,.04);
-      overflow:hidden
+      box-shadow:0 1px 4px rgba(16,24,40,.04);
+      overflow:hidden;
     }
 
     .person.lodge-person{
-      border-left:6px solid var(--lodge)
+      border-left:6px solid var(--lodge);
     }
 
     .person-main{
       display:grid;
-      grid-template-columns:
-        minmax(180px,1.4fr)
-        minmax(110px,.6fr)
-        minmax(300px,1.6fr)
-        auto;
+      grid-template-columns:minmax(180px,1.4fr) minmax(110px,.6fr) minmax(300px,1.6fr) auto;
       gap:12px;
       align-items:center;
-      padding:14px
+      padding:14px;
     }
 
     .name{
       font-size:1.05rem;
-      font-weight:800
+      font-weight:800;
     }
 
     .sub{
       font-size:.86rem;
       color:var(--muted);
-      margin-top:2px
+      margin-top:2px;
     }
 
     .badges{
       display:flex;
       gap:6px;
-      flex-wrap:wrap
+      flex-wrap:wrap;
     }
 
     .badge{
@@ -728,33 +652,33 @@
       background:#eef2f6;
       font-size:.76rem;
       font-weight:700;
-      color:#475467
+      color:#475467;
     }
 
     .badge.adult{
       background:#e8f1f5;
-      color:#24556b
+      color:#24556b;
     }
 
     .badge.camper{
       background:#eef6eb;
-      color:#416b34
+      color:#416b34;
     }
 
     .badge.lodge{
       background:#f0e5fb;
-      color:#6f249f
+      color:#6f249f;
     }
 
     .badge.staff{
       background:#fff1e8;
-      color:#8a461f
+      color:#8a461f;
     }
 
     .meal-tickets{
       display:flex;
       gap:6px;
-      flex-wrap:wrap
+      flex-wrap:wrap;
     }
 
     .ticket-label{
@@ -766,31 +690,31 @@
       padding:6px 8px;
       background:#fff;
       font-size:.74rem;
-      font-weight:700
+      font-weight:700;
     }
 
     .ticket-label.issued{
       background:#e9f7ef;
       border-color:#b8dfc8;
-      color:#236442
+      color:#236442;
     }
 
     .ticket-label input{
       width:17px;
       height:17px;
       margin:0;
-      accent-color:var(--success)
+      accent-color:var(--success);
     }
 
     .meal-none{
       color:var(--muted);
       font-size:.82rem;
-      font-style:italic
+      font-style:italic;
     }
 
     .check-stack{
       display:grid;
-      gap:8px
+      gap:8px;
     }
 
     .check-wrap{
@@ -798,19 +722,19 @@
       align-items:center;
       gap:8px;
       font-weight:700;
-      white-space:nowrap
+      white-space:nowrap;
     }
 
     .check-wrap input{
       width:22px;
       height:22px;
-      accent-color:var(--success)
+      accent-color:var(--success);
     }
 
     .person-actions{
       display:flex;
       justify-content:flex-end;
-      padding:0 14px 13px
+      padding:0 14px 13px;
     }
 
     .details-btn{
@@ -818,74 +742,63 @@
       background:transparent;
       color:var(--accent);
       font-weight:700;
-      padding:5px 0
+      padding:5px 0;
     }
 
     .empty{
       text-align:center;
       color:var(--muted);
-      padding:46px 16px
+      padding:46px 16px;
     }
-
 
     .staff-roster-head{
       display:flex;
       justify-content:space-between;
       align-items:flex-start;
       gap:14px;
-      padding:14px 14px 10px
+      padding:14px 14px 10px;
     }
 
     .staff-roster-notes{
       color:var(--muted);
       font-size:.8rem;
       text-align:right;
-      max-width:45%
+      max-width:45%;
     }
 
     .staff-roster-meals{
-      padding:
-        0 14px 14px
+      padding:0 14px 14px;
     }
 
-
     dialog{
-      width:min(
-        760px,
-        calc(100% - 24px)
-      );
+      width:min(760px,calc(100% - 24px));
       max-height:90vh;
       border:0;
       border-radius:20px;
       padding:0;
-      box-shadow:
-        0 24px 80px
-        rgba(16,24,40,.3)
+      box-shadow:0 24px 80px rgba(16,24,40,.3);
     }
 
     dialog::backdrop{
-      background:
-        rgba(15,23,42,.48)
+      background:rgba(15,23,42,.48);
     }
 
     .modal-head{
       position:sticky;
       top:0;
       background:#fff;
-      border-bottom:
-        1px solid var(--border);
+      border-bottom:1px solid var(--border);
       padding:18px;
       display:flex;
-      justify-content:
-        space-between;
+      justify-content:space-between;
       gap:12px;
       align-items:flex-start;
-      z-index:2
+      z-index:2;
     }
 
     .modal-head h2{
       font-size:1.25rem;
-      margin:0 0 6px
+      margin:0 0 6px;
     }
 
     .close{
@@ -894,16 +807,16 @@
       width:36px;
       height:36px;
       border-radius:50%;
-      font-size:1.25rem
+      font-size:1.25rem;
     }
 
     .modal-body{
       padding:18px;
-      background:#fff
+      background:#fff;
     }
 
     .section{
-      margin-bottom:22px
+      margin-bottom:22px;
     }
 
     .section h3{
@@ -911,61 +824,57 @@
       text-transform:uppercase;
       letter-spacing:.05em;
       color:var(--muted);
-      margin:0 0 10px
+      margin:0 0 10px;
     }
 
     .status-grid{
       display:grid;
-      grid-template-columns:
-        repeat(2,minmax(0,1fr));
-      gap:10px
+      grid-template-columns:repeat(2,minmax(0,1fr));
+      gap:10px;
     }
 
     .status-card{
       border:1px solid var(--border);
       border-radius:12px;
       padding:12px;
-      background:#fafbfc
+      background:#fafbfc;
     }
 
     .status-card label{
       display:flex;
       align-items:center;
       gap:9px;
-      font-weight:700
+      font-weight:700;
     }
 
     .status-card input{
       width:22px;
       height:22px;
-      accent-color:var(--success)
+      accent-color:var(--success);
     }
 
     .detail-grid{
       display:grid;
-      grid-template-columns:
-        repeat(2,minmax(0,1fr));
-      gap:10px 18px
+      grid-template-columns:repeat(2,minmax(0,1fr));
+      gap:10px 18px;
     }
 
     .detail{
-      border-bottom:
-        1px solid #edf0f2;
-      padding:0 0 9px
+      border-bottom:1px solid #edf0f2;
+      padding:0 0 9px;
     }
 
     .detail-label{
       font-size:.76rem;
       color:var(--muted);
-      margin-bottom:3px
+      margin-bottom:3px;
     }
 
     .detail-value{
       font-size:.94rem;
       word-break:break-word;
-      white-space:pre-wrap
+      white-space:pre-wrap;
     }
-
 
     .toast{
       position:fixed;
@@ -979,24 +888,17 @@
       z-index:50;
       box-shadow:var(--shadow);
       font-size:.9rem;
-      max-width:
-        calc(100% - 28px);
-      text-align:center
+      max-width:calc(100% - 28px);
+      text-align:center;
     }
 
-
     .print-preview-dialog{
-      width:min(
-        1100px,
-        calc(100% - 18px)
-      );
+      width:min(1100px,calc(100% - 18px));
       max-height:94vh;
       border:0;
       border-radius:16px;
       padding:0;
-      box-shadow:
-        0 24px 80px
-        rgba(16,24,40,.3)
+      box-shadow:0 24px 80px rgba(16,24,40,.3);
     }
 
     .print-preview-toolbar{
@@ -1004,25 +906,23 @@
       top:0;
       z-index:3;
       display:flex;
-      justify-content:
-        space-between;
+      justify-content:space-between;
       align-items:center;
       gap:10px;
       padding:12px 14px;
       background:#fff;
-      border-bottom:
-        1px solid var(--border)
+      border-bottom:1px solid var(--border);
     }
 
     .print-preview-toolbar h2{
       margin:0;
-      font-size:1rem
+      font-size:1rem;
     }
 
     .print-preview-actions{
       display:flex;
       gap:8px;
-      flex-wrap:wrap
+      flex-wrap:wrap;
     }
 
     .preview-btn{
@@ -1031,78 +931,73 @@
       color:#344054;
       border-radius:10px;
       padding:9px 12px;
-      font-weight:750
+      font-weight:750;
     }
 
     .preview-btn.primary-action{
       background:var(--accent);
       border-color:var(--accent);
-      color:#fff
+      color:#fff;
     }
 
     .print-preview-content{
       padding:14px;
       background:#fff;
-      overflow:auto
+      overflow:auto;
     }
 
     .print-sheet{
-      font-family:
-        Arial,
-        Helvetica,
-        sans-serif;
+      font-family:Arial,Helvetica,sans-serif;
       color:#17202a;
-      font-size:9pt
+      font-size:9pt;
     }
 
     .print-sheet .head{
       display:flex;
       align-items:center;
       gap:12px;
-      border-bottom:
-        2px solid #0b609d;
+      border-bottom:2px solid #0b609d;
       padding-bottom:8px;
-      margin-bottom:9px
+      margin-bottom:9px;
     }
 
     .print-sheet .head img{
       width:72px;
       height:52px;
-      object-fit:contain
+      object-fit:contain;
     }
 
     .print-sheet h1{
       font-size:17pt;
-      margin:0 0 2px
+      margin:0 0 2px;
     }
 
     .print-sheet .meta{
       font-size:8pt;
-      color:#5c6670
+      color:#5c6670;
     }
 
     .print-sheet table{
       width:100%;
       border-collapse:collapse;
-      table-layout:fixed
+      table-layout:fixed;
     }
 
     .print-sheet thead{
-      display:table-header-group
+      display:table-header-group;
     }
 
     .print-sheet tr{
       break-inside:avoid;
-      page-break-inside:avoid
+      page-break-inside:avoid;
     }
 
     .print-sheet th,
     .print-sheet td{
-      border:
-        1px solid #9aa5ae;
+      border:1px solid #9aa5ae;
       padding:4px 5px;
       vertical-align:top;
-      overflow-wrap:anywhere
+      overflow-wrap:anywhere;
     }
 
     .print-sheet th{
@@ -1110,64 +1005,37 @@
       font-size:7.5pt;
       text-transform:uppercase;
       letter-spacing:.02em;
-      text-align:left
+      text-align:left;
     }
 
     .print-sheet td.name{
-      font-weight:700
+      font-weight:700;
     }
 
     .print-sheet td.center,
     .print-sheet th.center{
-      text-align:center
+      text-align:center;
     }
 
-    .print-sheet:not(.staff-print) th:nth-child(1){
-      width:10%
-    }
-
-    .print-sheet:not(.staff-print) th:nth-child(2){
-      width:9%
-    }
-
-    .print-sheet:not(.staff-print) th:nth-child(3){
-      width:7%
-    }
-
-    .print-sheet:not(.staff-print) th:nth-child(4){
-      width:15%
-    }
-
-    .print-sheet:not(.staff-print) th:nth-child(5){
-      width:10%
-    }
-
-    .print-sheet:not(.staff-print) th:nth-child(6){
-      width:11%
-    }
-
-    .print-sheet:not(.staff-print) th:nth-child(7){
-      width:7%
-    }
-
-    .print-sheet:not(.staff-print) th:nth-child(8){
-      width:7%
-    }
-
-    .print-sheet:not(.staff-print) th:nth-child(9){
-      width:24%
-    }
+    .print-sheet:not(.staff-print) th:nth-child(1){width:10%}
+    .print-sheet:not(.staff-print) th:nth-child(2){width:9%}
+    .print-sheet:not(.staff-print) th:nth-child(3){width:7%}
+    .print-sheet:not(.staff-print) th:nth-child(4){width:15%}
+    .print-sheet:not(.staff-print) th:nth-child(5){width:10%}
+    .print-sheet:not(.staff-print) th:nth-child(6){width:11%}
+    .print-sheet:not(.staff-print) th:nth-child(7){width:7%}
+    .print-sheet:not(.staff-print) th:nth-child(8){width:7%}
+    .print-sheet:not(.staff-print) th:nth-child(9){width:24%}
 
     .print-sheet .footer{
       margin-top:7px;
       font-size:7.5pt;
-      color:#667085
+      color:#667085;
     }
-
 
     @media print{
       body>*:not(#printPreviewDialog){
-        display:none!important
+        display:none!important;
       }
 
       #printPreviewDialog{
@@ -1179,185 +1047,161 @@
         margin:0!important;
         padding:0!important;
         border:0!important;
-        box-shadow:none!important
+        box-shadow:none!important;
       }
 
       .print-preview-toolbar{
-        display:none!important
+        display:none!important;
       }
 
       .print-preview-content{
         padding:0!important;
-        overflow:visible!important
+        overflow:visible!important;
       }
 
       .print-sheet{
-        font-size:9pt!important
+        font-size:9pt!important;
       }
 
       @page{
         size:landscape;
-        margin:.35in
+        margin:.35in;
       }
     }
-
 
     @media(max-width:980px){
       .meal-dashboard{
-        grid-template-columns:
-          repeat(2,minmax(0,1fr))
+        grid-template-columns:repeat(2,minmax(0,1fr));
       }
 
       .staff-meal-grid{
-        grid-template-columns:
-          repeat(2,minmax(0,1fr))
+        grid-template-columns:repeat(2,minmax(0,1fr));
       }
 
       .person-main{
-        grid-template-columns:
-          minmax(170px,1.2fr)
-          minmax(260px,1.5fr)
-          auto
+        grid-template-columns:minmax(170px,1.2fr) minmax(260px,1.5fr) auto;
       }
 
       .category-cell{
-        display:none
+        display:none;
       }
     }
-
 
     @media(max-width:700px){
       .topbar,
       main{
         padding-left:12px;
-        padding-right:12px
+        padding-right:12px;
       }
 
       .meal-panel>summary{
-        padding:11px 12px
+        padding:11px 12px;
       }
 
       .meal-panel-body{
-        padding:10px
+        padding:10px;
       }
 
       .person-main{
-        grid-template-columns:
-          1fr auto;
-        gap:10px
+        grid-template-columns:1fr auto;
+        gap:10px;
       }
 
       .meals-cell{
-        grid-column:1/-1
+        grid-column:1/-1;
       }
 
       .check-cell{
         grid-row:1/2;
         grid-column:2/3;
-        align-self:center
+        align-self:center;
       }
 
       .status-grid,
       .detail-grid{
-        grid-template-columns:1fr
+        grid-template-columns:1fr;
       }
 
       .brand-mark{
         width:30px;
-        height:30px
+        height:30px;
       }
     }
 
-
     @media(max-width:470px){
       .meal-dashboard{
-        grid-template-columns:1fr
+        grid-template-columns:1fr;
       }
 
       .staff-meal-grid{
-        grid-template-columns:1fr
+        grid-template-columns:1fr;
       }
 
       .staff-group-head,
       .staff-roster-head{
-        display:block
+        display:block;
       }
 
       .staff-group-notes,
       .staff-roster-notes{
         text-align:left;
         max-width:none;
-        margin-top:5px
+        margin-top:5px;
       }
 
       .title-row h1{
-        font-size:1.05rem
+        font-size:1.05rem;
       }
 
       .count{
-        font-size:.8rem
+        font-size:.8rem;
       }
 
       .header-version{
-        display:none
+        display:none;
       }
 
       .person-main{
-        padding:12px
+        padding:12px;
       }
 
       .name{
-        font-size:1rem
+        font-size:1rem;
       }
 
       .check-wrap{
         font-size:.78rem;
-        white-space:normal
+        white-space:normal;
       }
 
       .check-wrap input{
         width:20px;
-        height:20px
+        height:20px;
       }
 
       .ticket-label{
-        font-size:.72rem
+        font-size:.72rem;
       }
 
       .login-logo{
-        width:160px
+        width:160px;
       }
     }
   </style>
 </head>
 
-
 <body>
 
-  <section
-    id="loginView"
-    class="login-wrap"
-  >
+  <section id="loginView" class="login-wrap">
     <div class="login-card">
 
-      <img
-        class="login-logo"
-        src="./yc-logo.png"
-        alt="Youth Challenge"
-      >
+      <img class="login-logo" src="./yc-logo.png" alt="Youth Challenge">
 
-      <h1>
-        Youth Challenge Check-In
-      </h1>
+      <h1>Youth Challenge Check-In</h1>
 
-      <p>
-        Enter the staff passcode to open registration.
-      </p>
+      <p>Enter the staff passcode to open registration.</p>
 
-      <div
-        id="configError"
-        class="config-error hidden"
-      ></div>
+      <div id="configError" class="config-error hidden"></div>
 
       <input
         id="pin"
@@ -1386,23 +1230,17 @@
         </span>
       </button>
 
-      <div
-        id="loginError"
-        class="error"
-      ></div>
+      <div id="loginError" class="error"></div>
 
       <div class="version-label">
-        v<span id="loginVersion">2.0.8</span>
+        v<span id="loginVersion">2.0.9</span>
       </div>
 
     </div>
   </section>
 
 
-  <section
-    id="appView"
-    class="hidden"
-  >
+  <section id="appView" class="hidden">
 
     <header>
       <div class="topbar">
@@ -1410,11 +1248,7 @@
         <div class="title-row">
 
           <div class="brand-title">
-            <img
-              class="brand-mark"
-              src="./yc-logo.png"
-              alt=""
-            >
+            <img class="brand-mark" src="./yc-logo.png" alt="">
 
             <h1 id="appTitle">
               Youth Challenge Check-In
@@ -1422,13 +1256,10 @@
           </div>
 
           <div class="title-meta">
-            <div
-              id="count"
-              class="count"
-            ></div>
+            <div id="count" class="count"></div>
 
             <div class="header-version">
-              v<span id="headerVersion">2.0.8</span>
+              v<span id="headerVersion">2.0.9</span>
             </div>
           </div>
 
@@ -1520,10 +1351,7 @@
 
     <main>
 
-      <details
-        id="mealPanel"
-        class="meal-panel"
-      >
+      <details id="mealPanel" class="meal-panel">
 
         <summary>
           Meal Availability
@@ -1568,15 +1396,9 @@
       </details>
 
 
-      <div
-        id="list"
-        class="list"
-      ></div>
+      <div id="list" class="list"></div>
 
-      <div
-        id="empty"
-        class="empty hidden"
-      >
+      <div id="empty" class="empty hidden">
         No registrations match this view.
       </div>
 
@@ -1611,9 +1433,7 @@
     <div class="modal-body">
 
       <div class="section">
-        <h3>
-          Check-In &amp; Meal Tickets
-        </h3>
+        <h3>Check-In &amp; Meal Tickets</h3>
 
         <div
           id="modalStatus"
@@ -1622,9 +1442,7 @@
       </div>
 
       <div class="section">
-        <h3>
-          Registration Details
-        </h3>
+        <h3>Registration Details</h3>
 
         <div
           id="modalDetails"
@@ -1644,9 +1462,7 @@
 
     <div class="print-preview-toolbar">
 
-      <h2>
-        Print Preview
-      </h2>
+      <h2>Print Preview</h2>
 
       <div class="print-preview-actions">
 
@@ -1685,14 +1501,12 @@
 
 <script>
 
-  const CLIENT_VERSION = '2.0.8';
+  const CLIENT_VERSION = '2.0.9';
 
   let API_URL = '';
 
   let token =
-    sessionStorage.getItem(
-      'yc_checkin_token'
-    ) || '';
+    sessionStorage.getItem('yc_checkin_token') || '';
 
   let people = [];
   let mealStats = [];
@@ -1707,13 +1521,10 @@
 
   let backgroundRefreshInFlight = false;
   let pendingWrites = 0;
-
   let lastRosterSignature = '';
 
-
   const $ =
-    id =>
-      document.getElementById(id);
+    id => document.getElementById(id);
 
 
   document.addEventListener(
@@ -1750,9 +1561,7 @@
 
 
       document
-        .querySelectorAll(
-          '[data-category]'
-        )
+        .querySelectorAll('[data-category]')
         .forEach(
           btn =>
             btn.addEventListener(
@@ -1760,19 +1569,13 @@
               () => {
 
                 document
-                  .querySelectorAll(
-                    '[data-category]'
-                  )
+                  .querySelectorAll('[data-category]')
                   .forEach(
                     b =>
-                      b.classList.remove(
-                        'active'
-                      )
+                      b.classList.remove('active')
                   );
 
-                btn.classList.add(
-                  'active'
-                );
+                btn.classList.add('active');
 
                 categoryFilter =
                   btn.dataset.category;
@@ -1788,9 +1591,9 @@
         .addEventListener(
           'click',
           () => {
+
             if (
-              categoryFilter ===
-              'staff'
+              categoryFilter === 'staff'
             ) {
               return;
             }
@@ -1813,9 +1616,9 @@
         .addEventListener(
           'click',
           () => {
+
             if (
-              categoryFilter ===
-              'staff'
+              categoryFilter === 'staff'
             ) {
               return;
             }
@@ -1838,9 +1641,9 @@
         .addEventListener(
           'click',
           () => {
+
             if (
-              categoryFilter ===
-              'staff'
+              categoryFilter === 'staff'
             ) {
               return;
             }
@@ -1859,12 +1662,6 @@
         );
 
 
-      /*
-       * No version.json.
-       *
-       * Fetch a fresh copy of index.html
-       * and read its yc-app-version meta tag.
-       */
       const frontendCurrent =
         await checkFrontendVersion();
 
@@ -1877,6 +1674,7 @@
 
 
       if (!validApiUrl()) {
+
         showConfigError(
           'The Apps Script API URL has not been configured yet. Edit config.json and paste the deployed Web App URL that ends in /exec.'
         );
@@ -1886,10 +1684,10 @@
 
 
       try {
+
         const status =
-          await api(
-            'status'
-          );
+          await api('status');
+
 
         if (!status.ok) {
           throw new Error(
@@ -1898,19 +1696,20 @@
           );
         }
 
+
         if (
           status.version &&
-          String(
-            status.version
-          ) !==
-            CLIENT_VERSION
+          String(status.version) !==
+          CLIENT_VERSION
         ) {
+
           showToast(
             `Version mismatch: website v${CLIENT_VERSION}, backend v${status.version}. Update both parts of the app.`,
             true,
             7000
           );
         }
+
 
         if (token) {
           loadRoster();
@@ -1922,26 +1721,17 @@
           'Could not reach the Apps Script backend. Check config.json and make sure the Apps Script deployment is set to “Anyone.”'
         );
 
-        $('loginError')
-          .textContent =
-            messageOf(err);
+        $('loginError').textContent =
+          messageOf(err);
       }
 
 
-      /*
-       * Check GitHub every five minutes
-       * without requiring version.json.
-       */
       setInterval(
         checkFrontendVersion,
         5 * 60 * 1000
       );
 
 
-      /*
-       * Quietly synchronize all check-in
-       * stations every ten seconds.
-       */
       setInterval(
         backgroundRefreshRoster,
         10 * 1000
@@ -1951,14 +1741,17 @@
 
 
   async function loadConfig() {
+
     try {
+
       const response =
         await fetch(
           `./config.json?_ts=${Date.now()}`,
           {
-            cache: 'no-store'
+            cache:'no-store'
           }
         );
+
 
       if (!response.ok) {
         throw new Error(
@@ -1966,8 +1759,10 @@
         );
       }
 
+
       const config =
         await response.json();
+
 
       API_URL =
         String(
@@ -1977,68 +1772,72 @@
           ) || ''
         ).trim();
 
+
     } catch (err) {
+
       API_URL = '';
     }
   }
 
 
   function validApiUrl() {
+
     return /^https:\/\/script\.google\.com\/macros\/s\/.+\/exec(?:\?.*)?$/i
       .test(API_URL);
   }
 
 
   function showConfigError(message) {
+
     $('configError').textContent =
       message;
 
     $('configError')
-      .classList.remove(
-        'hidden'
-      );
+      .classList.remove('hidden');
 
     $('loginButton').disabled =
       true;
   }
 
 
-  /**
-   * Fetch index.html itself and inspect
-   * the version meta tag.
-   *
-   * No version.json is required.
-   */
   async function checkFrontendVersion() {
+
     try {
+
       const indexUrl =
         new URL(
           './index.html',
           window.location.href
         );
 
+
       indexUrl.search = '';
       indexUrl.hash = '';
+
 
       indexUrl.searchParams.set(
         '_ts',
         String(Date.now())
       );
 
+
       const response =
         await fetch(
           indexUrl.toString(),
           {
-            cache: 'no-store'
+            cache:'no-store'
           }
         );
+
 
       if (!response.ok) {
         return true;
       }
 
+
       const html =
         await response.text();
+
 
       const parsed =
         new DOMParser()
@@ -2047,10 +1846,12 @@
             'text/html'
           );
 
+
       const versionMeta =
         parsed.querySelector(
           'meta[name="yc-app-version"]'
         );
+
 
       const version =
         String(
@@ -2060,18 +1861,22 @@
           ) || ''
         ).trim();
 
+
       if (
         version &&
         version !== CLIENT_VERSION
       ) {
+
         const lastTarget =
           sessionStorage.getItem(
             'yc_frontend_reload_target'
           );
 
+
         if (
           lastTarget === version
         ) {
+
           showToast(
             `A newer build v${version} is available. Refresh this page if it does not update automatically.`,
             true,
@@ -2081,52 +1886,55 @@
           return false;
         }
 
+
         sessionStorage.setItem(
           'yc_frontend_reload_target',
           version
         );
+
 
         const url =
           new URL(
             window.location.href
           );
 
+
         url.searchParams.set(
           'v',
           version
         );
+
 
         url.searchParams.set(
           '_cb',
           String(Date.now())
         );
 
+
         window.location.replace(
           url.toString()
         );
 
+
         return false;
       }
+
 
       sessionStorage.removeItem(
         'yc_frontend_reload_target'
       );
 
-      /*
-       * Clean up the key used by the
-       * old version.json system too.
-       */
+
       sessionStorage.removeItem(
         'yc_static_reload_target'
       );
 
+
       return true;
 
+
     } catch (err) {
-      /*
-       * Never block check-in because
-       * GitHub could not be checked.
-       */
+
       return true;
     }
   }
@@ -2136,10 +1944,12 @@
     action,
     params = {}
   ) {
+
     return new Promise(
-      (resolve, reject) => {
+      (resolve,reject) => {
 
         if (!validApiUrl()) {
+
           reject(
             new Error(
               'Apps Script API URL is not configured.'
@@ -2185,19 +1995,25 @@
           error,
           result
         ) {
+
           clearTimeout(timer);
 
           script.remove();
 
+
           try {
+
             delete window[
               callback
             ];
+
           } catch (_) {
+
             window[
               callback
             ] = undefined;
           }
+
 
           if (error) {
             reject(error);
@@ -2231,10 +2047,12 @@
           action
         );
 
+
         url.searchParams.set(
           'callback',
           callback
         );
+
 
         url.searchParams.set(
           '_ts',
@@ -2245,12 +2063,13 @@
         Object
           .entries(params)
           .forEach(
-            ([key, value]) => {
+            ([key,value]) => {
 
               if (
                 value !== undefined &&
                 value !== null
               ) {
+
                 url.searchParams.set(
                   key,
                   String(value)
@@ -2277,6 +2096,7 @@
     isBusy,
     message = 'Open Check-In'
   ) {
+
     const button =
       $('loginButton');
 
@@ -2296,16 +2116,19 @@
     pin.disabled =
       isBusy;
 
+
     spinner
       .classList.toggle(
         'hidden',
         !isBusy
       );
 
+
     text.textContent =
       isBusy
         ? message
         : 'Open Check-In';
+
 
     button.setAttribute(
       'aria-busy',
@@ -2317,9 +2140,7 @@
 
 
   async function login() {
-    /*
-     * Ignore accidental duplicate taps.
-     */
+
     if (
       $('loginButton').disabled
     ) {
@@ -2338,6 +2159,7 @@
 
 
     if (!pin) {
+
       $('loginError').textContent =
         'Enter the passcode.';
 
@@ -2352,20 +2174,21 @@
 
 
     try {
+
       const result =
         await api(
           'login',
           {
-            passcode: pin
+            passcode:pin
           }
         );
 
 
       if (!result.ok) {
-        $('loginError')
-          .textContent =
-            result.error ||
-            'Unable to sign in.';
+
+        $('loginError').textContent =
+          result.error ||
+          'Unable to sign in.';
 
         return;
       }
@@ -2389,11 +2212,12 @@
 
       await loadRoster();
 
+
     } catch (err) {
 
-      $('loginError')
-        .textContent =
-          messageOf(err);
+      $('loginError').textContent =
+        messageOf(err);
+
 
     } finally {
 
@@ -2403,6 +2227,7 @@
 
 
   function rosterSignature(data) {
+
     return JSON.stringify({
       people:
         data.people || [],
@@ -2420,6 +2245,7 @@
 
 
   function currentLodgingOptions() {
+
     return Array
       .from(
         $('lodgingSelect').options
@@ -2433,17 +2259,12 @@
 
 
   function syncLocalSignature() {
+
     lastRosterSignature =
       rosterSignature({
-        people:
-          people,
-
-        mealStats:
-          mealStats,
-
-        staffGroups:
-          staffGroups,
-
+        people:people,
+        mealStats:mealStats,
+        staffGroups:staffGroups,
         lodgingOptions:
           currentLodgingOptions()
       });
@@ -2454,6 +2275,7 @@
     data,
     preservePosition = false
   ) {
+
     const scrollX =
       window.scrollX;
 
@@ -2497,6 +2319,7 @@
       detailsWasOpen &&
       currentPersonRow !== null
     ) {
+
       const stillExists =
         people.some(
           p =>
@@ -2504,17 +2327,22 @@
             currentPersonRow
         );
 
+
       if (stillExists) {
+
         renderDetails(
           currentPersonRow
         );
+
       } else {
+
         $('detailDialog').close();
       }
     }
 
 
     if (preservePosition) {
+
       requestAnimationFrame(
         () =>
           window.scrollTo(
@@ -2527,6 +2355,7 @@
 
 
   async function loadRoster() {
+
     const loginVisible =
       !$('loginView')
         .classList
@@ -2534,6 +2363,7 @@
 
 
     if (loginVisible) {
+
       setLoginBusy(
         true,
         'Loading registrations…'
@@ -2542,11 +2372,12 @@
 
 
     try {
+
       const data =
         await api(
           'roster',
           {
-            token: token
+            token:token
           }
         );
 
@@ -2576,6 +2407,7 @@
 
       handleFailure(err);
 
+
     } finally {
 
       if (
@@ -2583,6 +2415,7 @@
           .classList
           .contains('hidden')
       ) {
+
         setLoginBusy(false);
       }
     }
@@ -2590,6 +2423,7 @@
 
 
   async function backgroundRefreshRoster() {
+
     if (
       !token ||
       backgroundRefreshInFlight ||
@@ -2636,11 +2470,12 @@
 
 
     try {
+
       const data =
         await api(
           'roster',
           {
-            token: token
+            token:token
           }
         );
 
@@ -2649,6 +2484,7 @@
         !data ||
         data.ok === false
       ) {
+
         const message =
           String(
             (
@@ -2663,6 +2499,7 @@
             'SESSION_EXPIRED'
           )
         ) {
+
           handleFailure(
             new Error(message)
           );
@@ -2681,6 +2518,7 @@
         nextSignature !==
         lastRosterSignature
       ) {
+
         applyRosterData(
           data,
           true
@@ -2690,17 +2528,15 @@
 
     } catch (err) {
 
-      /*
-       * Temporary sync failures should
-       * never interrupt check-in.
-       */
       if (
         messageOf(err).includes(
           'SESSION_EXPIRED'
         )
       ) {
+
         handleFailure(err);
       }
+
 
     } finally {
 
@@ -2711,6 +2547,7 @@
 
 
   function apiOkay(result) {
+
     if (
       result &&
       result.ok !== false
@@ -2735,6 +2572,7 @@
 
 
   function renderAll() {
+
     renderMealDashboard();
     renderStaffMealGroups();
     renderRoster();
@@ -2744,8 +2582,10 @@
   function buildLodgingOptions(
     options
   ) {
+
     const select =
       $('lodgingSelect');
+
 
     const current =
       select.value;
@@ -2764,6 +2604,7 @@
     if (
       options.includes(current)
     ) {
+
       select.value =
         current;
     }
@@ -2771,28 +2612,34 @@
 
 
   function updateStaffModeUi() {
+
     const staffMode =
       categoryFilter ===
       'staff';
 
 
     if (staffMode) {
+
       lodgeOnly = false;
       uncheckedOnly = false;
       lodgingUnassignedOnly =
         false;
 
+
       $('lodgeFilter')
         .classList
         .remove('active');
+
 
       $('uncheckedFilter')
         .classList
         .remove('active');
 
+
       $('lodgingUnassignedFilter')
         .classList
         .remove('active');
+
 
       $('lodgingSelect').value =
         '';
@@ -2802,11 +2649,14 @@
     $('lodgeFilter').disabled =
       staffMode;
 
+
     $('uncheckedFilter').disabled =
       staffMode;
 
+
     $('lodgingUnassignedFilter').disabled =
       staffMode;
+
 
     $('lodgingSelect').disabled =
       staffMode;
@@ -2820,161 +2670,161 @@
 
 
   function renderMealDashboard() {
-    $('mealDashboard')
-      .innerHTML =
-        mealStats
-          .map(
-            stat => {
 
-              const capacitySet =
-                stat.capacity !== null;
+    $('mealDashboard').innerHTML =
+      mealStats
+        .map(
+          stat => {
 
-
-              const extras =
-                capacitySet
-                  ? stat.extrasAvailable
-                  : null;
+            const capacitySet =
+              stat.capacity !== null;
 
 
-              const over =
-                capacitySet &&
-                extras < 0;
+            const extras =
+              capacitySet
+                ? stat.extrasAvailable
+                : null;
 
 
-              const extrasText =
-                !capacitySet
-                  ? 'Not set'
-                  : String(extras);
+            const over =
+              capacitySet &&
+              extras < 0;
 
 
-              const extrasClass =
-                !capacitySet
-                  ? ''
-                  : (
-                      extras >= 0
-                        ? 'good'
-                        : 'bad'
-                    );
+            const extrasText =
+              !capacitySet
+                ? 'Not set'
+                : String(extras);
 
 
-              const canAdd =
-                capacitySet &&
-                extras > 0;
+            const extrasClass =
+              !capacitySet
+                ? ''
+                : (
+                    extras >= 0
+                      ? 'good'
+                      : 'bad'
+                  );
 
 
-              const canRemove =
-                stat.walkUpExtrasUsed > 0;
+            const canAdd =
+              capacitySet &&
+              extras > 0;
 
 
-              return `
-                <article class="meal-summary ${over ? 'over' : ''}">
+            const canRemove =
+              stat.walkUpExtrasUsed > 0;
 
-                  <h3>
-                    ${esc(stat.label)}
-                  </h3>
 
-                  <div class="summary-grid">
+            return `
+              <article class="meal-summary ${over ? 'over' : ''}">
 
-                    <div class="stat">
-                      <div class="stat-label">
-                        Capacity
-                      </div>
-                      <div class="stat-value">
-                        ${capacitySet ? stat.capacity : '—'}
-                      </div>
+                <h3>
+                  ${esc(stat.label)}
+                </h3>
+
+                <div class="summary-grid">
+
+                  <div class="stat">
+                    <div class="stat-label">
+                      Capacity
                     </div>
-
-                    <div class="stat">
-                      <div class="stat-label">
-                        Form Meals
-                      </div>
-                      <div class="stat-value">
-                        ${stat.formMeals}
-                      </div>
+                    <div class="stat-value">
+                      ${capacitySet ? stat.capacity : '—'}
                     </div>
-
-                    <div class="stat">
-                      <div class="stat-label">
-                        Staff / Guest Meals
-                      </div>
-                      <div class="stat-value">
-                        ${stat.staffMeals || 0}
-                      </div>
-                    </div>
-
-                    <div class="stat">
-                      <div class="stat-label">
-                        Walk-up Extras Used
-                      </div>
-                      <div class="stat-value">
-                        ${stat.walkUpExtrasUsed || 0}
-                      </div>
-                    </div>
-
-                    <div class="stat total">
-                      <div class="stat-label">
-                        Total Accounted For
-                      </div>
-                      <div class="stat-value">
-                        ${stat.totalAccounted}
-                      </div>
-                    </div>
-
-                    <div class="stat">
-                      <div class="stat-label">
-                        Tickets Issued
-                      </div>
-                      <div class="stat-value">
-                        ${stat.ticketsIssued}
-                      </div>
-                    </div>
-
-                    <div class="stat">
-                      <div class="stat-label">
-                        Still to Hand Out
-                      </div>
-                      <div class="stat-value">
-                        ${stat.stillToHandOut}
-                      </div>
-                    </div>
-
-                    <div class="stat extras ${extrasClass}">
-                      <div class="stat-label">
-                        Extras Available
-                      </div>
-                      <div class="stat-value">
-                        ${extrasText}
-                      </div>
-                    </div>
-
                   </div>
 
-
-                  <div class="extra-actions">
-
-                    <button
-                      class="small-btn"
-                      ${canRemove ? '' : 'disabled'}
-                      onclick="adjustExtra('${stat.key}',-1)"
-                    >
-                      − Undo Extra
-                    </button>
-
-                    <button
-                      class="small-btn add"
-                      ${canAdd ? '' : 'disabled'}
-                      onclick="adjustExtra('${stat.key}',1)"
-                    >
-                      + Use Extra
-                    </button>
-
+                  <div class="stat">
+                    <div class="stat-label">
+                      Form Meals
+                    </div>
+                    <div class="stat-value">
+                      ${stat.formMeals}
+                    </div>
                   </div>
 
-                </article>
-              `;
-            }
-          )
-          .join('');
+                  <div class="stat">
+                    <div class="stat-label">
+                      Staff / Guest Meals
+                    </div>
+                    <div class="stat-value">
+                      ${stat.staffMeals || 0}
+                    </div>
+                  </div>
+
+                  <div class="stat">
+                    <div class="stat-label">
+                      Walk-up Extras Used
+                    </div>
+                    <div class="stat-value">
+                      ${stat.walkUpExtrasUsed || 0}
+                    </div>
+                  </div>
+
+                  <div class="stat total">
+                    <div class="stat-label">
+                      Total Accounted For
+                    </div>
+                    <div class="stat-value">
+                      ${stat.totalAccounted}
+                    </div>
+                  </div>
+
+                  <div class="stat">
+                    <div class="stat-label">
+                      Tickets Issued
+                    </div>
+                    <div class="stat-value">
+                      ${stat.ticketsIssued}
+                    </div>
+                  </div>
+
+                  <div class="stat">
+                    <div class="stat-label">
+                      Still to Hand Out
+                    </div>
+                    <div class="stat-value">
+                      ${stat.stillToHandOut}
+                    </div>
+                  </div>
+
+                  <div class="stat extras ${extrasClass}">
+                    <div class="stat-label">
+                      Extras Available
+                    </div>
+                    <div class="stat-value">
+                      ${extrasText}
+                    </div>
+                  </div>
+
+                </div>
+
+
+                <div class="extra-actions">
+
+                  <button
+                    class="small-btn"
+                    ${canRemove ? '' : 'disabled'}
+                    onclick="adjustExtra('${stat.key}',-1)"
+                  >
+                    − Undo Extra
+                  </button>
+
+                  <button
+                    class="small-btn add"
+                    ${canAdd ? '' : 'disabled'}
+                    onclick="adjustExtra('${stat.key}',1)"
+                  >
+                    + Use Extra
+                  </button>
+
+                </div>
+
+              </article>
+            `;
+          }
+        )
+        .join('');
   }
 
 
@@ -2982,10 +2832,12 @@
     group,
     lastFirst = false
   ) {
+
     const first =
       String(
         group.firstName || ''
       ).trim();
+
 
     const last =
       String(
@@ -2997,6 +2849,7 @@
       lastFirst &&
       last
     ) {
+
       return [
         last,
         first
@@ -3025,6 +2878,7 @@
     group,
     stat
   ) {
+
     const info =
       group.meals &&
       group.meals[stat.key]
@@ -3032,10 +2886,10 @@
             stat.key
           ]
         : {
-            reserved: 0,
-            actual: null,
-            actualSet: false,
-            committed: 0
+            reserved:0,
+            actual:null,
+            actualSet:false,
+            committed:0
           };
 
 
@@ -3091,66 +2945,65 @@
 
 
   function renderStaffMealGroups() {
-    $('staffGroupCount')
-      .textContent =
-        staffGroups.length
-          ? `(${staffGroups.length})`
-          : '';
+
+    $('staffGroupCount').textContent =
+      staffGroups.length
+        ? `(${staffGroups.length})`
+        : '';
 
 
     if (!staffGroups.length) {
-      $('staffMealGroups')
-        .innerHTML =
-          '<div class="staff-empty">No staff/guest entries have been entered yet. Add names and reserved quantities on the “Staff & Guest Meals” sheet.</div>';
+
+      $('staffMealGroups').innerHTML =
+        '<div class="staff-empty">No staff/guest entries have been entered yet. Add names and reserved quantities on the “Staff & Guest Meals” sheet.</div>';
 
       return;
     }
 
 
-    $('staffMealGroups')
-      .innerHTML =
-        staffGroups
-          .map(
-            group => {
+    $('staffMealGroups').innerHTML =
+      staffGroups
+        .map(
+          group => {
 
-              const cells =
-                mealStats
-                  .map(
-                    stat =>
-                      staffMealCell(
-                        group,
-                        stat
-                      )
-                  )
-                  .join('');
+            const cells =
+              mealStats
+                .map(
+                  stat =>
+                    staffMealCell(
+                      group,
+                      stat
+                    )
+                )
+                .join('');
 
 
-              return `
-                <article class="staff-group">
+            return `
+              <article class="staff-group">
 
-                  <div class="staff-group-head">
+                <div class="staff-group-head">
 
-                    <div class="staff-group-name">
-                      ${esc(staffName(group, true))}
-                    </div>
-
-                    ${
-                      group.notes
-                        ? `<div class="staff-group-notes">${esc(group.notes)}</div>`
-                        : ''
-                    }
-
+                  <div class="staff-group-name">
+                    ${esc(staffName(group,true))}
                   </div>
 
-                  <div class="staff-meal-grid">
-                    ${cells}
-                  </div>
+                  ${
+                    group.notes
+                      ? `<div class="staff-group-notes">${esc(group.notes)}</div>`
+                      : ''
+                  }
 
-                </article>
-              `;
-            }
-          )
-          .join('');
+                </div>
+
+                <div class="staff-meal-grid">
+                  ${cells}
+                </div>
+
+              </article>
+            `;
+          }
+        )
+        .join('');
   }
 
 
@@ -3160,6 +3013,7 @@
     value,
     input
   ) {
+
     const previous =
       staffGroups.find(
         g =>
@@ -3183,19 +3037,21 @@
 
 
     try {
+
       const result =
         await api(
           'staffMealActual',
           {
-            token: token,
-            row: row,
-            mealKey: key,
-            actual: value
+            token:token,
+            row:row,
+            mealKey:key,
+            actual:value
           }
         );
 
 
       if (!apiOkay(result)) {
+
         throw new Error(
           result.error ||
           'Update failed.'
@@ -3233,6 +3089,7 @@
         input &&
         previousInfo
       ) {
+
         input.value =
           previousInfo.actualSet
             ? String(
@@ -3241,7 +3098,9 @@
             : '';
       }
 
+
       handleFailure(err);
+
 
     } finally {
 
@@ -3254,10 +3113,9 @@
 
       if (
         input &&
-        document.body.contains(
-          input
-        )
+        document.body.contains(input)
       ) {
+
         input.disabled =
           false;
       }
@@ -3266,6 +3124,7 @@
 
 
   function getFilteredPeople() {
+
     const q =
       $('search')
         .value
@@ -3343,6 +3202,7 @@
 
 
   function getFilteredStaff() {
+
     const q =
       $('search')
         .value
@@ -3376,12 +3236,110 @@
   }
 
 
+  /*
+   * Staff entries do not have lodging,
+   * Checked In, or Lodging Assigned fields.
+   *
+   * Therefore they remain in Everyone unless
+   * a registration-only filter is turned on.
+   */
+  function staffCanAppearInEveryone() {
+
+    return (
+      !lodgeOnly &&
+      !uncheckedOnly &&
+      !lodgingUnassignedOnly &&
+      !$('lodgingSelect').value
+    );
+  }
+
+
+  /*
+   * Combine registrations and Staff sheet entries.
+   * Matching names are intentionally NOT removed.
+   */
+  function getEveryoneRows() {
+
+    const registrationRows =
+      getFilteredPeople()
+        .map(
+          person => ({
+            source:'registration',
+
+            sortLast:
+              String(
+                person.lastName || ''
+              ),
+
+            sortFirst:
+              String(
+                person.firstName || ''
+              ),
+
+            data:person
+          })
+        );
+
+
+    const staffRows =
+      staffCanAppearInEveryone()
+        ? getFilteredStaff()
+            .map(
+              group => ({
+                source:'staff',
+
+                sortLast:
+                  String(
+                    group.lastName ||
+                    group.firstName ||
+                    ''
+                  ),
+
+                sortFirst:
+                  String(
+                    group.firstName || ''
+                  ),
+
+                data:group
+              })
+            )
+        : [];
+
+
+    return registrationRows
+      .concat(staffRows)
+      .sort(
+        (a,b) =>
+          a.sortLast.localeCompare(
+            b.sortLast,
+            undefined,
+            {
+              sensitivity:'base'
+            }
+          ) ||
+          a.sortFirst.localeCompare(
+            b.sortFirst,
+            undefined,
+            {
+              sensitivity:'base'
+            }
+          ) ||
+          a.source.localeCompare(
+            b.source
+          )
+      );
+  }
+
+
   function renderRoster() {
 
+    /*
+     * Staff-only view
+     */
     if (
-      categoryFilter ===
-      'staff'
+      categoryFilter === 'staff'
     ) {
+
       const filteredStaff =
         getFilteredStaff();
 
@@ -3411,6 +3369,68 @@
     }
 
 
+    /*
+     * Everyone now means:
+     *
+     * - all normal registrations
+     * - all Staff & Guest Meals entries
+     *
+     * A person on both sheets appears twice.
+     */
+    if (
+      categoryFilter === 'all'
+    ) {
+
+      const rows =
+        getEveryoneRows();
+
+
+      const availableTotal =
+        people.length +
+        (
+          staffCanAppearInEveryone()
+            ? staffGroups.length
+            : 0
+        );
+
+
+      $('count').textContent =
+        `${rows.length} of ${availableTotal}`;
+
+
+      $('empty')
+        .classList.toggle(
+          'hidden',
+          rows.length > 0
+        );
+
+
+      $('empty').textContent =
+        'No entries match this view.';
+
+
+      $('list').innerHTML =
+        rows
+          .map(
+            item =>
+              item.source === 'staff'
+                ? staffCard(
+                    item.data
+                  )
+                : personCard(
+                    item.data
+                  )
+          )
+          .join('');
+
+
+      return;
+    }
+
+
+    /*
+     * Adult / Camper views
+     */
     const filtered =
       getFilteredPeople();
 
@@ -3438,6 +3458,7 @@
 
 
   function staffCard(group) {
+
     const cells =
       mealStats
         .map(
@@ -3458,10 +3479,13 @@
           <div>
 
             <div class="name">
-              ${esc(staffName(group, true))}
+              ${esc(staffName(group,true))}
             </div>
 
-            <div class="badges" style="margin-top:5px">
+            <div
+              class="badges"
+              style="margin-top:5px"
+            >
               <span class="badge staff">
                 STAFF
               </span>
@@ -3476,6 +3500,7 @@
           }
 
         </div>
+
 
         <div class="staff-roster-meals">
 
@@ -3494,6 +3519,7 @@
     person,
     labels
   ) {
+
     const wanted =
       labels.map(
         x =>
@@ -3524,44 +3550,40 @@
 
 
   function printFilterSummary() {
+
     const parts = [];
 
 
     if (
-      categoryFilter ===
-      'staff'
+      categoryFilter === 'staff'
     ) {
+
       parts.push('Staff');
+
 
     } else {
 
       if (
-        categoryFilter ===
-        'adult'
+        categoryFilter === 'adult'
       ) {
         parts.push('Adults');
       }
 
 
       if (
-        categoryFilter ===
-        'camper'
+        categoryFilter === 'camper'
       ) {
         parts.push('Campers');
       }
 
 
       if (lodgeOnly) {
-        parts.push(
-          'Lodge Room'
-        );
+        parts.push('Lodge Room');
       }
 
 
       if (uncheckedOnly) {
-        parts.push(
-          'Not Checked In'
-        );
+        parts.push('Not Checked In');
       }
 
 
@@ -3591,6 +3613,7 @@
 
 
     if (q) {
+
       parts.push(
         `Search: “${q}”`
       );
@@ -3599,16 +3622,20 @@
 
     return parts.length
       ? parts.join(' • ')
-      : 'All registrations';
+      : (
+          categoryFilter === 'all'
+            ? 'Everyone'
+            : 'All registrations'
+        );
   }
 
 
   function printCurrentView() {
 
     if (
-      categoryFilter ===
-      'staff'
+      categoryFilter === 'staff'
     ) {
+
       printStaffCurrentView();
       return;
     }
@@ -3619,6 +3646,7 @@
 
 
     if (!filtered.length) {
+
       showToast(
         'No registrations match the current view.',
         true,
@@ -3714,73 +3742,72 @@
         .join('');
 
 
-    $('printPreviewContent')
-      .innerHTML =
-        `
-          <div class="print-sheet">
+    $('printPreviewContent').innerHTML =
+      `
+        <div class="print-sheet">
 
-            <div class="head">
+          <div class="head">
 
-              <img
-                src="${logoUrl}"
-                alt=""
-              >
+            <img
+              src="${logoUrl}"
+              alt=""
+            >
 
-              <div>
+            <div>
 
-                <h1>
-                  Youth Challenge Registration Roster
-                </h1>
+              <h1>
+                Youth Challenge Registration Roster
+              </h1>
 
-                <div class="meta">
-                  ${esc(printFilterSummary())}
-                </div>
+              <div class="meta">
+                ${esc(printFilterSummary())}
+              </div>
 
-                <div class="meta">
-                  ${filtered.length} registrations • Prepared ${esc(generated)}
-                </div>
-
+              <div class="meta">
+                ${filtered.length} registrations • Prepared ${esc(generated)}
               </div>
 
             </div>
 
-
-            <table>
-
-              <thead>
-                <tr>
-                  <th>Last Name</th>
-                  <th>First Name</th>
-                  <th>Type</th>
-                  <th>Church</th>
-                  <th>Phone</th>
-                  <th>Lodging</th>
-                  <th class="center">
-                    Lodging Assigned
-                  </th>
-                  <th class="center">
-                    Checked In
-                  </th>
-                  <th>
-                    Registered Meals
-                    (✓ = ticket issued)
-                  </th>
-                </tr>
-              </thead>
-
-              <tbody>
-                ${rows}
-              </tbody>
-
-            </table>
-
-
-            <div class="footer">
-              Generated from Youth Challenge Check-In v${CLIENT_VERSION}.
-            </div>
-
           </div>
-        `;
+
+
+          <table>
+
+            <thead>
+              <tr>
+                <th>Last Name</th>
+                <th>First Name</th>
+                <th>Type</th>
+                <th>Church</th>
+                <th>Phone</th>
+                <th>Lodging</th>
+                <th class="center">
+                  Lodging Assigned
+                </th>
+                <th class="center">
+                  Checked In
+                </th>
+                <th>
+                  Registered Meals
+                  (✓ = ticket issued)
+                </th>
+              </tr>
+            </thead>
+
+            <tbody>
+              ${rows}
+            </tbody>
+
+          </table>
+
+
+          <div class="footer">
+            Generated from Youth Challenge Check-In v${CLIENT_VERSION}.
+          </div>
+
+        </div>
+      `;
 
 
     $('printPreviewDialog')
@@ -3789,11 +3816,13 @@
 
 
   function printStaffCurrentView() {
+
     const filtered =
       getFilteredStaff();
 
 
     if (!filtered.length) {
+
       showToast(
         'No staff entries match the current view.',
         true,
@@ -3837,17 +3866,15 @@
 
                     const info =
                       group.meals &&
-                      group.meals[
-                        stat.key
-                      ]
+                      group.meals[stat.key]
                         ? group.meals[
                             stat.key
                           ]
                         : {
-                            reserved: 0,
-                            actual: null,
-                            actualSet: false,
-                            committed: 0
+                            reserved:0,
+                            actual:null,
+                            actualSet:false,
+                            committed:0
                           };
 
 
@@ -3900,62 +3927,61 @@
         .join('');
 
 
-    $('printPreviewContent')
-      .innerHTML =
-        `
-          <div class="print-sheet staff-print">
+    $('printPreviewContent').innerHTML =
+      `
+        <div class="print-sheet staff-print">
 
-            <div class="head">
+          <div class="head">
 
-              <img
-                src="${logoUrl}"
-                alt=""
-              >
+            <img
+              src="${logoUrl}"
+              alt=""
+            >
 
-              <div>
+            <div>
 
-                <h1>
-                  Youth Challenge Staff & Guest Meals
-                </h1>
+              <h1>
+                Youth Challenge Staff & Guest Meals
+              </h1>
 
-                <div class="meta">
-                  ${esc(printFilterSummary())}
-                </div>
+              <div class="meta">
+                ${esc(printFilterSummary())}
+              </div>
 
-                <div class="meta">
-                  ${filtered.length} staff entries • Prepared ${esc(generated)}
-                </div>
-
+              <div class="meta">
+                ${filtered.length} staff entries • Prepared ${esc(generated)}
               </div>
 
             </div>
 
-
-            <table>
-
-              <thead>
-                <tr>
-                  <th>Last Name</th>
-                  <th>First Name</th>
-                  ${mealHeaders}
-                  <th>Notes</th>
-                </tr>
-              </thead>
-
-              <tbody>
-                ${rows}
-              </tbody>
-
-            </table>
-
-
-            <div class="footer">
-              Blank Actual means the Reserved quantity is still being counted.
-              Generated from Youth Challenge Check-In v${CLIENT_VERSION}.
-            </div>
-
           </div>
-        `;
+
+
+          <table>
+
+            <thead>
+              <tr>
+                <th>Last Name</th>
+                <th>First Name</th>
+                ${mealHeaders}
+                <th>Notes</th>
+              </tr>
+            </thead>
+
+            <tbody>
+              ${rows}
+            </tbody>
+
+          </table>
+
+
+          <div class="footer">
+            Blank Actual means the Reserved quantity is still being counted.
+            Generated from Youth Challenge Check-In v${CLIENT_VERSION}.
+          </div>
+
+        </div>
+      `;
 
 
     $('printPreviewDialog')
@@ -3964,8 +3990,10 @@
 
 
   function closePrintPreview() {
+
     const dialog =
       $('printPreviewDialog');
+
 
     if (dialog.open) {
       dialog.close();
@@ -3974,17 +4002,21 @@
 
 
   function personCard(p) {
+
     const badges =
       `
         <div class="badges">
+
           <span class="badge ${p.category.toLowerCase()}">
             ${esc(p.category)}
           </span>
+
           ${
             p.lodgeFlag
               ? '<span class="badge lodge">LODGE</span>'
               : ''
           }
+
         </div>
       `;
 
@@ -4104,6 +4136,7 @@
     row,
     checked
   ) {
+
     const p =
       people.find(
         x =>
@@ -4131,12 +4164,13 @@
 
 
     try {
+
       const result =
         await api(
           'checkin',
           {
-            token: token,
-            row: row,
+            token:token,
+            row:row,
             checked:
               checked ? 1 : 0
           }
@@ -4144,6 +4178,7 @@
 
 
       if (!apiOkay(result)) {
+
         throw new Error(
           result.error ||
           'Update failed.'
@@ -4164,6 +4199,7 @@
     } catch (err) {
 
       if (p) {
+
         p.checkedIn =
           !checked;
       }
@@ -4175,6 +4211,7 @@
       if (
         currentPersonRow === row
       ) {
+
         renderDetails(row);
       }
 
@@ -4197,6 +4234,7 @@
     row,
     checked
   ) {
+
     const p =
       people.find(
         x =>
@@ -4205,6 +4243,7 @@
 
 
     if (p) {
+
       p.lodgingAssigned =
         checked;
     }
@@ -4216,6 +4255,7 @@
     if (
       currentPersonRow === row
     ) {
+
       renderDetails(row);
     }
 
@@ -4224,12 +4264,13 @@
 
 
     try {
+
       const result =
         await api(
           'lodgingAssigned',
           {
-            token: token,
-            row: row,
+            token:token,
+            row:row,
             checked:
               checked ? 1 : 0
           }
@@ -4237,6 +4278,7 @@
 
 
       if (!apiOkay(result)) {
+
         throw new Error(
           result.error ||
           'Update failed.'
@@ -4257,6 +4299,7 @@
     } catch (err) {
 
       if (p) {
+
         p.lodgingAssigned =
           !checked;
       }
@@ -4268,6 +4311,7 @@
       if (
         currentPersonRow === row
       ) {
+
         renderDetails(row);
       }
 
@@ -4291,6 +4335,7 @@
     key,
     checked
   ) {
+
     const p =
       people.find(
         x =>
@@ -4307,12 +4352,14 @@
 
 
     if (entry) {
+
       entry.issued =
         checked;
     }
 
 
     if (p) {
+
       p.mealTickets[key] =
         checked;
     }
@@ -4324,6 +4371,7 @@
     if (
       currentPersonRow === row
     ) {
+
       renderDetails(row);
     }
 
@@ -4332,13 +4380,14 @@
 
 
     try {
+
       const result =
         await api(
           'mealTicket',
           {
-            token: token,
-            row: row,
-            mealKey: key,
+            token:token,
+            row:row,
+            mealKey:key,
             checked:
               checked ? 1 : 0
           }
@@ -4346,6 +4395,7 @@
 
 
       if (!apiOkay(result)) {
+
         throw new Error(
           result.error ||
           'Update failed.'
@@ -4373,12 +4423,14 @@
     } catch (err) {
 
       if (entry) {
+
         entry.issued =
           !checked;
       }
 
 
       if (p) {
+
         p.mealTickets[key] =
           !checked;
       }
@@ -4390,6 +4442,7 @@
       if (
         currentPersonRow === row
       ) {
+
         renderDetails(row);
       }
 
@@ -4412,17 +4465,19 @@
     key,
     delta
   ) {
+
     pendingWrites++;
 
 
     try {
+
       const result =
         await api(
           'extraMeal',
           {
-            token: token,
-            mealKey: key,
-            delta: delta
+            token:token,
+            mealKey:key,
+            delta:delta
           }
         );
 
@@ -4453,6 +4508,7 @@
 
       handleFailure(err);
 
+
     } finally {
 
       pendingWrites =
@@ -4465,10 +4521,13 @@
 
 
   function openDetails(row) {
+
     currentPersonRow =
       row;
 
+
     renderDetails(row);
+
 
     $('detailDialog')
       .showModal();
@@ -4476,6 +4535,7 @@
 
 
   function renderDetails(row) {
+
     const p =
       people.find(
         x =>
@@ -4488,28 +4548,26 @@
     }
 
 
-    $('modalName')
-      .textContent =
-        p.displayName;
+    $('modalName').textContent =
+      p.displayName;
 
 
-    $('modalBadges')
-      .innerHTML =
-        `
-          <span class="badge ${p.category.toLowerCase()}">
-            ${esc(p.category)}
-          </span>
+    $('modalBadges').innerHTML =
+      `
+        <span class="badge ${p.category.toLowerCase()}">
+          ${esc(p.category)}
+        </span>
 
-          ${
-            p.lodgeFlag
-              ? '<span class="badge lodge">LODGE ROOM</span>'
-              : ''
-          }
+        ${
+          p.lodgeFlag
+            ? '<span class="badge lodge">LODGE ROOM</span>'
+            : ''
+        }
 
-          <span class="badge">
-            ${esc(p.lodging)}
-          </span>
-        `;
+        <span class="badge">
+          ${esc(p.lodging)}
+        </span>
+      `;
 
 
     const checkCard =
@@ -4579,33 +4637,31 @@
         : '<div class="status-card"><span class="meal-none">No meals registered</span></div>';
 
 
-    $('modalStatus')
-      .innerHTML =
-        checkCard +
-        lodgingCard +
-        mealCards;
+    $('modalStatus').innerHTML =
+      checkCard +
+      lodgingCard +
+      mealCards;
 
 
-    $('modalDetails')
-      .innerHTML =
-        p.details
-          .map(
-            d =>
-              `
-                <div class="detail">
+    $('modalDetails').innerHTML =
+      p.details
+        .map(
+          d =>
+            `
+              <div class="detail">
 
-                  <div class="detail-label">
-                    ${esc(d.label)}
-                  </div>
-
-                  <div class="detail-value">
-                    ${linkify(esc(d.value))}
-                  </div>
-
+                <div class="detail-label">
+                  ${esc(d.label)}
                 </div>
-              `
-          )
-          .join('');
+
+                <div class="detail-value">
+                  ${linkify(esc(d.value))}
+                </div>
+
+              </div>
+            `
+        )
+        .join('');
   }
 
 
@@ -4613,6 +4669,7 @@
     .addEventListener(
       'close',
       () => {
+
         currentPersonRow =
           null;
       }
@@ -4620,6 +4677,7 @@
 
 
   function handleFailure(err) {
+
     const msg =
       messageOf(err);
 
@@ -4629,23 +4687,28 @@
         'SESSION_EXPIRED'
       )
     ) {
+
       sessionStorage.removeItem(
         'yc_checkin_token'
       );
 
+
       token = '';
+
 
       $('appView')
         .classList
         .add('hidden');
 
+
       $('loginView')
         .classList
         .remove('hidden');
 
-      $('loginError')
-        .textContent =
-          'Your session expired. Enter the passcode again.';
+
+      $('loginError').textContent =
+        'Your session expired. Enter the passcode again.';
+
 
       return;
     }
@@ -4660,6 +4723,7 @@
 
 
   function messageOf(err) {
+
     return (
       err &&
       err.message
@@ -4676,6 +4740,7 @@
     isError,
     duration = 2200
   ) {
+
     const t =
       $('toast');
 
@@ -4712,23 +4777,25 @@
 
 
   function esc(s) {
+
     return String(
       s ?? ''
     ).replace(
       /[&<>"']/g,
       c =>
         ({
-          '&': '&amp;',
-          '<': '&lt;',
-          '>': '&gt;',
-          '"': '&quot;',
-          "'": '&#039;'
+          '&':'&amp;',
+          '<':'&lt;',
+          '>':'&gt;',
+          '"':'&quot;',
+          "'":'&#039;'
         })[c]
     );
   }
 
 
   function escAttr(s) {
+
     return esc(s)
       .replace(
         /`/g,
@@ -4738,6 +4805,7 @@
 
 
   function linkify(s) {
+
     return s
       .replace(
         /\b([\w.+-]+@[\w.-]+\.[A-Za-z]{2,})\b/g,
