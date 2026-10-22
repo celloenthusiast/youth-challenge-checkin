@@ -4,3210 +4,640 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <meta name="theme-color" content="#0b609d">
-
-  <meta name="yc-app-version" content="2.0.10">
-
+  <meta name="yc-app-version" content="2.0.12">
   <meta http-equiv="Cache-Control" content="no-store, no-cache, must-revalidate, max-age=0">
   <meta http-equiv="Pragma" content="no-cache">
   <meta http-equiv="Expires" content="0">
-
   <title>Youth Challenge Check-In</title>
-
   <link rel="icon" href="./favicon.ico" sizes="any">
   <link rel="icon" type="image/png" sizes="32x32" href="./favicon-32.png">
   <link rel="apple-touch-icon" href="./apple-touch-icon.png">
   <link rel="manifest" href="./manifest.webmanifest">
-
   <style>
     :root{
-      --bg:#f4f6f8;
-      --card:#fff;
-      --text:#17202a;
-      --muted:#667085;
-      --border:#dfe4ea;
-      --accent:#0b609d;
-      --accent2:#e8f2f9;
-      --success:#1f7a4f;
-      --danger:#a13d2d;
-      --warning:#9a6700;
-      --lodge:#7b2cbf;
-      --orange:#ff6726;
-      --shadow:0 2px 12px rgba(16,24,40,.08);
-      --radius:16px;
-    }
-
-    *{
-      box-sizing:border-box;
-    }
-
-    html,
-    body{
-      margin:0;
-      min-height:100%;
-      font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
-      color:var(--text);
-      background:var(--bg);
-    }
-
-    button,
-    input,
-    select{
-      font:inherit;
-    }
-
-    button{
-      cursor:pointer;
-    }
-
-    button:disabled,
-    select:disabled{
-      opacity:.45;
-      cursor:not-allowed;
-    }
-
-    .hidden{
-      display:none!important;
-    }
-
-    .login-wrap{
-      min-height:100vh;
-      display:grid;
-      place-items:center;
-      padding:24px;
-    }
-
-    .login-card{
-      width:min(420px,100%);
-      background:var(--card);
-      border:1px solid var(--border);
-      border-radius:22px;
-      padding:28px;
-      box-shadow:var(--shadow);
-    }
-
-    .login-logo{
-      display:block;
-      width:180px;
-      max-width:60%;
-      height:auto;
-      margin:0 auto 16px;
-    }
-
-    .login-card h1{
-      font-size:1.55rem;
-      margin:0 0 8px;
-      text-align:center;
-    }
-
-    .login-card p{
-      color:var(--muted);
-      margin:0 0 20px;
-      text-align:center;
-    }
-
-    .pin{
-      width:100%;
-      padding:14px 16px;
-      border:1px solid var(--border);
-      border-radius:12px;
-      font-size:1.25rem;
-      letter-spacing:.16em;
-      text-align:center;
-    }
-
-    .primary{
-      width:100%;
-      border:0;
-      background:var(--accent);
-      color:#fff;
-      padding:13px 16px;
-      border-radius:12px;
-      font-weight:700;
-      margin-top:12px;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      gap:9px;
-      min-height:48px;
-    }
-
-    .primary:disabled{
-      opacity:.78;
-      cursor:wait;
-    }
-
-    .login-spinner{
-      width:18px;
-      height:18px;
-      border:2px solid rgba(255,255,255,.45);
-      border-top-color:#fff;
-      border-radius:50%;
-      animation:login-spin .75s linear infinite;
-      flex:none;
-    }
-
-    @keyframes login-spin{
-      to{
-        transform:rotate(360deg);
-      }
-    }
-
-    .error{
-      color:var(--danger);
-      min-height:1.3em;
-      margin-top:10px;
-      font-size:.92rem;
-      text-align:center;
-    }
-
-    .version-label{
-      margin-top:12px;
-      text-align:center;
-      font-size:.7rem;
-      color:#98a2b3;
-    }
-
-    .config-error{
-      background:#fff3f0;
-      border:1px solid #efc5bb;
-      color:#7c2d20;
-      padding:12px;
-      border-radius:10px;
-      margin:12px 0;
-      font-size:.85rem;
-    }
-
-    header{
-      position:sticky;
-      top:0;
-      z-index:10;
-      background:rgba(244,246,248,.96);
-      backdrop-filter:blur(12px);
-      border-bottom:1px solid var(--border);
-    }
-
-    .topbar{
-      max-width:1200px;
-      margin:auto;
-      padding:14px 18px 12px;
-    }
-
-    .title-row{
-      display:flex;
-      gap:12px;
-      align-items:center;
-      justify-content:space-between;
-      margin-bottom:10px;
-    }
-
-    .brand-title{
-      display:flex;
-      align-items:center;
-      gap:9px;
-      min-width:0;
-    }
-
-    .brand-mark{
-      width:34px;
-      height:34px;
-      object-fit:contain;
-      flex:none;
-    }
-
-    .title-row h1{
-      font-size:1.25rem;
-      margin:0;
-      white-space:nowrap;
-      overflow:hidden;
-      text-overflow:ellipsis;
-    }
-
-    .title-meta{
-      display:flex;
-      align-items:center;
-      gap:10px;
-    }
-
-    .count{
-      font-size:.9rem;
-      color:var(--muted);
-    }
-
-    .header-version{
-      font-size:.7rem;
-      color:#98a2b3;
-      white-space:nowrap;
-    }
-
-    .search{
-      width:100%;
-      border:1px solid var(--border);
-      background:#fff;
-      border-radius:13px;
-      padding:12px 14px;
-      outline:none;
-    }
-
-    .search:focus{
-      border-color:var(--accent);
-      box-shadow:0 0 0 3px rgba(11,96,157,.12);
-    }
-
-    .filters{
-      display:flex;
-      gap:8px;
-      overflow-x:auto;
-      padding:10px 0 2px;
-      scrollbar-width:none;
-    }
-
-    .filters::-webkit-scrollbar{
-      display:none;
-    }
-
-    .chip{
-      white-space:nowrap;
-      border:1px solid var(--border);
-      background:#fff;
-      border-radius:999px;
-      padding:8px 11px;
-      color:#344054;
-      font-size:.9rem;
-    }
-
-    .chip.active{
-      background:var(--accent);
-      color:#fff;
-      border-color:var(--accent);
-    }
-
-    .chip.lodge.active{
-      background:var(--lodge);
-      border-color:var(--lodge);
-    }
-
-    .filter-select{
-      border:1px solid var(--border);
-      background:#fff;
-      border-radius:999px;
-      padding:7px 30px 7px 11px;
-      color:#344054;
-    }
-
-    .print-chip{
-      border-color:#b7c9d6;
-      background:#eef6fb;
-      color:#174f73;
-      font-weight:750;
-    }
-
-    main{
-      max-width:1200px;
-      margin:auto;
-      padding:16px 18px 90px;
-    }
-
-    .meal-panel{
-      margin:0 0 18px;
-      background:#fff;
-      border:1px solid var(--border);
-      border-radius:14px;
-      box-shadow:0 1px 4px rgba(16,24,40,.04);
-      overflow:hidden;
-    }
-
-    .meal-panel>summary{
-      list-style:none;
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap:12px;
-      padding:12px 14px;
-      cursor:pointer;
-      font-size:1rem;
-      font-weight:800;
-      user-select:none;
-    }
-
-    .meal-panel>summary::-webkit-details-marker{
-      display:none;
-    }
-
-    .meal-panel>summary::after{
-      content:'▾';
-      font-size:1rem;
-      color:var(--muted);
-      transition:transform .18s ease;
-    }
-
-    .meal-panel[open]>summary::after{
-      transform:rotate(180deg);
-    }
-
-    .meal-panel[open]>summary{
-      border-bottom:1px solid var(--border);
-    }
-
-    .meal-panel-body{
-      padding:12px;
-    }
-
-    .meal-dashboard{
-      display:grid;
-      grid-template-columns:repeat(4,minmax(0,1fr));
-      gap:10px;
-    }
-
-    .meal-summary{
-      background:#fff;
-      border:1px solid var(--border);
-      border-radius:14px;
-      padding:12px;
-      box-shadow:0 1px 4px rgba(16,24,40,.04);
-    }
-
-    .meal-summary.over{
-      border-color:#e4b5ad;
-      background:#fff8f7;
-    }
-
-    .meal-summary h3{
-      font-size:.9rem;
-      margin:0 0 10px;
-    }
-
-    .summary-grid{
-      display:grid;
-      grid-template-columns:repeat(2,minmax(0,1fr));
-      gap:8px;
-    }
-
-    .stat{
-      background:#f8fafb;
-      border-radius:9px;
-      padding:7px 8px;
-    }
-
-    .stat-label{
-      font-size:.66rem;
-      text-transform:uppercase;
-      letter-spacing:.04em;
-      color:var(--muted);
-    }
-
-    .stat-value{
-      font-size:1.08rem;
-      font-weight:800;
-      margin-top:1px;
-    }
-
-    .stat.total{
-      grid-column:1/-1;
-      background:#eef6fb;
-    }
-
-    .stat.extras{
-      grid-column:1/-1;
-    }
-
-    .stat.extras.good .stat-value{
-      color:var(--success);
-    }
-
-    .stat.extras.bad .stat-value{
-      color:var(--danger);
-    }
-
-    .extra-actions{
-      display:flex;
-      gap:6px;
-      margin-top:9px;
-    }
-
-    .small-btn{
-      flex:1;
-      border:1px solid var(--border);
-      background:#fff;
-      border-radius:9px;
-      padding:7px 8px;
-      font-size:.76rem;
-      font-weight:750;
-      color:#344054;
-    }
-
-    .small-btn.add{
-      background:var(--accent2);
-      border-color:#c6dbe3;
-      color:#24556b;
-    }
-
-    .small-btn:disabled{
-      opacity:.4;
-      cursor:not-allowed;
-    }
-
-    .staff-meals-panel{
-      margin-top:12px;
-      border:1px solid var(--border);
-      border-radius:12px;
-      background:#fafbfc;
-      overflow:hidden;
-    }
-
-    .staff-meals-panel>summary{
-      list-style:none;
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap:10px;
-      padding:10px 12px;
-      cursor:pointer;
-      font-size:.88rem;
-      font-weight:800;
-      user-select:none;
-    }
-
-    .staff-meals-panel>summary::-webkit-details-marker{
-      display:none;
-    }
-
-    .staff-meals-panel>summary::after{
-      content:'▾';
-      color:var(--muted);
-      transition:transform .18s ease;
-    }
-
-    .staff-meals-panel[open]>summary::after{
-      transform:rotate(180deg);
-    }
-
-    .staff-meals-panel[open]>summary{
-      border-bottom:1px solid var(--border);
-    }
-
-    .staff-meals-body{
-      padding:10px;
-    }
-
-    .staff-meals-help{
-      font-size:.75rem;
-      color:var(--muted);
-      margin:0 0 10px;
-    }
-
-    .staff-groups{
-      display:grid;
-      gap:8px;
-    }
-
-    .staff-group{
-      border:1px solid var(--border);
-      border-radius:10px;
-      background:#fff;
-      padding:10px;
-    }
-
-    .staff-group-head{
-      display:flex;
-      justify-content:space-between;
-      gap:10px;
-      align-items:flex-start;
-      margin-bottom:8px;
-    }
-
-    .staff-group-name{
-      font-weight:800;
-    }
-
-    .staff-group-notes{
-      font-size:.72rem;
-      color:var(--muted);
-      text-align:right;
-      max-width:48%;
-    }
-
-    .staff-meal-grid{
-      display:grid;
-      grid-template-columns:repeat(4,minmax(0,1fr));
-      gap:7px;
-    }
-
-    .staff-meal-cell{
-      border:1px solid #e4e8ed;
-      border-radius:9px;
-      padding:8px;
-      background:#fafbfc;
-    }
-
-    .staff-meal-label{
-      font-size:.7rem;
-      font-weight:800;
-      margin-bottom:5px;
-    }
-
-    .staff-meal-meta{
-      font-size:.68rem;
-      color:var(--muted);
-      margin-bottom:5px;
-    }
-
-    .staff-actual-row{
-      display:flex;
-      align-items:center;
-      gap:6px;
-    }
-
-    .staff-actual-row label{
-      font-size:.68rem;
-      color:#475467;
-    }
-
-    .staff-actual-input{
-      width:62px;
-      min-width:0;
-      border:1px solid #cbd5dc;
-      border-radius:7px;
-      padding:6px 7px;
-      text-align:center;
-      background:#fff;
-    }
-
-    .staff-actual-input:focus{
-      outline:none;
-      border-color:var(--accent);
-      box-shadow:0 0 0 2px rgba(11,96,157,.1);
-    }
-
-    .staff-actual-input:disabled{
-      opacity:.6;
-      background:#f2f4f7;
-    }
-
-    .staff-empty{
-      font-size:.82rem;
-      color:var(--muted);
-      padding:8px 2px;
-    }
-
-    .staff-committed{
-      font-size:.67rem;
-      color:var(--success);
-      margin-top:4px;
-      font-weight:700;
-    }
-
-    .list{
-      display:grid;
-      gap:10px;
-    }
-
-    .person{
-      background:var(--card);
-      border:1px solid var(--border);
-      border-radius:var(--radius);
-      box-shadow:0 1px 4px rgba(16,24,40,.04);
-      overflow:hidden;
-    }
-
-    .person.lodge-person{
-      border-left:6px solid var(--lodge);
-    }
-
-    .person-main{
-      display:grid;
-      grid-template-columns:minmax(180px,1.4fr) minmax(110px,.6fr) minmax(300px,1.6fr) auto;
-      gap:12px;
-      align-items:center;
-      padding:14px;
-    }
-
-    .name{
-      font-size:1.05rem;
-      font-weight:800;
-    }
-
-    .sub{
-      font-size:.86rem;
-      color:var(--muted);
-      margin-top:2px;
-    }
-
-    .badges{
-      display:flex;
-      gap:6px;
-      flex-wrap:wrap;
-    }
-
-    .badge{
-      display:inline-flex;
-      align-items:center;
-      border-radius:999px;
-      padding:4px 8px;
-      background:#eef2f6;
-      font-size:.76rem;
-      font-weight:700;
-      color:#475467;
-    }
-
-    .badge.adult{
-      background:#e8f1f5;
-      color:#24556b;
-    }
-
-    .badge.camper{
-      background:#eef6eb;
-      color:#416b34;
-    }
-
-    .badge.lodge{
-      background:#f0e5fb;
-      color:#6f249f;
-    }
-
-    .badge.staff{
-      background:#fff1e8;
-      color:#8a461f;
-    }
-
-    .meal-tickets{
-      display:flex;
-      gap:6px;
-      flex-wrap:wrap;
-    }
-
-    .ticket-label{
-      display:inline-flex;
-      align-items:center;
-      gap:6px;
-      border:1px solid #cbd5dc;
-      border-radius:9px;
-      padding:6px 8px;
-      background:#fff;
-      font-size:.74rem;
-      font-weight:700;
-    }
-
-    .ticket-label.issued{
-      background:#e9f7ef;
-      border-color:#b8dfc8;
-      color:#236442;
-    }
-
-    .ticket-label input{
-      width:17px;
-      height:17px;
-      margin:0;
-      accent-color:var(--success);
-    }
-
-    .meal-none{
-      color:var(--muted);
-      font-size:.82rem;
-      font-style:italic;
-    }
-
-    .check-stack{
-      display:grid;
-      gap:8px;
-    }
-
-    .check-wrap{
-      display:flex;
-      align-items:center;
-      gap:8px;
-      font-weight:700;
-      white-space:nowrap;
-    }
-
-    .check-wrap input{
-      width:22px;
-      height:22px;
-      accent-color:var(--success);
-    }
-
-    .person-actions{
-      display:flex;
-      justify-content:flex-end;
-      padding:0 14px 13px;
-    }
-
-    .details-btn{
-      border:0;
-      background:transparent;
-      color:var(--accent);
-      font-weight:700;
-      padding:5px 0;
-    }
-
-    .empty{
-      text-align:center;
-      color:var(--muted);
-      padding:46px 16px;
-    }
-
-    .staff-roster-head{
-      display:flex;
-      justify-content:space-between;
-      align-items:flex-start;
-      gap:14px;
-      padding:14px 14px 10px;
-    }
-
-    .staff-roster-notes{
-      color:var(--muted);
-      font-size:.8rem;
-      text-align:right;
-      max-width:45%;
-    }
-
-    .staff-roster-meals{
-      padding:0 14px 14px;
-    }
-
-    dialog{
-      width:min(760px,calc(100% - 24px));
-      max-height:90vh;
-      border:0;
-      border-radius:20px;
-      padding:0;
-      box-shadow:0 24px 80px rgba(16,24,40,.3);
-    }
-
-    dialog::backdrop{
-      background:rgba(15,23,42,.48);
-    }
-
-    .modal-head{
-      position:sticky;
-      top:0;
-      background:#fff;
-      border-bottom:1px solid var(--border);
-      padding:18px;
-      display:flex;
-      justify-content:space-between;
-      gap:12px;
-      align-items:flex-start;
-      z-index:2;
-    }
-
-    .modal-head h2{
-      font-size:1.25rem;
-      margin:0 0 6px;
-    }
-
-    .close{
-      border:0;
-      background:#eef2f6;
-      width:36px;
-      height:36px;
-      border-radius:50%;
-      font-size:1.25rem;
-    }
-
-    .modal-body{
-      padding:18px;
-      background:#fff;
-    }
-
-    .section{
-      margin-bottom:22px;
-    }
-
-    .section h3{
-      font-size:.88rem;
-      text-transform:uppercase;
-      letter-spacing:.05em;
-      color:var(--muted);
-      margin:0 0 10px;
-    }
-
-    .status-grid{
-      display:grid;
-      grid-template-columns:repeat(2,minmax(0,1fr));
-      gap:10px;
-    }
-
-    .status-card{
-      border:1px solid var(--border);
-      border-radius:12px;
-      padding:12px;
-      background:#fafbfc;
-    }
-
-    .status-card label{
-      display:flex;
-      align-items:center;
-      gap:9px;
-      font-weight:700;
-    }
-
-    .status-card input{
-      width:22px;
-      height:22px;
-      accent-color:var(--success);
-    }
-
-    .detail-grid{
-      display:grid;
-      grid-template-columns:repeat(2,minmax(0,1fr));
-      gap:10px 18px;
-    }
-
-    .detail{
-      border-bottom:1px solid #edf0f2;
-      padding:0 0 9px;
-    }
-
-    .detail-label{
-      font-size:.76rem;
-      color:var(--muted);
-      margin-bottom:3px;
-    }
-
-    .detail-value{
-      font-size:.94rem;
-      word-break:break-word;
-      white-space:pre-wrap;
-    }
-
-    .toast{
-      position:fixed;
-      left:50%;
-      bottom:20px;
-      transform:translateX(-50%);
-      background:#17202a;
-      color:#fff;
-      padding:10px 14px;
-      border-radius:10px;
-      z-index:50;
-      box-shadow:var(--shadow);
-      font-size:.9rem;
-      max-width:calc(100% - 28px);
-      text-align:center;
-    }
-
-    .print-preview-dialog{
-      width:min(1100px,calc(100% - 18px));
-      max-height:94vh;
-      border:0;
-      border-radius:16px;
-      padding:0;
-      box-shadow:0 24px 80px rgba(16,24,40,.3);
-    }
-
-    .print-preview-toolbar{
-      position:sticky;
-      top:0;
-      z-index:3;
-      display:flex;
-      justify-content:space-between;
-      align-items:center;
-      gap:10px;
-      padding:12px 14px;
-      background:#fff;
-      border-bottom:1px solid var(--border);
-    }
-
-    .print-preview-toolbar h2{
-      margin:0;
-      font-size:1rem;
-    }
-
-    .print-preview-actions{
-      display:flex;
-      gap:8px;
-      flex-wrap:wrap;
-    }
-
-    .preview-btn{
-      border:1px solid var(--border);
-      background:#fff;
-      color:#344054;
-      border-radius:10px;
-      padding:9px 12px;
-      font-weight:750;
-    }
-
-    .preview-btn.primary-action{
-      background:var(--accent);
-      border-color:var(--accent);
-      color:#fff;
-    }
-
-    .print-preview-content{
-      padding:14px;
-      background:#fff;
-      overflow:auto;
-    }
-
-    .print-sheet{
-      font-family:Arial,Helvetica,sans-serif;
-      color:#17202a;
-      font-size:9pt;
-    }
-
-    .print-sheet .head{
-      display:flex;
-      align-items:center;
-      gap:12px;
-      border-bottom:2px solid #0b609d;
-      padding-bottom:8px;
-      margin-bottom:9px;
-    }
-
-    .print-sheet .head img{
-      width:72px;
-      height:52px;
-      object-fit:contain;
-    }
-
-    .print-sheet h1{
-      font-size:17pt;
-      margin:0 0 2px;
-    }
-
-    .print-sheet .meta{
-      font-size:8pt;
-      color:#5c6670;
-    }
-
-    .print-sheet table{
-      width:100%;
-      border-collapse:collapse;
-      table-layout:fixed;
-    }
-
-    .print-sheet thead{
-      display:table-header-group;
-    }
-
-    .print-sheet tr{
-      break-inside:avoid;
-      page-break-inside:avoid;
-    }
-
-    .print-sheet th,
-    .print-sheet td{
-      border:1px solid #9aa5ae;
-      padding:4px 5px;
-      vertical-align:top;
-      overflow-wrap:anywhere;
-    }
-
-    .print-sheet th{
-      background:#e8f2f9;
-      font-size:7.5pt;
-      text-transform:uppercase;
-      letter-spacing:.02em;
-      text-align:left;
-    }
-
-    .print-sheet td.name{
-      font-weight:700;
-    }
-
-    .print-sheet td.center,
-    .print-sheet th.center{
-      text-align:center;
-    }
-
-    .print-sheet:not(.staff-print) th:nth-child(1){width:10%}
-    .print-sheet:not(.staff-print) th:nth-child(2){width:9%}
-    .print-sheet:not(.staff-print) th:nth-child(3){width:7%}
-    .print-sheet:not(.staff-print) th:nth-child(4){width:15%}
-    .print-sheet:not(.staff-print) th:nth-child(5){width:10%}
-    .print-sheet:not(.staff-print) th:nth-child(6){width:11%}
-    .print-sheet:not(.staff-print) th:nth-child(7){width:7%}
-    .print-sheet:not(.staff-print) th:nth-child(8){width:7%}
-    .print-sheet:not(.staff-print) th:nth-child(9){width:24%}
-
-    .print-sheet .footer{
-      margin-top:7px;
-      font-size:7.5pt;
-      color:#667085;
-    }
-
-    @media print{
-      body>*:not(#printPreviewDialog){
-        display:none!important;
-      }
-
-      #printPreviewDialog{
-        display:block!important;
-        position:static!important;
-        width:auto!important;
-        max-width:none!important;
-        max-height:none!important;
-        margin:0!important;
-        padding:0!important;
-        border:0!important;
-        box-shadow:none!important;
-      }
-
-      .print-preview-toolbar{
-        display:none!important;
-      }
-
-      .print-preview-content{
-        padding:0!important;
-        overflow:visible!important;
-      }
-
-      .print-sheet{
-        font-size:9pt!important;
-      }
-
-      @page{
-        size:landscape;
-        margin:.35in;
-      }
-    }
-
-    @media(max-width:980px){
-      .meal-dashboard{
-        grid-template-columns:repeat(2,minmax(0,1fr));
-      }
-
-      .staff-meal-grid{
-        grid-template-columns:repeat(2,minmax(0,1fr));
-      }
-
-      .person-main{
-        grid-template-columns:minmax(170px,1.2fr) minmax(260px,1.5fr) auto;
-      }
-
-      .category-cell{
-        display:none;
-      }
-    }
-
-    @media(max-width:700px){
-      .topbar,
-      main{
-        padding-left:12px;
-        padding-right:12px;
-      }
-
-      .meal-panel>summary{
-        padding:11px 12px;
-      }
-
-      .meal-panel-body{
-        padding:10px;
-      }
-
-      .person-main{
-        grid-template-columns:1fr auto;
-        gap:10px;
-      }
-
-      .meals-cell{
-        grid-column:1/-1;
-      }
-
-      .check-cell{
-        grid-row:1/2;
-        grid-column:2/3;
-        align-self:center;
-      }
-
-      .status-grid,
-      .detail-grid{
-        grid-template-columns:1fr;
-      }
-
-      .brand-mark{
-        width:30px;
-        height:30px;
-      }
-    }
-
-    @media(max-width:470px){
-      .meal-dashboard{
-        grid-template-columns:1fr;
-      }
-
-      .staff-meal-grid{
-        grid-template-columns:1fr;
-      }
-
-      .staff-group-head,
-      .staff-roster-head{
-        display:block;
-      }
-
-      .staff-group-notes,
-      .staff-roster-notes{
-        text-align:left;
-        max-width:none;
-        margin-top:5px;
-      }
-
-      .title-row h1{
-        font-size:1.05rem;
-      }
-
-      .count{
-        font-size:.8rem;
-      }
-
-      .header-version{
-        display:none;
-      }
-
-      .person-main{
-        padding:12px;
-      }
-
-      .name{
-        font-size:1rem;
-      }
-
-      .check-wrap{
-        font-size:.78rem;
-        white-space:normal;
-      }
-
-      .check-wrap input{
-        width:20px;
-        height:20px;
-      }
-
-      .ticket-label{
-        font-size:.72rem;
-      }
-
-      .login-logo{
-        width:160px;
-      }
-    }
+      --bg:#f4f6f8;--card:#fff;--text:#17202a;--muted:#667085;--border:#dfe4ea;
+      --accent:#0b609d;--accent2:#e8f2f9;--success:#1f7a4f;--danger:#a13d2d;
+      --warning:#9a6700;--lodge:#7b2cbf;--orange:#ff6726;--shadow:0 2px 12px rgba(16,24,40,.08);--radius:16px;
+    }
+    *{box-sizing:border-box}
+    html,body{margin:0;min-height:100%;font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;color:var(--text);background:var(--bg)}
+    button,input,select{font:inherit}button{cursor:pointer}.hidden{display:none!important}
+
+    .login-wrap{min-height:100vh;display:grid;place-items:center;padding:24px}
+    .login-card{width:min(420px,100%);background:var(--card);border:1px solid var(--border);border-radius:22px;padding:28px;box-shadow:var(--shadow)}
+    .login-logo{display:block;width:180px;max-width:60%;height:auto;margin:0 auto 16px}
+    .login-card h1{font-size:1.55rem;margin:0 0 8px;text-align:center}.login-card p{color:var(--muted);margin:0 0 20px;text-align:center}
+    .pin{width:100%;padding:14px 16px;border:1px solid var(--border);border-radius:12px;font-size:1.25rem;letter-spacing:.16em;text-align:center}
+    .primary{width:100%;border:0;background:var(--accent);color:#fff;padding:13px 16px;border-radius:12px;font-weight:700;margin-top:12px;display:flex;align-items:center;justify-content:center;gap:9px;min-height:48px}
+    .primary:disabled{opacity:.78;cursor:wait}
+    .login-spinner{width:18px;height:18px;border:2px solid rgba(255,255,255,.45);border-top-color:#fff;border-radius:50%;animation:login-spin .75s linear infinite;flex:none}
+    @keyframes login-spin{to{transform:rotate(360deg)}}
+    .error{color:var(--danger);min-height:1.3em;margin-top:10px;font-size:.92rem;text-align:center}
+    .version-label{margin-top:12px;text-align:center;font-size:.7rem;color:#98a2b3}
+    .config-error{background:#fff3f0;border:1px solid #efc5bb;color:#7c2d20;padding:12px;border-radius:10px;margin:12px 0;font-size:.85rem}
+
+    header{position:sticky;top:0;z-index:10;background:rgba(244,246,248,.96);backdrop-filter:blur(12px);border-bottom:1px solid var(--border)}
+    .topbar{max-width:1200px;margin:auto;padding:14px 18px 12px}
+    .title-row{display:flex;gap:12px;align-items:center;justify-content:space-between;margin-bottom:10px}
+    .brand-title{display:flex;align-items:center;gap:9px;min-width:0}.brand-mark{width:34px;height:34px;object-fit:contain;flex:none}.title-row h1{font-size:1.25rem;margin:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+    .title-meta{display:flex;align-items:center;gap:10px}.count{font-size:.9rem;color:var(--muted)}.header-version{font-size:.7rem;color:#98a2b3;white-space:nowrap}
+    .search{width:100%;border:1px solid var(--border);background:#fff;border-radius:13px;padding:12px 14px;outline:none}
+    .search:focus{border-color:var(--accent);box-shadow:0 0 0 3px rgba(11,96,157,.12)}
+    .filters{display:flex;gap:8px;overflow-x:auto;padding:10px 0 2px;scrollbar-width:none}.filters::-webkit-scrollbar{display:none}
+    .chip{white-space:nowrap;border:1px solid var(--border);background:#fff;border-radius:999px;padding:8px 11px;color:#344054;font-size:.9rem}
+    .chip.active{background:var(--accent);color:#fff;border-color:var(--accent)}.chip.lodge.active{background:var(--lodge);border-color:var(--lodge)}
+    .filter-select{border:1px solid var(--border);background:#fff;border-radius:999px;padding:7px 30px 7px 11px;color:#344054}
+    .print-chip{border-color:#b7c9d6;background:#eef6fb;color:#174f73;font-weight:750}
+
+    main{max-width:1200px;margin:auto;padding:16px 18px 90px}
+    .meal-panel{margin:0 0 18px;background:#fff;border:1px solid var(--border);border-radius:14px;box-shadow:0 1px 4px rgba(16,24,40,.04);overflow:hidden}
+    .meal-panel>summary{list-style:none;display:flex;align-items:center;justify-content:space-between;gap:12px;padding:12px 14px;cursor:pointer;font-size:1rem;font-weight:800;user-select:none}
+    .meal-panel>summary::-webkit-details-marker{display:none}
+    .meal-panel>summary::after{content:'▾';font-size:1rem;color:var(--muted);transition:transform .18s ease}
+    .meal-panel[open]>summary::after{transform:rotate(180deg)}
+    .meal-panel[open]>summary{border-bottom:1px solid var(--border)}
+    .meal-panel-body{padding:12px}
+    .meal-dashboard{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px}
+    .meal-summary{background:#fff;border:1px solid var(--border);border-radius:14px;padding:12px;box-shadow:0 1px 4px rgba(16,24,40,.04)}
+    .meal-summary.over{border-color:#e4b5ad;background:#fff8f7}.meal-summary h3{font-size:.9rem;margin:0 0 10px}
+    .summary-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
+    .stat{background:#f8fafb;border-radius:9px;padding:7px 8px}.stat-label{font-size:.66rem;text-transform:uppercase;letter-spacing:.04em;color:var(--muted)}.stat-value{font-size:1.08rem;font-weight:800;margin-top:1px}
+    .stat.total{grid-column:1/-1;background:#eef6fb}.stat.extras{grid-column:1/-1}.stat.extras.good .stat-value{color:var(--success)}.stat.extras.bad .stat-value{color:var(--danger)}
+    .extra-actions{display:flex;gap:6px;margin-top:9px}.small-btn{flex:1;border:1px solid var(--border);background:#fff;border-radius:9px;padding:7px 8px;font-size:.76rem;font-weight:750;color:#344054}.small-btn.add{background:var(--accent2);border-color:#c6dbe3;color:#24556b}.small-btn:disabled{opacity:.4;cursor:not-allowed}
+    .extra-note{font-size:.7rem;color:var(--muted);margin-top:6px}.capacity-note{font-size:.65rem;color:var(--muted);margin-top:2px}
+    .staff-meals-panel{margin-top:12px;border:1px solid var(--border);border-radius:12px;background:#fafbfc;overflow:hidden}
+    .staff-meals-panel>summary{list-style:none;display:flex;align-items:center;justify-content:space-between;gap:10px;padding:10px 12px;cursor:pointer;font-size:.88rem;font-weight:800;user-select:none}
+    .staff-meals-panel>summary::-webkit-details-marker{display:none}.staff-meals-panel>summary::after{content:'▾';color:var(--muted);transition:transform .18s ease}.staff-meals-panel[open]>summary::after{transform:rotate(180deg)}.staff-meals-panel[open]>summary{border-bottom:1px solid var(--border)}
+    .staff-meals-body{padding:10px}.staff-meals-help{font-size:.75rem;color:var(--muted);margin:0 0 10px}.staff-groups{display:grid;gap:8px}.staff-group{border:1px solid var(--border);border-radius:10px;background:#fff;padding:10px}.staff-group-head{display:flex;justify-content:space-between;gap:10px;align-items:flex-start;margin-bottom:8px}.staff-group-name{font-weight:800}.staff-group-notes{font-size:.72rem;color:var(--muted);text-align:right;max-width:48%}.staff-meal-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:7px}.staff-meal-cell{border:1px solid #e4e8ed;border-radius:9px;padding:8px;background:#fafbfc}.staff-meal-label{font-size:.7rem;font-weight:800;margin-bottom:5px}.staff-meal-meta{font-size:.68rem;color:var(--muted);margin-bottom:5px}.staff-actual-row{display:flex;align-items:center;gap:6px}.staff-actual-row label{font-size:.68rem;color:#475467}.staff-actual-input{width:62px;min-width:0;border:1px solid #cbd5dc;border-radius:7px;padding:6px 7px;text-align:center;background:#fff}.staff-actual-input:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 2px rgba(11,96,157,.1)}.staff-actual-input:disabled{opacity:.6;background:#f2f4f7}.staff-empty{font-size:.82rem;color:var(--muted);padding:8px 2px}.staff-committed{font-size:.67rem;color:var(--success);margin-top:4px;font-weight:700}
+
+    .list{display:grid;gap:10px}.person{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);box-shadow:0 1px 4px rgba(16,24,40,.04);overflow:hidden}.person.lodge-person{border-left:6px solid var(--lodge)}
+    .person-main{display:grid;grid-template-columns:minmax(180px,1.4fr) minmax(110px,.6fr) minmax(300px,1.6fr) auto;gap:12px;align-items:center;padding:14px}
+    .name{font-size:1.05rem;font-weight:800}.sub{font-size:.86rem;color:var(--muted);margin-top:2px}
+    .badges{display:flex;gap:6px;flex-wrap:wrap}.badge{display:inline-flex;align-items:center;border-radius:999px;padding:4px 8px;background:#eef2f6;font-size:.76rem;font-weight:700;color:#475467}.badge.adult{background:#e8f1f5;color:#24556b}.badge.camper{background:#eef6eb;color:#416b34}.badge.lodge{background:#f0e5fb;color:#6f249f}.badge.staff{background:#fff1e8;color:#8a461f}.badge.late{background:#fff0d8;color:#8a4b00;border:1px solid #efc27a}
+    .meal-tickets{display:flex;gap:6px;flex-wrap:wrap}.ticket-label{display:inline-flex;align-items:center;gap:6px;border:1px solid #cbd5dc;border-radius:9px;padding:6px 8px;background:#fff;font-size:.74rem;font-weight:700}.ticket-label.issued{background:#e9f7ef;border-color:#b8dfc8;color:#236442}.ticket-label input{width:17px;height:17px;margin:0;accent-color:var(--success)}.meal-none{color:var(--muted);font-size:.82rem;font-style:italic}
+    .check-stack{display:grid;gap:8px}.check-wrap{display:flex;align-items:center;gap:8px;font-weight:700;white-space:nowrap}.check-wrap input{width:22px;height:22px;accent-color:var(--success)}
+    .staff-roster-head{display:flex;justify-content:space-between;align-items:flex-start;gap:14px;padding:14px 14px 10px}.staff-roster-notes{color:var(--muted);font-size:.8rem;text-align:right;max-width:45%}.staff-roster-meals{padding:0 14px 14px}.person-actions{display:flex;justify-content:flex-end;padding:0 14px 13px}.details-btn{border:0;background:transparent;color:var(--accent);font-weight:700;padding:5px 0}.empty{text-align:center;color:var(--muted);padding:46px 16px}
+
+    dialog{width:min(760px,calc(100% - 24px));max-height:90vh;border:0;border-radius:20px;padding:0;box-shadow:0 24px 80px rgba(16,24,40,.3)}dialog::backdrop{background:rgba(15,23,42,.48)}
+    .modal-head{position:sticky;top:0;background:#fff;border-bottom:1px solid var(--border);padding:18px;display:flex;justify-content:space-between;gap:12px;align-items:flex-start;z-index:2}.modal-head h2{font-size:1.25rem;margin:0 0 6px}.close{border:0;background:#eef2f6;width:36px;height:36px;border-radius:50%;font-size:1.25rem}
+    .modal-body{padding:18px;background:#fff}.section{margin-bottom:22px}.section h3{font-size:.88rem;text-transform:uppercase;letter-spacing:.05em;color:var(--muted);margin:0 0 10px}.status-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.status-card{border:1px solid var(--border);border-radius:12px;padding:12px;background:#fafbfc}.status-card label{display:flex;align-items:center;gap:9px;font-weight:700}.status-card input{width:22px;height:22px;accent-color:var(--success)}
+    .detail-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px 18px}.detail{border-bottom:1px solid #edf0f2;padding:0 0 9px}.detail-label{font-size:.76rem;color:var(--muted);margin-bottom:3px}.detail-value{font-size:.94rem;word-break:break-word;white-space:pre-wrap}
+    .toast{position:fixed;left:50%;bottom:20px;transform:translateX(-50%);background:#17202a;color:#fff;padding:10px 14px;border-radius:10px;z-index:50;box-shadow:var(--shadow);font-size:.9rem;max-width:calc(100% - 28px);text-align:center}
+    .print-preview-dialog{width:min(1100px,calc(100% - 18px));max-height:94vh;border:0;border-radius:16px;padding:0;box-shadow:0 24px 80px rgba(16,24,40,.3)}
+    .print-preview-toolbar{position:sticky;top:0;z-index:3;display:flex;justify-content:space-between;align-items:center;gap:10px;padding:12px 14px;background:#fff;border-bottom:1px solid var(--border)}
+    .print-preview-toolbar h2{margin:0;font-size:1rem}.print-preview-actions{display:flex;gap:8px;flex-wrap:wrap}.preview-btn{border:1px solid var(--border);background:#fff;color:#344054;border-radius:10px;padding:9px 12px;font-weight:750}.preview-btn.primary-action{background:var(--accent);border-color:var(--accent);color:#fff}
+    .print-preview-content{padding:14px;background:#fff;overflow:auto}.print-sheet{font-family:Arial,Helvetica,sans-serif;color:#17202a;font-size:9pt}.print-sheet .head{display:flex;align-items:center;gap:12px;border-bottom:2px solid #0b609d;padding-bottom:8px;margin-bottom:9px}.print-sheet .head img{width:72px;height:52px;object-fit:contain}.print-sheet h1{font-size:17pt;margin:0 0 2px}.print-sheet .meta{font-size:8pt;color:#5c6670}.print-sheet table{width:100%;border-collapse:collapse;table-layout:fixed}.print-sheet thead{display:table-header-group}.print-sheet tr{break-inside:avoid;page-break-inside:avoid}.print-sheet th,.print-sheet td{border:1px solid #9aa5ae;padding:4px 5px;vertical-align:top;overflow-wrap:anywhere}.print-sheet th{background:#e8f2f9;font-size:7.5pt;text-transform:uppercase;letter-spacing:.02em;text-align:left}.print-sheet td.name{font-weight:700}.print-sheet td.center,.print-sheet th.center{text-align:center}.print-sheet th:nth-child(1){width:10%}.print-sheet th:nth-child(2){width:9%}.print-sheet th:nth-child(3){width:7%}.print-sheet th:nth-child(4){width:15%}.print-sheet th:nth-child(5){width:10%}.print-sheet th:nth-child(6){width:11%}.print-sheet th:nth-child(7){width:7%}.print-sheet th:nth-child(8){width:7%}.print-sheet th:nth-child(9){width:24%}.print-sheet .footer{margin-top:7px;font-size:7.5pt;color:#667085}
+    @media print{body>*:not(#printPreviewDialog){display:none!important}#printPreviewDialog{display:block!important;position:static!important;width:auto!important;max-width:none!important;max-height:none!important;margin:0!important;padding:0!important;border:0!important;box-shadow:none!important}.print-preview-toolbar{display:none!important}.print-preview-content{padding:0!important;overflow:visible!important}.print-sheet{font-size:9pt!important}@page{size:landscape;margin:.35in}}
+
+    @media(max-width:980px){.meal-dashboard{grid-template-columns:repeat(2,minmax(0,1fr))}.staff-meal-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.person-main{grid-template-columns:minmax(170px,1.2fr) minmax(260px,1.5fr) auto}.category-cell{display:none}}
+    @media(max-width:700px){.topbar,main{padding-left:12px;padding-right:12px}.meal-panel>summary{padding:11px 12px}.meal-panel-body{padding:10px}.person-main{grid-template-columns:1fr auto;gap:10px}.meals-cell{grid-column:1/-1}.check-cell{grid-row:1/2;grid-column:2/3;align-self:center}.status-grid,.detail-grid{grid-template-columns:1fr}.brand-mark{width:30px;height:30px}}
+    @media(max-width:470px){.meal-dashboard{grid-template-columns:1fr}.staff-meal-grid{grid-template-columns:1fr}.staff-group-head{display:block}.staff-group-notes{text-align:left;max-width:none;margin-top:3px}.title-row h1{font-size:1.05rem}.count{font-size:.8rem}.header-version{display:none}.person-main{padding:12px}.name{font-size:1rem}.check-wrap{font-size:.78rem;white-space:normal}.check-wrap input{width:20px;height:20px}.ticket-label{font-size:.72rem}.login-logo{width:160px}}
   </style>
 </head>
-
 <body>
-
   <section id="loginView" class="login-wrap">
     <div class="login-card">
-
       <img class="login-logo" src="./yc-logo.png" alt="Youth Challenge">
-
       <h1>Youth Challenge Check-In</h1>
-
       <p>Enter the staff passcode to open registration.</p>
-
       <div id="configError" class="config-error hidden"></div>
-
-      <input
-        id="pin"
-        class="pin"
-        type="password"
-        inputmode="numeric"
-        autocomplete="one-time-code"
-        maxlength="12"
-        placeholder="••••"
-      >
-
-      <button
-        id="loginButton"
-        class="primary"
-        onclick="login()"
-        aria-busy="false"
-      >
-        <span
-          id="loginSpinner"
-          class="login-spinner hidden"
-          aria-hidden="true"
-        ></span>
-
-        <span id="loginButtonText">
-          Open Check-In
-        </span>
-      </button>
-
+      <input id="pin" class="pin" type="password" inputmode="numeric" autocomplete="one-time-code" maxlength="12" placeholder="••••">
+      <button id="loginButton" class="primary" onclick="login()" aria-busy="false"><span id="loginSpinner" class="login-spinner hidden" aria-hidden="true"></span><span id="loginButtonText">Open Check-In</span></button>
       <div id="loginError" class="error"></div>
-
-      <div class="version-label">
-        v<span id="loginVersion">2.0.10</span>
-      </div>
-
+      <div class="version-label">v<span id="loginVersion">2.0.12</span></div>
     </div>
   </section>
 
-
   <section id="appView" class="hidden">
-
     <header>
       <div class="topbar">
-
         <div class="title-row">
-
-          <div class="brand-title">
-            <img class="brand-mark" src="./yc-logo.png" alt="">
-
-            <h1 id="appTitle">
-              Youth Challenge Check-In
-            </h1>
-          </div>
-
-          <div class="title-meta">
-            <div id="count" class="count"></div>
-
-            <div class="header-version">
-              v<span id="headerVersion">2.0.10</span>
-            </div>
-          </div>
-
+          <div class="brand-title"><img class="brand-mark" src="./yc-logo.png" alt=""><h1 id="appTitle">Youth Challenge Check-In</h1></div>
+          <div class="title-meta"><div id="count" class="count"></div><div class="header-version">v<span id="headerVersion">2.0.12</span></div></div>
         </div>
-
-
-        <input
-          id="search"
-          class="search"
-          type="search"
-          placeholder="Search name, church, phone, lodging…"
-          autocomplete="off"
-        >
-
-
+        <input id="search" class="search" type="search" placeholder="Search name, church, phone, lodging…" autocomplete="off">
         <div class="filters">
-
-          <button class="chip active" data-category="all">
-            Everyone
-          </button>
-
-          <button class="chip" data-category="adult">
-            Adults
-          </button>
-
-          <button class="chip" data-category="camper">
-            Campers
-          </button>
-
-          <button class="chip" data-category="staff">
-            Staff
-          </button>
-
-          <button class="chip lodge" id="lodgeFilter">
-            Lodge Room
-          </button>
-
-          <button class="chip" id="uncheckedFilter">
-            Not Checked In
-          </button>
-
-          <button class="chip" id="lodgingUnassignedFilter">
-            Lodging Unassigned
-          </button>
-
-          <select id="lodgingSelect" class="filter-select">
-            <option value="">
-              All lodging
-            </option>
-          </select>
-
-          <button
-            class="chip print-chip"
-            id="printButton"
-            type="button"
-            onclick="printCurrentView()"
-          >
-            Print Current View
-          </button>
-
+          <button class="chip active" data-category="all">Everyone</button>
+          <button class="chip" data-category="adult">Adults</button>
+          <button class="chip" data-category="camper">Campers</button>
+          <button class="chip" data-category="staff">Staff</button>
+          <button class="chip lodge" id="lodgeFilter">Lodge Room</button>
+          <button class="chip" id="uncheckedFilter">Not Checked In</button>
+          <button class="chip" id="lodgingUnassignedFilter">Lodging Unassigned</button>
+          <select id="lodgingSelect" class="filter-select"><option value="">All lodging</option></select>
+          <button class="chip print-chip" id="printButton" type="button" onclick="printCurrentView()">Print Current View</button>
         </div>
       </div>
     </header>
 
-
     <main>
-
       <details id="mealPanel" class="meal-panel">
-
-        <summary>
-          Meal Availability
-        </summary>
-
+        <summary>Meal Availability</summary>
         <div class="meal-panel-body">
-
-          <section
-            id="mealDashboard"
-            class="meal-dashboard"
-          ></section>
-
-
-          <details
-            id="staffMealsPanel"
-            class="staff-meals-panel"
-          >
-
-            <summary>
-              Staff &amp; Guest Meals
-              <span id="staffGroupCount"></span>
-            </summary>
-
+          <section id="mealDashboard" class="meal-dashboard"></section>
+          <details id="staffMealsPanel" class="staff-meals-panel">
+            <summary>Staff &amp; Guest Meals <span id="staffGroupCount"></span></summary>
             <div class="staff-meals-body">
-
-              <p class="staff-meals-help">
-                Reserved counts come from the Staff &amp; Guest Meals sheet.
-                Leave Actual blank until the group arrives. Once Actual is
-                entered, it replaces the reserved quantity for inventory
-                purposes. Enter 0 if none of that meal is needed.
-              </p>
-
-              <div
-                id="staffMealGroups"
-                class="staff-groups"
-              ></div>
-
+              <p class="staff-meals-help">Reserved counts are maintained on the “Staff &amp; Guest Meals” sheet. Enter Actual when a group arrives; a blank Actual keeps the reservation committed, while 0 or another number replaces it.</p>
+              <div id="staffMealGroups" class="staff-groups"></div>
             </div>
           </details>
-
         </div>
       </details>
-
-
       <div id="list" class="list"></div>
-
-      <div id="empty" class="empty hidden">
-        No registrations match this view.
-      </div>
-
+      <div id="empty" class="empty hidden">No registrations match this view.</div>
     </main>
-
   </section>
 
-
   <dialog id="detailDialog">
-
     <div class="modal-head">
-
-      <div>
-        <h2 id="modalName"></h2>
-
-        <div
-          id="modalBadges"
-          class="badges"
-        ></div>
-      </div>
-
-      <button
-        class="close"
-        onclick="document.getElementById('detailDialog').close()"
-        aria-label="Close"
-      >
-        ×
-      </button>
-
+      <div><h2 id="modalName"></h2><div id="modalBadges" class="badges"></div></div>
+      <button class="close" onclick="document.getElementById('detailDialog').close()" aria-label="Close">×</button>
     </div>
-
     <div class="modal-body">
-
-      <div class="section">
-        <h3>Check-In &amp; Meal Tickets</h3>
-
-        <div
-          id="modalStatus"
-          class="status-grid"
-        ></div>
-      </div>
-
-      <div class="section">
-        <h3>Registration Details</h3>
-
-        <div
-          id="modalDetails"
-          class="detail-grid"
-        ></div>
-      </div>
-
+      <div class="section"><h3>Check-In & Meal Tickets</h3><div id="modalStatus" class="status-grid"></div></div>
+      <div class="section"><h3>Registration Details</h3><div id="modalDetails" class="detail-grid"></div></div>
     </div>
-
   </dialog>
 
-
-  <dialog
-    id="printPreviewDialog"
-    class="print-preview-dialog"
-  >
-
+  <dialog id="printPreviewDialog" class="print-preview-dialog">
     <div class="print-preview-toolbar">
-
       <h2>Print Preview</h2>
-
       <div class="print-preview-actions">
-
-        <button
-          class="preview-btn"
-          type="button"
-          onclick="closePrintPreview()"
-        >
-          Back to Check-In
-        </button>
-
-        <button
-          class="preview-btn primary-action"
-          type="button"
-          onclick="window.print()"
-        >
-          Print
-        </button>
-
+        <button class="preview-btn" type="button" onclick="closePrintPreview()">Back to Check-In</button>
+        <button class="preview-btn primary-action" type="button" onclick="window.print()">Print</button>
       </div>
     </div>
-
-    <div
-      id="printPreviewContent"
-      class="print-preview-content"
-    ></div>
-
+    <div id="printPreviewContent" class="print-preview-content"></div>
   </dialog>
 
-
-  <div
-    id="toast"
-    class="toast hidden"
-  ></div>
-
+  <div id="toast" class="toast hidden"></div>
 
 <script>
-
-  const CLIENT_VERSION = '2.0.10';
-
+  const CLIENT_VERSION = '2.0.12';
   let API_URL = '';
-
-  let token =
-    sessionStorage.getItem('yc_checkin_token') || '';
-
+  let token = sessionStorage.getItem('yc_checkin_token') || '';
   let people = [];
   let mealStats = [];
   let staffGroups = [];
-
   let categoryFilter = 'all';
   let lodgeOnly = false;
   let uncheckedOnly = false;
   let lodgingUnassignedOnly = false;
-
   let currentPersonRow = null;
-
   let backgroundRefreshInFlight = false;
   let pendingWrites = 0;
   let lastRosterSignature = '';
 
-  const $ =
-    id => document.getElementById(id);
+  const $ = id => document.getElementById(id);
 
+  document.addEventListener('DOMContentLoaded', async () => {
+    $('loginVersion').textContent = CLIENT_VERSION;
+    $('headerVersion').textContent = CLIENT_VERSION;
+    $('pin').addEventListener('keydown', e => { if (e.key === 'Enter') login(); });
+    $('search').addEventListener('input', renderRoster);
+    $('lodgingSelect').addEventListener('change', renderRoster);
 
-  document.addEventListener(
-    'DOMContentLoaded',
-    async () => {
+    document.querySelectorAll('[data-category]').forEach(btn => btn.addEventListener('click', () => {
+      document.querySelectorAll('[data-category]').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      categoryFilter = btn.dataset.category;
+      updateStaffModeUi();
+      renderRoster();
+    }));
 
-      $('loginVersion').textContent =
-        CLIENT_VERSION;
+    $('lodgeFilter').addEventListener('click', () => {
+      if (categoryFilter === 'staff') return;
+      lodgeOnly = !lodgeOnly;
+      $('lodgeFilter').classList.toggle('active', lodgeOnly);
+      renderRoster();
+    });
 
-      $('headerVersion').textContent =
-        CLIENT_VERSION;
+    $('uncheckedFilter').addEventListener('click', () => {
+      if (categoryFilter === 'staff') return;
+      uncheckedOnly = !uncheckedOnly;
+      $('uncheckedFilter').classList.toggle('active', uncheckedOnly);
+      renderRoster();
+    });
 
+    $('lodgingUnassignedFilter').addEventListener('click', () => {
+      if (categoryFilter === 'staff') return;
+      lodgingUnassignedOnly = !lodgingUnassignedOnly;
+      $('lodgingUnassignedFilter').classList.toggle('active', lodgingUnassignedOnly);
+      renderRoster();
+    });
 
-      $('pin').addEventListener(
-        'keydown',
-        e => {
-          if (e.key === 'Enter') {
-            login();
-          }
-        }
-      );
+    const staticCurrent = await checkFrontendVersion();
+    if (!staticCurrent) return;
 
-
-      $('search').addEventListener(
-        'input',
-        renderRoster
-      );
-
-
-      $('lodgingSelect').addEventListener(
-        'change',
-        renderRoster
-      );
-
-
-      document
-        .querySelectorAll('[data-category]')
-        .forEach(
-          btn =>
-            btn.addEventListener(
-              'click',
-              () => {
-
-                document
-                  .querySelectorAll('[data-category]')
-                  .forEach(
-                    b =>
-                      b.classList.remove('active')
-                  );
-
-                btn.classList.add('active');
-
-                categoryFilter =
-                  btn.dataset.category;
-
-                updateStaffModeUi();
-                renderRoster();
-              }
-            )
-        );
-
-
-      $('lodgeFilter')
-        .addEventListener(
-          'click',
-          () => {
-
-            if (
-              categoryFilter === 'staff'
-            ) {
-              return;
-            }
-
-            lodgeOnly =
-              !lodgeOnly;
-
-            $('lodgeFilter')
-              .classList.toggle(
-                'active',
-                lodgeOnly
-              );
-
-            renderRoster();
-          }
-        );
-
-
-      $('uncheckedFilter')
-        .addEventListener(
-          'click',
-          () => {
-
-            if (
-              categoryFilter === 'staff'
-            ) {
-              return;
-            }
-
-            uncheckedOnly =
-              !uncheckedOnly;
-
-            $('uncheckedFilter')
-              .classList.toggle(
-                'active',
-                uncheckedOnly
-              );
-
-            renderRoster();
-          }
-        );
-
-
-      $('lodgingUnassignedFilter')
-        .addEventListener(
-          'click',
-          () => {
-
-            if (
-              categoryFilter === 'staff'
-            ) {
-              return;
-            }
-
-            lodgingUnassignedOnly =
-              !lodgingUnassignedOnly;
-
-            $('lodgingUnassignedFilter')
-              .classList.toggle(
-                'active',
-                lodgingUnassignedOnly
-              );
-
-            renderRoster();
-          }
-        );
-
-
-      const frontendCurrent =
-        await checkFrontendVersion();
-
-      if (!frontendCurrent) {
-        return;
-      }
-
-
-      await loadConfig();
-
-
-      if (!validApiUrl()) {
-
-        showConfigError(
-          'The Apps Script API URL has not been configured yet. Edit config.json and paste the deployed Web App URL that ends in /exec.'
-        );
-
-        return;
-      }
-
-
-      try {
-
-        const status =
-          await api('status');
-
-
-        if (!status.ok) {
-          throw new Error(
-            status.error ||
-            'Backend status check failed.'
-          );
-        }
-
-
-        if (
-          status.version &&
-          String(status.version) !==
-          CLIENT_VERSION
-        ) {
-
-          showToast(
-            `Version mismatch: website v${CLIENT_VERSION}, backend v${status.version}. Update both parts of the app.`,
-            true,
-            7000
-          );
-        }
-
-
-        if (token) {
-          loadRoster();
-        }
-
-      } catch (err) {
-
-        showConfigError(
-          'Could not reach the Apps Script backend. Check config.json and make sure the Apps Script deployment is set to “Anyone.”'
-        );
-
-        $('loginError').textContent =
-          messageOf(err);
-      }
-
-
-      setInterval(
-        checkFrontendVersion,
-        5 * 60 * 1000
-      );
-
-
-      setInterval(
-        backgroundRefreshRoster,
-        10 * 1000
-      );
+    await loadConfig();
+    if (!validApiUrl()) {
+      showConfigError('The Apps Script API URL has not been configured yet. Edit config.json and paste the deployed Web App URL that ends in /exec.');
+      return;
     }
-  );
-
-
-  async function loadConfig() {
 
     try {
-
-      const response =
-        await fetch(
-          `./config.json?_ts=${Date.now()}`,
-          {
-            cache:'no-store'
-          }
-        );
-
-
-      if (!response.ok) {
-        throw new Error(
-          'Could not load config.json.'
-        );
+      const status = await api('status');
+      if (!status.ok) throw new Error(status.error || 'Backend status check failed.');
+      if (status.version && String(status.version) !== CLIENT_VERSION) {
+        showToast(`Version mismatch: website v${CLIENT_VERSION}, backend v${status.version}. Update both parts of the app.`, true, 7000);
       }
-
-
-      const config =
-        await response.json();
-
-
-      API_URL =
-        String(
-          (
-            config &&
-            config.apiUrl
-          ) || ''
-        ).trim();
-
-
+      if (token) loadRoster();
     } catch (err) {
+      showConfigError('Could not reach the Apps Script backend. Check config.json and make sure the Apps Script deployment is set to “Anyone.”');
+      $('loginError').textContent = messageOf(err);
+    }
 
+    // A device left open will notice a new GitHub build within five minutes.
+    setInterval(checkFrontendVersion, 5 * 60 * 1000);
+
+    // Quietly pull other check-in stations' changes every 10 seconds.
+    setInterval(backgroundRefreshRoster, 10 * 1000);
+  });
+
+
+  async function loadConfig(){
+    try {
+      const response = await fetch(`./config.json?_ts=${Date.now()}`, { cache: 'no-store' });
+      if (!response.ok) throw new Error('Could not load config.json.');
+      const config = await response.json();
+      API_URL = String((config && config.apiUrl) || '').trim();
+    } catch (err) {
       API_URL = '';
     }
   }
 
-
-  function validApiUrl() {
-
-    return /^https:\/\/script\.google\.com\/macros\/s\/.+\/exec(?:\?.*)?$/i
-      .test(API_URL);
+  function validApiUrl(){
+    return /^https:\/\/script\.google\.com\/macros\/s\/.+\/exec(?:\?.*)?$/i.test(API_URL);
   }
 
-
-  function showConfigError(message) {
-
-    $('configError').textContent =
-      message;
-
-    $('configError')
-      .classList.remove('hidden');
-
-    $('loginButton').disabled =
-      true;
+  function showConfigError(message){
+    $('configError').textContent = message;
+    $('configError').classList.remove('hidden');
+    $('loginButton').disabled = true;
   }
 
-
-  async function checkFrontendVersion() {
-
+  async function checkFrontendVersion(){
     try {
-
-      const indexUrl =
-        new URL(
-          './index.html',
-          window.location.href
-        );
-
-
+      const indexUrl = new URL('./index.html', window.location.href);
       indexUrl.search = '';
       indexUrl.hash = '';
+      indexUrl.searchParams.set('_ts', String(Date.now()));
 
+      const response = await fetch(indexUrl.toString(), { cache: 'no-store' });
+      if (!response.ok) return true;
 
-      indexUrl.searchParams.set(
-        '_ts',
-        String(Date.now())
-      );
+      const html = await response.text();
+      const parsed = new DOMParser().parseFromString(html, 'text/html');
+      const versionMeta = parsed.querySelector('meta[name="yc-app-version"]');
+      const version = String((versionMeta && versionMeta.content) || '').trim();
 
-
-      const response =
-        await fetch(
-          indexUrl.toString(),
-          {
-            cache:'no-store'
-          }
-        );
-
-
-      if (!response.ok) {
-        return true;
-      }
-
-
-      const html =
-        await response.text();
-
-
-      const parsed =
-        new DOMParser()
-          .parseFromString(
-            html,
-            'text/html'
-          );
-
-
-      const versionMeta =
-        parsed.querySelector(
-          'meta[name="yc-app-version"]'
-        );
-
-
-      const version =
-        String(
-          (
-            versionMeta &&
-            versionMeta.content
-          ) || ''
-        ).trim();
-
-
-      if (
-        version &&
-        version !== CLIENT_VERSION
-      ) {
-
-        const lastTarget =
-          sessionStorage.getItem(
-            'yc_frontend_reload_target'
-          );
-
-
-        if (
-          lastTarget === version
-        ) {
-
-          showToast(
-            `A newer build v${version} is available. Refresh this page if it does not update automatically.`,
-            true,
-            7000
-          );
-
+      if (version && version !== CLIENT_VERSION) {
+        const lastTarget = sessionStorage.getItem('yc_frontend_reload_target');
+        if (lastTarget === version) {
+          showToast(`A newer build v${version} is available. Refresh this page if it does not update automatically.`, true, 7000);
           return false;
         }
 
-
-        sessionStorage.setItem(
-          'yc_frontend_reload_target',
-          version
-        );
-
-
-        const url =
-          new URL(
-            window.location.href
-          );
-
-
-        url.searchParams.set(
-          'v',
-          version
-        );
-
-
-        url.searchParams.set(
-          '_cb',
-          String(Date.now())
-        );
-
-
-        window.location.replace(
-          url.toString()
-        );
-
-
+        sessionStorage.setItem('yc_frontend_reload_target', version);
+        const url = new URL(window.location.href);
+        url.searchParams.set('v', version);
+        url.searchParams.set('_cb', String(Date.now()));
+        window.location.replace(url.toString());
         return false;
       }
 
-
-      sessionStorage.removeItem(
-        'yc_frontend_reload_target'
-      );
-
-
-      sessionStorage.removeItem(
-        'yc_static_reload_target'
-      );
-
-
+      sessionStorage.removeItem('yc_frontend_reload_target');
+      sessionStorage.removeItem('yc_static_reload_target');
       return true;
-
-
     } catch (err) {
-
       return true;
     }
   }
 
-
-  function api(
-    action,
-    params = {}
-  ) {
-
-    return new Promise(
-      (resolve,reject) => {
-
-        if (!validApiUrl()) {
-
-          reject(
-            new Error(
-              'Apps Script API URL is not configured.'
-            )
-          );
-
-          return;
-        }
-
-
-        const callback =
-          '__yc_cb_' +
-          Date.now() +
-          '_' +
-          Math.random()
-            .toString(36)
-            .slice(2);
-
-
-        const script =
-          document.createElement(
-            'script'
-          );
-
-
-        const url =
-          new URL(API_URL);
-
-
-        const timer =
-          setTimeout(
-            () =>
-              cleanup(
-                new Error(
-                  'The server did not respond.'
-                )
-              ),
-            20000
-          );
-
-
-        function cleanup(
-          error,
-          result
-        ) {
-
-          clearTimeout(timer);
-
-          script.remove();
-
-
-          try {
-
-            delete window[
-              callback
-            ];
-
-          } catch (_) {
-
-            window[
-              callback
-            ] = undefined;
-          }
-
-
-          if (error) {
-            reject(error);
-          } else {
-            resolve(result);
-          }
-        }
-
-
-        window[
-          callback
-        ] =
-          result =>
-            cleanup(
-              null,
-              result
-            );
-
-
-        script.onerror =
-          () =>
-            cleanup(
-              new Error(
-                'Unable to load the Apps Script API.'
-              )
-            );
-
-
-        url.searchParams.set(
-          'action',
-          action
-        );
-
-
-        url.searchParams.set(
-          'callback',
-          callback
-        );
-
-
-        url.searchParams.set(
-          '_ts',
-          String(Date.now())
-        );
-
-
-        Object
-          .entries(params)
-          .forEach(
-            ([key,value]) => {
-
-              if (
-                value !== undefined &&
-                value !== null
-              ) {
-
-                url.searchParams.set(
-                  key,
-                  String(value)
-                );
-              }
-            }
-          );
-
-
-        script.src =
-          url.toString();
-
-        script.async =
-          true;
-
-        document.head
-          .appendChild(script);
-      }
-    );
-  }
-
-
-  function setLoginBusy(
-    isBusy,
-    message = 'Open Check-In'
-  ) {
-
-    const button =
-      $('loginButton');
-
-    const pin =
-      $('pin');
-
-    const spinner =
-      $('loginSpinner');
-
-    const text =
-      $('loginButtonText');
-
-
-    button.disabled =
-      isBusy;
-
-    pin.disabled =
-      isBusy;
-
-
-    spinner
-      .classList.toggle(
-        'hidden',
-        !isBusy
-      );
-
-
-    text.textContent =
-      isBusy
-        ? message
-        : 'Open Check-In';
-
-
-    button.setAttribute(
-      'aria-busy',
-      isBusy
-        ? 'true'
-        : 'false'
-    );
-  }
-
-
-  async function login() {
-
-    if (
-      $('loginButton').disabled
-    ) {
-      return;
-    }
-
-
-    $('loginError').textContent =
-      '';
-
-
-    const pin =
-      $('pin')
-        .value
-        .trim();
-
-
-    if (!pin) {
-
-      $('loginError').textContent =
-        'Enter the passcode.';
-
-      return;
-    }
-
-
-    setLoginBusy(
-      true,
-      'Checking PIN…'
-    );
-
-
-    try {
-
-      const result =
-        await api(
-          'login',
-          {
-            passcode:pin
-          }
-        );
-
-
-      if (!result.ok) {
-
-        $('loginError').textContent =
-          result.error ||
-          'Unable to sign in.';
-
+  function api(action, params = {}){
+    return new Promise((resolve, reject) => {
+      if (!validApiUrl()) {
+        reject(new Error('Apps Script API URL is not configured.'));
         return;
       }
 
+      const callback = '__yc_cb_' + Date.now() + '_' + Math.random().toString(36).slice(2);
+      const script = document.createElement('script');
+      const url = new URL(API_URL);
+      const timer = setTimeout(() => cleanup(new Error('The server did not respond.')), 20000);
 
-      token =
-        result.token;
+      function cleanup(error, result){
+        clearTimeout(timer);
+        script.remove();
+        try { delete window[callback]; } catch (_) { window[callback] = undefined; }
+        if (error) reject(error); else resolve(result);
+      }
 
+      window[callback] = result => cleanup(null, result);
+      script.onerror = () => cleanup(new Error('Unable to load the Apps Script API.'));
 
-      sessionStorage.setItem(
-        'yc_checkin_token',
-        token
-      );
+      url.searchParams.set('action', action);
+      url.searchParams.set('callback', callback);
+      url.searchParams.set('_ts', String(Date.now()));
+      Object.entries(params).forEach(([key, value]) => {
+        if (value !== undefined && value !== null) url.searchParams.set(key, String(value));
+      });
 
+      script.src = url.toString();
+      script.async = true;
+      document.head.appendChild(script);
+    });
+  }
 
-      setLoginBusy(
-        true,
-        'Loading registrations…'
-      );
+  function setLoginBusy(isBusy, message = 'Open Check-In'){
+    const button = $('loginButton');
+    const pin = $('pin');
+    const spinner = $('loginSpinner');
+    const text = $('loginButtonText');
 
+    button.disabled = isBusy;
+    pin.disabled = isBusy;
+    spinner.classList.toggle('hidden', !isBusy);
+    text.textContent = isBusy ? message : 'Open Check-In';
+    button.setAttribute('aria-busy', isBusy ? 'true' : 'false');
+  }
 
+  async function login(){
+    // Ignore accidental second taps while a sign-in request is already running.
+    if ($('loginButton').disabled) return;
+
+    $('loginError').textContent = '';
+    const pin = $('pin').value.trim();
+    if (!pin) {
+      $('loginError').textContent = 'Enter the passcode.';
+      return;
+    }
+
+    setLoginBusy(true, 'Checking PIN…');
+    try {
+      const result = await api('login', { passcode: pin });
+      if (!result.ok) {
+        $('loginError').textContent = result.error || 'Unable to sign in.';
+        return;
+      }
+      token = result.token;
+      sessionStorage.setItem('yc_checkin_token', token);
+      setLoginBusy(true, 'Loading registrations…');
       await loadRoster();
-
-
     } catch (err) {
-
-      $('loginError').textContent =
-        messageOf(err);
-
-
+      $('loginError').textContent = messageOf(err);
     } finally {
-
       setLoginBusy(false);
     }
   }
 
-
-  function rosterSignature(data) {
-
+  function rosterSignature(data){
     return JSON.stringify({
-      people:
-        data.people || [],
-
-      mealStats:
-        data.mealStats || [],
-
-      staffGroups:
-        data.staffGroups || [],
-
-      lodgingOptions:
-        data.lodgingOptions || []
+      people: data.people || [],
+      mealStats: data.mealStats || [],
+      staffGroups: data.staffGroups || [],
+      lodgingOptions: data.lodgingOptions || []
     });
   }
 
+  function applyRosterData(data, preservePosition = false){
+    const scrollX = window.scrollX;
+    const scrollY = window.scrollY;
+    const detailsWasOpen = currentPersonRow !== null && $('detailDialog').open;
 
-  function currentLodgingOptions() {
-
-    return Array
-      .from(
-        $('lodgingSelect').options
-      )
-      .slice(1)
-      .map(
-        option =>
-          option.value
-      );
-  }
-
-
-  function syncLocalSignature() {
-
-    lastRosterSignature =
-      rosterSignature({
-        people:people,
-        mealStats:mealStats,
-        staffGroups:staffGroups,
-        lodgingOptions:
-          currentLodgingOptions()
-      });
-  }
-
-
-  function applyRosterData(
-    data,
-    preservePosition = false
-  ) {
-
-    const scrollX =
-      window.scrollX;
-
-    const scrollY =
-      window.scrollY;
-
-
-    const detailsWasOpen =
-      currentPersonRow !== null &&
-      $('detailDialog').open;
-
-
-    $('appTitle').textContent =
-      data.title ||
-      'Youth Challenge Check-In';
-
-
-    people =
-      data.people || [];
-
-    mealStats =
-      data.mealStats || [];
-
-    staffGroups =
-      data.staffGroups || [];
-
-
-    buildLodgingOptions(
-      data.lodgingOptions || []
-    );
-
-
-    lastRosterSignature =
-      rosterSignature(data);
-
-
+    $('appTitle').textContent = data.title || 'Youth Challenge Check-In';
+    people = data.people || [];
+    mealStats = data.mealStats || [];
+    staffGroups = data.staffGroups || [];
+    buildLodgingOptions(data.lodgingOptions || []);
+    lastRosterSignature = rosterSignature(data);
     renderAll();
 
-
-    if (
-      detailsWasOpen &&
-      currentPersonRow !== null
-    ) {
-
-      const stillExists =
-        people.some(
-          p =>
-            p.rowNumber ===
-            currentPersonRow
-        );
-
-
-      if (stillExists) {
-
-        renderDetails(
-          currentPersonRow
-        );
-
-      } else {
-
-        $('detailDialog').close();
-      }
+    if (detailsWasOpen && currentPersonRow !== null) {
+      const stillExists = people.some(p => p.rowNumber === currentPersonRow);
+      if (stillExists) renderDetails(currentPersonRow);
+      else $('detailDialog').close();
     }
-
 
     if (preservePosition) {
-
-      requestAnimationFrame(
-        () =>
-          window.scrollTo(
-            scrollX,
-            scrollY
-          )
-      );
+      requestAnimationFrame(() => window.scrollTo(scrollX, scrollY));
     }
   }
 
-
-  async function loadRoster() {
-
-    const loginVisible =
-      !$('loginView')
-        .classList
-        .contains('hidden');
-
-
-    if (loginVisible) {
-
-      setLoginBusy(
-        true,
-        'Loading registrations…'
-      );
-    }
-
+  async function loadRoster(){
+    const loginVisible = !$('loginView').classList.contains('hidden');
+    if (loginVisible) setLoginBusy(true, 'Loading registrations…');
 
     try {
-
-      const data =
-        await api(
-          'roster',
-          {
-            token:token
-          }
-        );
-
-
-      if (!apiOkay(data)) {
-        return;
-      }
-
-
-      $('loginView')
-        .classList
-        .add('hidden');
-
-
-      $('appView')
-        .classList
-        .remove('hidden');
-
-
-      applyRosterData(
-        data,
-        false
-      );
-
-
+      const data = await api('roster', { token });
+      if (!apiOkay(data)) return;
+      $('loginView').classList.add('hidden');
+      $('appView').classList.remove('hidden');
+      applyRosterData(data, false);
     } catch (err) {
-
       handleFailure(err);
-
-
     } finally {
-
-      if (
-        !$('loginView')
-          .classList
-          .contains('hidden')
-      ) {
-
-        setLoginBusy(false);
-      }
+      if (!$('loginView').classList.contains('hidden')) setLoginBusy(false);
     }
   }
 
+  async function backgroundRefreshRoster(){
+    if (!token || backgroundRefreshInFlight || pendingWrites > 0) return;
+    if ($('appView').classList.contains('hidden')) return;
+    if (document.hidden) return;
+    if ($('printPreviewDialog').open) return;
+    if (document.activeElement && document.activeElement.classList && document.activeElement.classList.contains('staff-actual-input')) return;
 
-  async function backgroundRefreshRoster() {
-
-    if (
-      !token ||
-      backgroundRefreshInFlight ||
-      pendingWrites > 0
-    ) {
-      return;
-    }
-
-
-    if (
-      $('appView')
-        .classList
-        .contains('hidden')
-    ) {
-      return;
-    }
-
-
-    if (document.hidden) {
-      return;
-    }
-
-
-    if (
-      $('printPreviewDialog').open
-    ) {
-      return;
-    }
-
-
-    if (
-      document.activeElement &&
-      document.activeElement.classList &&
-      document.activeElement.classList.contains(
-        'staff-actual-input'
-      )
-    ) {
-      return;
-    }
-
-
-    backgroundRefreshInFlight =
-      true;
-
-
+    backgroundRefreshInFlight = true;
     try {
-
-      const data =
-        await api(
-          'roster',
-          {
-            token:token
-          }
-        );
-
-
-      if (
-        !data ||
-        data.ok === false
-      ) {
-
-        const message =
-          String(
-            (
-              data &&
-              data.error
-            ) || ''
-          );
-
-
-        if (
-          message.includes(
-            'SESSION_EXPIRED'
-          )
-        ) {
-
-          handleFailure(
-            new Error(message)
-          );
-        }
-
-
+      const data = await api('roster', { token });
+      if (!data || data.ok === false) {
+        const message = String((data && data.error) || '');
+        if (message.includes('SESSION_EXPIRED')) handleFailure(new Error(message));
         return;
       }
 
-
-      const nextSignature =
-        rosterSignature(data);
-
-
-      if (
-        nextSignature !==
-        lastRosterSignature
-      ) {
-
-        applyRosterData(
-          data,
-          true
-        );
+      const nextSignature = rosterSignature(data);
+      if (nextSignature !== lastRosterSignature) {
+        applyRosterData(data, true);
       }
-
-
     } catch (err) {
-
-      if (
-        messageOf(err).includes(
-          'SESSION_EXPIRED'
-        )
-      ) {
-
-        handleFailure(err);
-      }
-
-
+      // Background syncing must never interrupt check-in for a temporary network failure.
+      if (messageOf(err).includes('SESSION_EXPIRED')) handleFailure(err);
     } finally {
-
-      backgroundRefreshInFlight =
-        false;
+      backgroundRefreshInFlight = false;
     }
   }
 
-
-  function apiOkay(result) {
-
-    if (
-      result &&
-      result.ok !== false
-    ) {
-      return true;
-    }
-
-
-    handleFailure(
-      new Error(
-        (
-          result &&
-          result.error
-        ) ||
-        'The server returned an error.'
-      )
-    );
-
-
+  function apiOkay(result){
+    if (result && result.ok !== false) return true;
+    handleFailure(new Error((result && result.error) || 'The server returned an error.'));
     return false;
   }
 
-
-  function renderAll() {
-
+  function renderAll(){
     renderMealDashboard();
     renderStaffMealGroups();
     renderRoster();
   }
 
-
-  function buildLodgingOptions(
-    options
-  ) {
-
-    const select =
-      $('lodgingSelect');
-
-
-    const current =
-      select.value;
-
-
-    select.innerHTML =
-      '<option value="">All lodging</option>' +
-      options
-        .map(
-          x =>
-            `<option value="${escAttr(x)}">${esc(x)}</option>`
-        )
-        .join('');
-
-
-    if (
-      options.includes(current)
-    ) {
-
-      select.value =
-        current;
-    }
+  function buildLodgingOptions(options){
+    const select = $('lodgingSelect');
+    const current = select.value;
+    select.innerHTML = '<option value="">All lodging</option>' +
+      options.map(x => `<option value="${escAttr(x)}">${esc(x)}</option>`).join('');
+    if (options.includes(current)) select.value = current;
   }
 
-
-  function updateStaffModeUi() {
-
-    const staffMode =
-      categoryFilter ===
-      'staff';
-
+  function updateStaffModeUi(){
+    const staffMode = categoryFilter === 'staff';
 
     if (staffMode) {
-
       lodgeOnly = false;
       uncheckedOnly = false;
-      lodgingUnassignedOnly =
-        false;
-
-
-      $('lodgeFilter')
-        .classList
-        .remove('active');
-
-
-      $('uncheckedFilter')
-        .classList
-        .remove('active');
-
-
-      $('lodgingUnassignedFilter')
-        .classList
-        .remove('active');
-
-
-      $('lodgingSelect').value =
-        '';
+      lodgingUnassignedOnly = false;
+      $('lodgeFilter').classList.remove('active');
+      $('uncheckedFilter').classList.remove('active');
+      $('lodgingUnassignedFilter').classList.remove('active');
+      $('lodgingSelect').value = '';
     }
 
-
-    $('lodgeFilter').disabled =
-      staffMode;
-
-
-    $('uncheckedFilter').disabled =
-      staffMode;
-
-
-    $('lodgingUnassignedFilter').disabled =
-      staffMode;
-
-
-    $('lodgingSelect').disabled =
-      staffMode;
-
-
-    $('search').placeholder =
-      staffMode
-        ? 'Search staff name or notes…'
-        : 'Search name, church, phone, lodging…';
+    $('lodgeFilter').disabled = staffMode;
+    $('uncheckedFilter').disabled = staffMode;
+    $('lodgingUnassignedFilter').disabled = staffMode;
+    $('lodgingSelect').disabled = staffMode;
+    $('search').placeholder = staffMode
+      ? 'Search staff name or notes…'
+      : 'Search name, church, phone, lodging…';
   }
 
-
-  function renderMealDashboard() {
-
-    $('mealDashboard').innerHTML =
-      mealStats
-        .map(
-          stat => {
-
-            const capacitySet =
-              stat.capacity !== null;
-
-
-            const extras =
-              capacitySet
-                ? stat.extrasAvailable
-                : null;
-
-
-            const over =
-              capacitySet &&
-              extras < 0;
-
-
-            const extrasText =
-              !capacitySet
-                ? 'Not set'
-                : String(extras);
-
-
-            const extrasClass =
-              !capacitySet
-                ? ''
-                : (
-                    extras >= 0
-                      ? 'good'
-                      : 'bad'
-                  );
-
-
-            const canAdd =
-              capacitySet &&
-              extras > 0;
-
-
-            const canRemove =
-              stat.walkUpExtrasUsed > 0;
-
-
-            return `
-              <article class="meal-summary ${over ? 'over' : ''}">
-
-                <h3>
-                  ${esc(stat.label)}
-                </h3>
-
-                <div class="summary-grid">
-
-                  <div class="stat">
-                    <div class="stat-label">
-                      Capacity
-                    </div>
-                    <div class="stat-value">
-                      ${capacitySet ? stat.capacity : '—'}
-                    </div>
-                  </div>
-
-                  <div class="stat">
-                    <div class="stat-label">
-                      Registered
-                    </div>
-                    <div class="stat-value">
-                      ${stat.formMeals}
-                    </div>
-                  </div>
-
-                  <div class="stat">
-                    <div class="stat-label">
-                      Staff / Guest
-                    </div>
-                    <div class="stat-value">
-                      ${stat.staffMeals || 0}
-                    </div>
-                  </div>
-
-                  <div class="stat">
-                    <div class="stat-label">
-                      Extras Used
-                    </div>
-                    <div class="stat-value">
-                      ${stat.walkUpExtrasUsed || 0}
-                    </div>
-                  </div>
-
-                  <div class="stat total">
-                    <div class="stat-label">
-                      Total Accounted For
-                    </div>
-                    <div class="stat-value">
-                      ${stat.totalAccounted}
-                    </div>
-                  </div>
-
-                  <div class="stat">
-                    <div class="stat-label">
-                      Tickets Issued
-                    </div>
-                    <div class="stat-value">
-                      ${stat.ticketsIssued}
-                    </div>
-                  </div>
-
-                  <div class="stat">
-                    <div class="stat-label">
-                      Still to Hand Out
-                    </div>
-                    <div class="stat-value">
-                      ${stat.stillToHandOut}
-                    </div>
-                  </div>
-
-                  <div class="stat extras ${extrasClass}">
-                    <div class="stat-label">
-                      Extras Available
-                    </div>
-                    <div class="stat-value">
-                      ${extrasText}
-                    </div>
-                  </div>
-
-                </div>
-
-
-                <div class="extra-actions">
-
-                  <button
-                    class="small-btn"
-                    ${canRemove ? '' : 'disabled'}
-                    onclick="adjustExtra('${stat.key}',-1)"
-                  >
-                    − Undo Extra
-                  </button>
-
-                  <button
-                    class="small-btn add"
-                    ${canAdd ? '' : 'disabled'}
-                    onclick="adjustExtra('${stat.key}',1)"
-                  >
-                    + Use Extra
-                  </button>
-
-                </div>
-
-              </article>
-            `;
-          }
-        )
-        .join('');
-  }
-
-
-  function staffName(
-    group,
-    lastFirst = false
-  ) {
-
-    const first =
-      String(
-        group.firstName || ''
-      ).trim();
-
-
-    const last =
-      String(
-        group.lastName || ''
-      ).trim();
-
-
-    if (
-      lastFirst &&
-      last
-    ) {
-
-      return [
-        last,
-        first
-      ]
-        .filter(Boolean)
-        .join(', ');
-    }
-
-
-    return (
-      [
-        first,
-        last
-      ]
-        .filter(Boolean)
-        .join(' ')
-        .trim() ||
-      group.displayName ||
-      group.name ||
-      'Staff'
-    );
-  }
-
-
-  function staffMealCell(
-    group,
-    stat
-  ) {
-
-    const info =
-      group.meals &&
-      group.meals[stat.key]
-        ? group.meals[
-            stat.key
-          ]
-        : {
-            reserved:0,
-            actual:null,
-            actualSet:false,
-            committed:0
-          };
-
-
-    const actualValue =
-      info.actualSet
-        ? String(
-            info.actual ?? 0
-          )
+  function renderMealDashboard(){
+    $('mealDashboard').innerHTML = mealStats.map(stat => {
+      const capacitySet = stat.capacity !== null;
+      const extras = capacitySet ? stat.extrasAvailable : null;
+      const over = capacitySet && extras < 0;
+      const extrasText = !capacitySet ? 'Not set' : String(extras);
+      const extrasClass = !capacitySet ? '' : extras >= 0 ? 'good' : 'bad';
+      const manualExtras = Number(stat.manualExtraUsed ?? stat.walkUpExtrasUsed ?? stat.extraUsed ?? 0) || 0;
+      const lateExtras = Number(stat.lateRegistrationMeals || 0) || 0;
+      const extrasUsed = Number(stat.extrasUsed ?? (manualExtras + lateExtras)) || 0;
+      const canAdd = capacitySet && extras > 0;
+      const canRemove = manualExtras > 0;
+      const effectiveCapacity = capacitySet ? Number(stat.effectiveCapacity ?? stat.capacity) : null;
+      const capacityNote = capacitySet && effectiveCapacity !== Number(stat.capacity)
+        ? `<div class="capacity-note">Reserved + 10%: ${effectiveCapacity}</div>`
         : '';
 
-
-    return `
-      <div class="staff-meal-cell">
-
-        <div class="staff-meal-label">
-          ${esc(stat.label)}
+      return `<article class="meal-summary ${over ? 'over' : ''}">
+        <h3>${esc(stat.label)}</h3>
+        <div class="summary-grid">
+          <div class="stat"><div class="stat-label">Capacity</div><div class="stat-value">${capacitySet ? stat.capacity : '—'}</div>${capacityNote}</div>
+          <div class="stat"><div class="stat-label">Registered</div><div class="stat-value">${stat.formMeals ?? stat.registered}</div></div>
+          <div class="stat"><div class="stat-label">Staff / Guest</div><div class="stat-value">${stat.staffMeals ?? stat.staffCommitted ?? 0}</div></div>
+          <div class="stat"><div class="stat-label">Extras Used</div><div class="stat-value">${extrasUsed}</div></div>
+          <div class="stat total"><div class="stat-label">Total Accounted For</div><div class="stat-value">${stat.totalAccounted ?? 0}</div></div>
+          <div class="stat"><div class="stat-label">Tickets Issued</div><div class="stat-value">${stat.ticketsIssued}</div></div>
+          <div class="stat"><div class="stat-label">Still to Hand Out</div><div class="stat-value">${stat.stillToHandOut ?? stat.stillToDistribute}</div></div>
+          <div class="stat extras ${extrasClass}"><div class="stat-label">Extras Available</div><div class="stat-value">${extrasText}</div></div>
         </div>
-
-        <div class="staff-meal-meta">
-          Reserved:
-          <strong>
-            ${Number(info.reserved) || 0}
-          </strong>
+        <div class="extra-actions">
+          <button class="small-btn" ${canRemove ? '' : 'disabled'} onclick="adjustExtra('${stat.key}',-1)">− Undo Extra</button>
+          <button class="small-btn add" ${canAdd ? '' : 'disabled'} onclick="adjustExtra('${stat.key}',1)">+ Use Extra</button>
         </div>
-
-        <div class="staff-actual-row">
-
-          <label>
-            Actual
-          </label>
-
-          <input
-            class="staff-actual-input"
-            type="number"
-            min="0"
-            step="1"
-            inputmode="numeric"
-            value="${escAttr(actualValue)}"
-            placeholder="—"
-            onchange="saveStaffMealActual(${group.rowNumber},'${stat.key}',this.value,this)"
-          >
-
-        </div>
-
-        <div class="staff-committed">
-          Counting now:
-          ${Number(info.committed) || 0}
-        </div>
-
-      </div>
-    `;
+        <div class="extra-note">Past-cutoff registrations: ${lateExtras} • Manual extras: ${manualExtras}</div>
+      </article>`;
+    }).join('');
   }
 
+  function staffName(group, lastFirst = false){
+    const first = String(group.firstName || '').trim();
+    const last = String(group.lastName || '').trim();
+    if (lastFirst && last) return [last, first].filter(Boolean).join(', ');
+    return [first, last].filter(Boolean).join(' ').trim() || group.displayName || group.name || 'Staff';
+  }
 
-  function renderStaffMealGroups() {
-
-    $('staffGroupCount').textContent =
-      staffGroups.length
-        ? `(${staffGroups.length})`
-        : '';
-
-
+  function renderStaffMealGroups(){
+    $('staffGroupCount').textContent = staffGroups.length ? `(${staffGroups.length})` : '';
     if (!staffGroups.length) {
-
-      $('staffMealGroups').innerHTML =
-        '<div class="staff-empty">No staff/guest entries have been entered yet. Add names and reserved quantities on the “Staff & Guest Meals” sheet.</div>';
-
+      $('staffMealGroups').innerHTML = '<div class="staff-empty">No staff/guest groups have been entered yet. Add groups and reserved quantities on the “Staff & Guest Meals” sheet.</div>';
       return;
     }
 
+    $('staffMealGroups').innerHTML = staffGroups.map(group => {
+      const cells = mealStats.map(stat => {
+        const info = group.meals && group.meals[stat.key] ? group.meals[stat.key] : { reserved:0, actual:null, actualSet:false, committed:0 };
+        const actualValue = info.actualSet ? String(info.actual ?? 0) : '';
+        return `<div class="staff-meal-cell">
+          <div class="staff-meal-label">${esc(stat.label)}</div>
+          <div class="staff-meal-meta">Reserved: <strong>${Number(info.reserved) || 0}</strong></div>
+          <div class="staff-actual-row"><label>Actual</label><input class="staff-actual-input" type="number" min="0" step="1" inputmode="numeric" value="${escAttr(actualValue)}" placeholder="—" onchange="saveStaffMealActual(${group.rowNumber},'${stat.key}',this.value,this)"></div>
+          <div class="staff-committed">Counting now: ${Number(info.committed) || 0}</div>
+        </div>`;
+      }).join('');
 
-    $('staffMealGroups').innerHTML =
-      staffGroups
-        .map(
-          group => {
-
-            const cells =
-              mealStats
-                .map(
-                  stat =>
-                    staffMealCell(
-                      group,
-                      stat
-                    )
-                )
-                .join('');
-
-
-            return `
-              <article class="staff-group">
-
-                <div class="staff-group-head">
-
-                  <div class="staff-group-name">
-                    ${esc(staffName(group,true))}
-                  </div>
-
-                  ${
-                    group.notes
-                      ? `<div class="staff-group-notes">${esc(group.notes)}</div>`
-                      : ''
-                  }
-
-                </div>
-
-                <div class="staff-meal-grid">
-                  ${cells}
-                </div>
-
-              </article>
-            `;
-          }
-        )
-        .join('');
+      return `<article class="staff-group">
+        <div class="staff-group-head"><div class="staff-group-name">${esc(staffName(group,true))}</div>${group.notes ? `<div class="staff-group-notes">${esc(group.notes)}</div>` : ''}</div>
+        <div class="staff-meal-grid">${cells}</div>
+      </article>`;
+    }).join('');
   }
 
-
-  async function saveStaffMealActual(
-    row,
-    key,
-    value,
-    input
-  ) {
-
-    const previous =
-      staffGroups.find(
-        g =>
-          g.rowNumber === row
-      );
-
-
-    const previousInfo =
-      previous &&
-      previous.meals
-        ? previous.meals[key]
-        : null;
-
-
-    if (input) {
-      input.disabled = true;
-    }
-
-
+  async function saveStaffMealActual(row, key, value, input){
+    const previous = staffGroups.find(g => g.rowNumber === row);
+    const previousInfo = previous && previous.meals ? previous.meals[key] : null;
+    if (input) input.disabled = true;
     pendingWrites++;
-
-
     try {
-
-      const result =
-        await api(
-          'staffMealActual',
-          {
-            token:token,
-            row:row,
-            mealKey:key,
-            actual:value
-          }
-        );
-
-
-      if (!apiOkay(result)) {
-
-        throw new Error(
-          result.error ||
-          'Update failed.'
-        );
-      }
-
-
-      staffGroups =
-        result.staffGroups ||
-        staffGroups;
-
-
-      mealStats =
-        result.mealStats ||
-        mealStats;
-
-
+      const result = await api('staffMealActual', { token, row, mealKey: key, actual: value });
+      if (!apiOkay(result)) throw new Error(result.error || 'Update failed.');
+      staffGroups = result.staffGroups || staffGroups;
+      mealStats = result.mealStats || mealStats;
       renderMealDashboard();
       renderStaffMealGroups();
       renderRoster();
-
-      syncLocalSignature();
-
-
-      showToast(
-        value === ''
-          ? 'Staff/guest meal restored to reserved count'
-          : 'Staff/guest actual meal count saved'
-      );
-
-
+      lastRosterSignature = rosterSignature({ people, mealStats, staffGroups, lodgingOptions: Array.from($('lodgingSelect').options).slice(1).map(o => o.value) });
+      showToast(value === '' ? 'Staff/guest meal restored to reserved count' : 'Staff/guest actual meal count saved');
     } catch (err) {
-
-      if (
-        input &&
-        previousInfo
-      ) {
-
-        input.value =
-          previousInfo.actualSet
-            ? String(
-                previousInfo.actual ?? 0
-              )
-            : '';
-      }
-
-
+      if (input && previousInfo) input.value = previousInfo.actualSet ? String(previousInfo.actual ?? 0) : '';
       handleFailure(err);
-
-
     } finally {
-
-      pendingWrites =
-        Math.max(
-          0,
-          pendingWrites - 1
-        );
-
-
-      if (
-        input &&
-        document.body.contains(input)
-      ) {
-
-        input.disabled =
-          false;
-      }
+      pendingWrites = Math.max(0, pendingWrites - 1);
+      if (input && document.body.contains(input)) input.disabled = false;
     }
   }
 
+  function getFilteredPeople(){
+    const q = $('search').value.trim().toLowerCase();
+    const lodging = $('lodgingSelect').value;
 
-  function getFilteredPeople() {
-
-    const q =
-      $('search')
-        .value
-        .trim()
-        .toLowerCase();
-
-
-    const lodging =
-      $('lodgingSelect').value;
-
-
-    return people.filter(
-      p => {
-
-        if (
-          q &&
-          !p.searchable.includes(q)
-        ) {
-          return false;
-        }
-
-
-        if (
-          lodging &&
-          p.lodging !== lodging
-        ) {
-          return false;
-        }
-
-
-        if (
-          categoryFilter === 'adult' &&
-          p.category !== 'Adult'
-        ) {
-          return false;
-        }
-
-
-        if (
-          categoryFilter === 'camper' &&
-          p.category !== 'Camper'
-        ) {
-          return false;
-        }
-
-
-        if (
-          lodgeOnly &&
-          !p.lodgeFlag
-        ) {
-          return false;
-        }
-
-
-        if (
-          uncheckedOnly &&
-          p.checkedIn
-        ) {
-          return false;
-        }
-
-
-        if (
-          lodgingUnassignedOnly &&
-          p.lodgingAssigned
-        ) {
-          return false;
-        }
-
-
-        return true;
-      }
-    );
+    return people.filter(p => {
+      if (q && !p.searchable.includes(q)) return false;
+      if (lodging && p.lodging !== lodging) return false;
+      if (categoryFilter === 'adult' && p.category !== 'Adult') return false;
+      if (categoryFilter === 'camper' && p.category !== 'Camper') return false;
+      if (lodgeOnly && !p.lodgeFlag) return false;
+      if (uncheckedOnly && p.checkedIn) return false;
+      if (lodgingUnassignedOnly && p.lodgingAssigned) return false;
+      return true;
+    });
   }
 
-
-  function getFilteredStaff() {
-
-    const q =
-      $('search')
-        .value
-        .trim()
-        .toLowerCase();
-
-
-    return staffGroups.filter(
-      group => {
-
-        if (!q) {
-          return true;
-        }
-
-
-        const searchable =
-          group.searchable ||
-          [
-            group.firstName,
-            group.lastName,
-            group.displayName,
-            group.notes
-          ]
-            .join(' ')
-            .toLowerCase();
-
-
-        return searchable.includes(q);
-      }
-    );
+  function getFilteredStaff(){
+    const q = $('search').value.trim().toLowerCase();
+    return staffGroups.filter(group => {
+      if (!q) return true;
+      const searchable = group.searchable || [
+        group.firstName,
+        group.lastName,
+        group.displayName,
+        group.notes
+      ].join(' ').toLowerCase();
+      return searchable.includes(q);
+    });
   }
 
-
-  function staffCanAppearInEveryone() {
-
+  function staffCanAppearInEveryone(){
     return (
       !lodgeOnly &&
       !uncheckedOnly &&
@@ -3216,1554 +646,349 @@
     );
   }
 
+  function getEveryoneRows(){
+    const registrationRows = getFilteredPeople().map(person => ({
+      source: 'registration',
+      sortLast: String(person.lastName || ''),
+      sortFirst: String(person.firstName || ''),
+      data: person
+    }));
 
-  function getEveryoneRows() {
+    const staffRows = staffCanAppearInEveryone()
+      ? getFilteredStaff().map(group => ({
+          source: 'staff',
+          sortLast: String(group.lastName || group.firstName || ''),
+          sortFirst: String(group.firstName || ''),
+          data: group
+        }))
+      : [];
 
-    const registrationRows =
-      getFilteredPeople()
-        .map(
-          person => ({
-            source:'registration',
-
-            sortLast:
-              String(
-                person.lastName || ''
-              ),
-
-            sortFirst:
-              String(
-                person.firstName || ''
-              ),
-
-            data:person
-          })
-        );
-
-
-    const staffRows =
-      staffCanAppearInEveryone()
-        ? getFilteredStaff()
-            .map(
-              group => ({
-                source:'staff',
-
-                sortLast:
-                  String(
-                    group.lastName ||
-                    group.firstName ||
-                    ''
-                  ),
-
-                sortFirst:
-                  String(
-                    group.firstName || ''
-                  ),
-
-                data:group
-              })
-            )
-        : [];
-
-
-    return registrationRows
-      .concat(staffRows)
-      .sort(
-        (a,b) =>
-          a.sortLast.localeCompare(
-            b.sortLast,
-            undefined,
-            {
-              sensitivity:'base'
-            }
-          ) ||
-          a.sortFirst.localeCompare(
-            b.sortFirst,
-            undefined,
-            {
-              sensitivity:'base'
-            }
-          ) ||
-          a.source.localeCompare(
-            b.source
-          )
-      );
+    return registrationRows.concat(staffRows).sort((a,b) =>
+      a.sortLast.localeCompare(b.sortLast, undefined, { sensitivity:'base' }) ||
+      a.sortFirst.localeCompare(b.sortFirst, undefined, { sensitivity:'base' }) ||
+      a.source.localeCompare(b.source)
+    );
   }
 
+  function staffCard(group){
+    const cells = mealStats.map(stat => {
+      const info = group.meals && group.meals[stat.key]
+        ? group.meals[stat.key]
+        : { reserved:0, actual:null, actualSet:false, committed:0 };
+      const actualValue = info.actualSet ? String(info.actual ?? 0) : '';
+      return `<div class="staff-meal-cell">
+        <div class="staff-meal-label">${esc(stat.label)}</div>
+        <div class="staff-meal-meta">Reserved: <strong>${Number(info.reserved) || 0}</strong></div>
+        <div class="staff-actual-row"><label>Actual</label><input class="staff-actual-input" type="number" min="0" step="1" inputmode="numeric" value="${escAttr(actualValue)}" placeholder="—" onchange="saveStaffMealActual(${group.rowNumber},'${stat.key}',this.value,this)"></div>
+        <div class="staff-committed">Counting now: ${Number(info.committed) || 0}</div>
+      </div>`;
+    }).join('');
 
-  function renderRoster() {
+    return `<article class="person staff-person">
+      <div class="staff-roster-head">
+        <div><div class="name">${esc(staffName(group,true))}</div><div class="badges" style="margin-top:5px"><span class="badge staff">STAFF</span></div></div>
+        ${group.notes ? `<div class="staff-roster-notes">${esc(group.notes)}</div>` : ''}
+      </div>
+      <div class="staff-roster-meals"><div class="staff-meal-grid">${cells}</div></div>
+    </article>`;
+  }
 
-    if (
-      categoryFilter === 'staff'
-    ) {
-
-      const filteredStaff =
-        getFilteredStaff();
-
-
-      $('count').textContent =
-        `${filteredStaff.length} of ${staffGroups.length} staff`;
-
-
-      $('empty')
-        .classList.toggle(
-          'hidden',
-          filteredStaff.length > 0
-        );
-
-
-      $('empty').textContent =
-        'No staff entries match this view.';
-
-
-      $('list').innerHTML =
-        filteredStaff
-          .map(staffCard)
-          .join('');
-
-
+  function renderRoster(){
+    if (categoryFilter === 'staff') {
+      const filteredStaff = getFilteredStaff();
+      $('count').textContent = `${filteredStaff.length} of ${staffGroups.length} staff`;
+      $('empty').classList.toggle('hidden', filteredStaff.length > 0);
+      $('empty').textContent = 'No staff entries match this view.';
+      $('list').innerHTML = filteredStaff.map(staffCard).join('');
       return;
     }
 
-
-    if (
-      categoryFilter === 'all'
-    ) {
-
-      const rows =
-        getEveryoneRows();
-
-
-      const availableTotal =
-        people.length +
-        (
-          staffCanAppearInEveryone()
-            ? staffGroups.length
-            : 0
-        );
-
-
-      $('count').textContent =
-        `${rows.length} of ${availableTotal}`;
-
-
-      $('empty')
-        .classList.toggle(
-          'hidden',
-          rows.length > 0
-        );
-
-
-      $('empty').textContent =
-        'No entries match this view.';
-
-
-      $('list').innerHTML =
-        rows
-          .map(
-            item =>
-              item.source === 'staff'
-                ? staffCard(
-                    item.data
-                  )
-                : personCard(
-                    item.data
-                  )
-          )
-          .join('');
-
-
+    if (categoryFilter === 'all') {
+      const rows = getEveryoneRows();
+      const availableTotal = people.length + (staffCanAppearInEveryone() ? staffGroups.length : 0);
+      $('count').textContent = `${rows.length} of ${availableTotal}`;
+      $('empty').classList.toggle('hidden', rows.length > 0);
+      $('empty').textContent = 'No entries match this view.';
+      $('list').innerHTML = rows.map(item => item.source === 'staff' ? staffCard(item.data) : personCard(item.data)).join('');
       return;
     }
 
-
-    const filtered =
-      getFilteredPeople();
-
-
-    $('count').textContent =
-      `${filtered.length} of ${people.length}`;
-
-
-    $('empty')
-      .classList.toggle(
-        'hidden',
-        filtered.length > 0
-      );
-
-
-    $('empty').textContent =
-      'No registrations match this view.';
-
-
-    $('list').innerHTML =
-      filtered
-        .map(personCard)
-        .join('');
+    const filtered = getFilteredPeople();
+    $('count').textContent = `${filtered.length} of ${people.length}`;
+    $('empty').classList.toggle('hidden', filtered.length > 0);
+    $('empty').textContent = 'No registrations match this view.';
+    $('list').innerHTML = filtered.map(personCard).join('');
   }
 
-
-  function staffCard(group) {
-
-    const cells =
-      mealStats
-        .map(
-          stat =>
-            staffMealCell(
-              group,
-              stat
-            )
-        )
-        .join('');
-
-
-    return `
-      <article class="person staff-person">
-
-        <div class="staff-roster-head">
-
-          <div>
-
-            <div class="name">
-              ${esc(staffName(group,true))}
-            </div>
-
-            <div
-              class="badges"
-              style="margin-top:5px"
-            >
-              <span class="badge staff">
-                STAFF
-              </span>
-            </div>
-
-          </div>
-
-          ${
-            group.notes
-              ? `<div class="staff-roster-notes">${esc(group.notes)}</div>`
-              : ''
-          }
-
-        </div>
-
-
-        <div class="staff-roster-meals">
-
-          <div class="staff-meal-grid">
-            ${cells}
-          </div>
-
-        </div>
-
-      </article>
-    `;
+  function detailValue(person, labels){
+    const wanted = labels.map(x => String(x).toLowerCase());
+    const found = (person.details || []).find(d => wanted.includes(String(d.label || '').toLowerCase()));
+    return found ? String(found.value || '') : '';
   }
 
-
-  function detailValue(
-    person,
-    labels
-  ) {
-
-    const wanted =
-      labels.map(
-        x =>
-          String(x)
-            .toLowerCase()
-      );
-
-
-    const found =
-      (
-        person.details || []
-      ).find(
-        d =>
-          wanted.includes(
-            String(
-              d.label || ''
-            ).toLowerCase()
-          )
-      );
-
-
-    return found
-      ? String(
-          found.value || ''
-        )
-      : '';
-  }
-
-
-  function printFilterSummary() {
-
+  function printFilterSummary(){
     const parts = [];
-
-
-    if (
-      categoryFilter === 'staff'
-    ) {
-
-      parts.push('Staff');
-
-
-    } else {
-
-      if (
-        categoryFilter === 'adult'
-      ) {
-        parts.push('Adults');
-      }
-
-
-      if (
-        categoryFilter === 'camper'
-      ) {
-        parts.push('Campers');
-      }
-
-
-      if (lodgeOnly) {
-        parts.push('Lodge Room');
-      }
-
-
-      if (uncheckedOnly) {
-        parts.push('Not Checked In');
-      }
-
-
-      if (
-        lodgingUnassignedOnly
-      ) {
-        parts.push(
-          'Lodging Unassigned'
-        );
-      }
-
-
-      const lodging =
-        $('lodgingSelect').value;
-
-
-      if (lodging) {
-        parts.push(lodging);
-      }
-    }
-
-
-    const q =
-      $('search')
-        .value
-        .trim();
-
-
-    if (q) {
-
-      parts.push(
-        `Search: “${q}”`
-      );
-    }
-
-
-    return parts.length
-      ? parts.join(' • ')
-      : (
-          categoryFilter === 'all'
-            ? 'Everyone'
-            : 'All registrations'
-        );
+    if (categoryFilter === 'adult') parts.push('Adults');
+    if (categoryFilter === 'camper') parts.push('Campers');
+    if (lodgeOnly) parts.push('Lodge Room');
+    if (uncheckedOnly) parts.push('Not Checked In');
+    if (lodgingUnassignedOnly) parts.push('Lodging Unassigned');
+    const lodging = $('lodgingSelect').value;
+    if (lodging) parts.push(lodging);
+    const q = $('search').value.trim();
+    if (q) parts.push(`Search: “${q}”`);
+    return parts.length ? parts.join(' • ') : 'All registrations';
   }
 
-
-  function printCurrentView() {
-
-    if (
-      categoryFilter === 'staff'
-    ) {
-
+  function printCurrentView(){
+    if (categoryFilter === 'staff') {
       printStaffCurrentView();
       return;
     }
 
-
-    const filtered =
-      getFilteredPeople();
-
-
+    const filtered = getFilteredPeople();
     if (!filtered.length) {
-
-      showToast(
-        'No registrations match the current view.',
-        true,
-        3500
-      );
-
+      showToast('No registrations match the current view.', true, 3500);
       return;
     }
 
+    const logoUrl = new URL('./yc-logo.png', window.location.href).href;
+    const generated = new Date().toLocaleString();
+    const rows = filtered.map(p => {
+      const church = detailValue(p, ['Adult Church Name', 'Church Name']);
+      const phone = detailValue(p, ['Adult Phone Number', 'Camper Phone Number']);
+      const meals = p.mealEntries && p.mealEntries.length
+        ? p.mealEntries.map(m => `${m.label}${m.issued ? ' ✓' : ''}`).join(', ')
+        : 'None';
+      return `<tr>
+        <td class="name">${esc(p.lastName)}</td>
+        <td class="name">${esc(p.firstName)}</td>
+        <td>${esc(p.category)}${p.lateMealRegistration ? ' • LATE MEALS' : ''}</td>
+        <td>${esc(church)}</td>
+        <td>${esc(phone)}</td>
+        <td>${esc(p.lodging)}</td>
+        <td class="center">${p.lodgingAssigned ? '✓' : ''}</td>
+        <td class="center">${p.checkedIn ? '✓' : ''}</td>
+        <td>${esc(meals)}</td>
+      </tr>`;
+    }).join('');
 
-    const logoUrl =
-      new URL(
-        './yc-logo.png',
-        window.location.href
-      ).href;
+    $('printPreviewContent').innerHTML = `<div class="print-sheet">
+      <div class="head"><img src="${logoUrl}" alt=""><div><h1>Youth Challenge Registration Roster</h1><div class="meta">${esc(printFilterSummary())}</div><div class="meta">${filtered.length} registrations • Prepared ${esc(generated)}</div></div></div>
+      <table>
+        <thead><tr><th>Last Name</th><th>First Name</th><th>Type</th><th>Church</th><th>Phone</th><th>Lodging</th><th class="center">Lodging Assigned</th><th class="center">Checked In</th><th>Registered Meals (✓ = ticket issued)</th></tr></thead>
+        <tbody>${rows}</tbody>
+      </table>
+      <div class="footer">Generated from Youth Challenge Check-In v${CLIENT_VERSION}.</div>
+    </div>`;
 
-
-    const generated =
-      new Date()
-        .toLocaleString();
-
-
-    const rows =
-      filtered
-        .map(
-          p => {
-
-            const church =
-              detailValue(
-                p,
-                [
-                  'Adult Church Name',
-                  'Church Name'
-                ]
-              );
-
-
-            const phone =
-              detailValue(
-                p,
-                [
-                  'Adult Phone Number',
-                  'Camper Phone Number'
-                ]
-              );
-
-
-            const meals =
-              p.mealEntries &&
-              p.mealEntries.length
-                ? p.mealEntries
-                    .map(
-                      m =>
-                        `${m.label}${m.issued ? ' ✓' : ''}`
-                    )
-                    .join(', ')
-                : 'None';
-
-
-            return `
-              <tr>
-                <td class="name">
-                  ${esc(p.lastName)}
-                </td>
-                <td class="name">
-                  ${esc(p.firstName)}
-                </td>
-                <td>
-                  ${esc(p.category)}
-                </td>
-                <td>
-                  ${esc(church)}
-                </td>
-                <td>
-                  ${esc(phone)}
-                </td>
-                <td>
-                  ${esc(p.lodging)}
-                </td>
-                <td class="center">
-                  ${p.lodgingAssigned ? '✓' : ''}
-                </td>
-                <td class="center">
-                  ${p.checkedIn ? '✓' : ''}
-                </td>
-                <td>
-                  ${esc(meals)}
-                </td>
-              </tr>
-            `;
-          }
-        )
-        .join('');
-
-
-    $('printPreviewContent').innerHTML =
-      `
-        <div class="print-sheet">
-
-          <div class="head">
-
-            <img
-              src="${logoUrl}"
-              alt=""
-            >
-
-            <div>
-
-              <h1>
-                Youth Challenge Registration Roster
-              </h1>
-
-              <div class="meta">
-                ${esc(printFilterSummary())}
-              </div>
-
-              <div class="meta">
-                ${filtered.length} registrations • Prepared ${esc(generated)}
-              </div>
-
-            </div>
-
-          </div>
-
-
-          <table>
-
-            <thead>
-              <tr>
-                <th>Last Name</th>
-                <th>First Name</th>
-                <th>Type</th>
-                <th>Church</th>
-                <th>Phone</th>
-                <th>Lodging</th>
-                <th class="center">
-                  Lodging Assigned
-                </th>
-                <th class="center">
-                  Checked In
-                </th>
-                <th>
-                  Registered Meals
-                  (✓ = ticket issued)
-                </th>
-              </tr>
-            </thead>
-
-            <tbody>
-              ${rows}
-            </tbody>
-
-          </table>
-
-
-          <div class="footer">
-            Generated from Youth Challenge Check-In v${CLIENT_VERSION}.
-          </div>
-
-        </div>
-      `;
-
-
-    $('printPreviewDialog')
-      .showModal();
+    $('printPreviewDialog').showModal();
   }
 
-
-  function printStaffCurrentView() {
-
-    const filtered =
-      getFilteredStaff();
-
-
+  function printStaffCurrentView(){
+    const filtered = getFilteredStaff();
     if (!filtered.length) {
-
-      showToast(
-        'No staff entries match the current view.',
-        true,
-        3500
-      );
-
+      showToast('No staff entries match the current view.', true, 3500);
       return;
     }
 
+    const logoUrl = new URL('./yc-logo.png', window.location.href).href;
+    const generated = new Date().toLocaleString();
+    const mealHeaders = mealStats.map(stat => `<th>${esc(stat.label)}</th>`).join('');
+    const rows = filtered.map(group => {
+      const mealCells = mealStats.map(stat => {
+        const info = group.meals && group.meals[stat.key]
+          ? group.meals[stat.key]
+          : { reserved:0, actual:null, actualSet:false, committed:0 };
+        const actualText = info.actualSet ? String(info.actual) : '—';
+        return `<td>Reserved: ${Number(info.reserved) || 0}<br>Actual: ${esc(actualText)}<br>Counting: ${Number(info.committed) || 0}</td>`;
+      }).join('');
 
-    const logoUrl =
-      new URL(
-        './yc-logo.png',
-        window.location.href
-      ).href;
+      return `<tr><td class="name">${esc(group.lastName || '')}</td><td class="name">${esc(group.firstName || '')}</td>${mealCells}<td>${esc(group.notes || '')}</td></tr>`;
+    }).join('');
 
+    $('printPreviewContent').innerHTML = `<div class="print-sheet staff-print">
+      <div class="head"><img src="${logoUrl}" alt=""><div><h1>Youth Challenge Staff & Guest Meals</h1><div class="meta">Staff</div><div class="meta">${filtered.length} staff entries • Prepared ${esc(generated)}</div></div></div>
+      <table><thead><tr><th>Last Name</th><th>First Name</th>${mealHeaders}<th>Notes</th></tr></thead><tbody>${rows}</tbody></table>
+      <div class="footer">Blank Actual means the Reserved quantity is still being counted. Generated from Youth Challenge Check-In v${CLIENT_VERSION}.</div>
+    </div>`;
 
-    const generated =
-      new Date()
-        .toLocaleString();
-
-
-    const mealHeaders =
-      mealStats
-        .map(
-          stat =>
-            `<th>${esc(stat.label)}</th>`
-        )
-        .join('');
-
-
-    const rows =
-      filtered
-        .map(
-          group => {
-
-            const mealCells =
-              mealStats
-                .map(
-                  stat => {
-
-                    const info =
-                      group.meals &&
-                      group.meals[stat.key]
-                        ? group.meals[
-                            stat.key
-                          ]
-                        : {
-                            reserved:0,
-                            actual:null,
-                            actualSet:false,
-                            committed:0
-                          };
-
-
-                    const actualText =
-                      info.actualSet
-                        ? String(
-                            info.actual
-                          )
-                        : '—';
-
-
-                    return `
-                      <td>
-                        Reserved:
-                        ${Number(info.reserved) || 0}
-                        <br>
-                        Actual:
-                        ${esc(actualText)}
-                        <br>
-                        Counting:
-                        ${Number(info.committed) || 0}
-                      </td>
-                    `;
-                  }
-                )
-                .join('');
-
-
-            return `
-              <tr>
-
-                <td class="name">
-                  ${esc(group.lastName || '')}
-                </td>
-
-                <td class="name">
-                  ${esc(group.firstName || '')}
-                </td>
-
-                ${mealCells}
-
-                <td>
-                  ${esc(group.notes || '')}
-                </td>
-
-              </tr>
-            `;
-          }
-        )
-        .join('');
-
-
-    $('printPreviewContent').innerHTML =
-      `
-        <div class="print-sheet staff-print">
-
-          <div class="head">
-
-            <img
-              src="${logoUrl}"
-              alt=""
-            >
-
-            <div>
-
-              <h1>
-                Youth Challenge Staff & Guest Meals
-              </h1>
-
-              <div class="meta">
-                ${esc(printFilterSummary())}
-              </div>
-
-              <div class="meta">
-                ${filtered.length} staff entries • Prepared ${esc(generated)}
-              </div>
-
-            </div>
-
-          </div>
-
-
-          <table>
-
-            <thead>
-              <tr>
-                <th>Last Name</th>
-                <th>First Name</th>
-                ${mealHeaders}
-                <th>Notes</th>
-              </tr>
-            </thead>
-
-            <tbody>
-              ${rows}
-            </tbody>
-
-          </table>
-
-
-          <div class="footer">
-            Blank Actual means the Reserved quantity is still being counted.
-            Generated from Youth Challenge Check-In v${CLIENT_VERSION}.
-          </div>
-
-        </div>
-      `;
-
-
-    $('printPreviewDialog')
-      .showModal();
+    $('printPreviewDialog').showModal();
   }
 
-
-  function closePrintPreview() {
-
-    const dialog =
-      $('printPreviewDialog');
-
-
-    if (dialog.open) {
-      dialog.close();
-    }
+  function closePrintPreview(){
+    const dialog = $('printPreviewDialog');
+    if (dialog.open) dialog.close();
   }
 
+  function personCard(p){
+    const badges = `<div class="badges"><span class="badge ${p.category.toLowerCase()}">${esc(p.category)}</span>${p.lodgeFlag ? '<span class="badge lodge">LODGE</span>' : ''}${p.lateMealRegistration ? '<span class="badge late">MEALS AFTER CUTOFF</span>' : ''}</div>`;
+    const mealDisplay = p.mealEntries.length
+      ? p.mealEntries.map(m => `<label class="ticket-label ${m.issued ? 'issued' : ''}" title="${escAttr(m.label)} ticket"><input type="checkbox" ${m.issued ? 'checked' : ''} onchange="toggleMealTicket(${p.rowNumber},'${m.key}',this.checked)"><span>${esc(m.label)}</span></label>`).join('')
+      : '<span class="meal-none">No meals registered</span>';
 
-  function personCard(p) {
-
-    const badges =
-      `
-        <div class="badges">
-
-          <span class="badge ${p.category.toLowerCase()}">
-            ${esc(p.category)}
-          </span>
-
-          ${
-            p.lodgeFlag
-              ? '<span class="badge lodge">LODGE</span>'
-              : ''
-          }
-
+    return `<article class="person ${p.lodgeFlag ? 'lodge-person' : ''}" id="person-${p.rowNumber}">
+      <div class="person-main">
+        <div>
+          <div class="name">${esc(p.lastName)}, ${esc(p.firstName)}</div>
+          <div class="sub">${esc(p.lodging)}</div>
         </div>
-      `;
-
-
-    const mealDisplay =
-      p.mealEntries.length
-        ? p.mealEntries
-            .map(
-              m =>
-                `
-                  <label
-                    class="ticket-label ${m.issued ? 'issued' : ''}"
-                    title="${escAttr(m.label)} ticket"
-                  >
-
-                    <input
-                      type="checkbox"
-                      ${m.issued ? 'checked' : ''}
-                      onchange="toggleMealTicket(${p.rowNumber},'${m.key}',this.checked)"
-                    >
-
-                    <span>
-                      ${esc(m.label)}
-                    </span>
-
-                  </label>
-                `
-            )
-            .join('')
-        : '<span class="meal-none">No meals registered</span>';
-
-
-    return `
-      <article
-        class="person ${p.lodgeFlag ? 'lodge-person' : ''}"
-        id="person-${p.rowNumber}"
-      >
-
-        <div class="person-main">
-
-          <div>
-
-            <div class="name">
-              ${esc(p.lastName)}, ${esc(p.firstName)}
-            </div>
-
-            <div class="sub">
-              ${esc(p.lodging)}
-            </div>
-
-          </div>
-
-
-          <div class="category-cell">
-            ${badges}
-          </div>
-
-
-          <div class="meals-cell meal-tickets">
-            ${mealDisplay}
-          </div>
-
-
-          <div class="check-cell check-stack">
-
-            <label class="check-wrap">
-
-              <input
-                type="checkbox"
-                ${p.checkedIn ? 'checked' : ''}
-                onchange="toggleCheckIn(${p.rowNumber},this.checked)"
-              >
-
-              <span>
-                Checked In
-              </span>
-
-            </label>
-
-
-            <label class="check-wrap">
-
-              <input
-                type="checkbox"
-                ${p.lodgingAssigned ? 'checked' : ''}
-                onchange="toggleLodgingAssigned(${p.rowNumber},this.checked)"
-              >
-
-              <span>
-                Lodging Assigned
-              </span>
-
-            </label>
-
-          </div>
-
+        <div class="category-cell">${badges}</div>
+        <div class="meals-cell meal-tickets">${mealDisplay}</div>
+        <div class="check-cell check-stack">
+          <label class="check-wrap"><input type="checkbox" ${p.checkedIn ? 'checked' : ''} onchange="toggleCheckIn(${p.rowNumber},this.checked)"><span>Checked In</span></label>
+          <label class="check-wrap"><input type="checkbox" ${p.lodgingAssigned ? 'checked' : ''} onchange="toggleLodgingAssigned(${p.rowNumber},this.checked)"><span>Lodging Assigned</span></label>
         </div>
-
-
-        <div class="person-actions">
-
-          <button
-            class="details-btn"
-            onclick="openDetails(${p.rowNumber})"
-          >
-            View full registration →
-          </button>
-
-        </div>
-
-      </article>
-    `;
+      </div>
+      <div class="person-actions"><button class="details-btn" onclick="openDetails(${p.rowNumber})">View full registration →</button></div>
+    </article>`;
   }
 
-
-  async function toggleCheckIn(
-    row,
-    checked
-  ) {
-
-    const p =
-      people.find(
-        x =>
-          x.rowNumber === row
-      );
-
-
-    if (p) {
-      p.checkedIn =
-        checked;
-    }
-
-
+  async function toggleCheckIn(row, checked){
+    const p = people.find(x => x.rowNumber === row);
+    if (p) p.checkedIn = checked;
     renderRoster();
-
-
-    if (
-      currentPersonRow === row
-    ) {
-      renderDetails(row);
-    }
-
+    if (currentPersonRow === row) renderDetails(row);
 
     pendingWrites++;
-
-
     try {
-
-      const result =
-        await api(
-          'checkin',
-          {
-            token:token,
-            row:row,
-            checked:
-              checked ? 1 : 0
-          }
-        );
-
-
-      if (!apiOkay(result)) {
-
-        throw new Error(
-          result.error ||
-          'Update failed.'
-        );
-      }
-
-
-      syncLocalSignature();
-
-
-      showToast(
-        checked
-          ? 'Checked in'
-          : 'Check-in removed'
-      );
-
-
+      const result = await api('checkin', { token, row, checked: checked ? 1 : 0 });
+      if (!apiOkay(result)) throw new Error(result.error || 'Update failed.');
+      showToast(checked ? 'Checked in' : 'Check-in removed');
     } catch (err) {
-
-      if (p) {
-
-        p.checkedIn =
-          !checked;
-      }
-
-
+      if (p) p.checkedIn = !checked;
       renderRoster();
-
-
-      if (
-        currentPersonRow === row
-      ) {
-
-        renderDetails(row);
-      }
-
-
+      if (currentPersonRow === row) renderDetails(row);
       handleFailure(err);
-
-
     } finally {
-
-      pendingWrites =
-        Math.max(
-          0,
-          pendingWrites - 1
-        );
+      pendingWrites = Math.max(0, pendingWrites - 1);
     }
   }
 
-
-  async function toggleLodgingAssigned(
-    row,
-    checked
-  ) {
-
-    const p =
-      people.find(
-        x =>
-          x.rowNumber === row
-      );
-
-
-    if (p) {
-
-      p.lodgingAssigned =
-        checked;
-    }
-
-
+  async function toggleLodgingAssigned(row, checked){
+    const p = people.find(x => x.rowNumber === row);
+    if (p) p.lodgingAssigned = checked;
     renderRoster();
-
-
-    if (
-      currentPersonRow === row
-    ) {
-
-      renderDetails(row);
-    }
-
+    if (currentPersonRow === row) renderDetails(row);
 
     pendingWrites++;
-
-
     try {
-
-      const result =
-        await api(
-          'lodgingAssigned',
-          {
-            token:token,
-            row:row,
-            checked:
-              checked ? 1 : 0
-          }
-        );
-
-
-      if (!apiOkay(result)) {
-
-        throw new Error(
-          result.error ||
-          'Update failed.'
-        );
-      }
-
-
-      syncLocalSignature();
-
-
-      showToast(
-        checked
-          ? 'Lodging marked assigned'
-          : 'Lodging assignment removed'
-      );
-
-
+      const result = await api('lodgingAssigned', { token, row, checked: checked ? 1 : 0 });
+      if (!apiOkay(result)) throw new Error(result.error || 'Update failed.');
+      showToast(checked ? 'Lodging marked assigned' : 'Lodging assignment removed');
     } catch (err) {
-
-      if (p) {
-
-        p.lodgingAssigned =
-          !checked;
-      }
-
-
+      if (p) p.lodgingAssigned = !checked;
       renderRoster();
-
-
-      if (
-        currentPersonRow === row
-      ) {
-
-        renderDetails(row);
-      }
-
-
+      if (currentPersonRow === row) renderDetails(row);
       handleFailure(err);
-
-
     } finally {
-
-      pendingWrites =
-        Math.max(
-          0,
-          pendingWrites - 1
-        );
+      pendingWrites = Math.max(0, pendingWrites - 1);
     }
   }
 
-
-  async function toggleMealTicket(
-    row,
-    key,
-    checked
-  ) {
-
-    const p =
-      people.find(
-        x =>
-          x.rowNumber === row
-      );
-
-
-    const entry =
-      p &&
-      p.mealEntries.find(
-        m =>
-          m.key === key
-      );
-
-
-    if (entry) {
-
-      entry.issued =
-        checked;
-    }
-
-
-    if (p) {
-
-      p.mealTickets[key] =
-        checked;
-    }
-
-
+  async function toggleMealTicket(row, key, checked){
+    const p = people.find(x => x.rowNumber === row);
+    const entry = p && p.mealEntries.find(m => m.key === key);
+    if (entry) entry.issued = checked;
+    if (p) p.mealTickets[key] = checked;
     renderRoster();
-
-
-    if (
-      currentPersonRow === row
-    ) {
-
-      renderDetails(row);
-    }
-
+    if (currentPersonRow === row) renderDetails(row);
 
     pendingWrites++;
-
-
     try {
-
-      const result =
-        await api(
-          'mealTicket',
-          {
-            token:token,
-            row:row,
-            mealKey:key,
-            checked:
-              checked ? 1 : 0
-          }
-        );
-
-
-      if (!apiOkay(result)) {
-
-        throw new Error(
-          result.error ||
-          'Update failed.'
-        );
-      }
-
-
-      mealStats =
-        result.mealStats ||
-        mealStats;
-
-
+      const result = await api('mealTicket', { token, row, mealKey: key, checked: checked ? 1 : 0 });
+      if (!apiOkay(result)) throw new Error(result.error || 'Update failed.');
+      mealStats = result.mealStats || mealStats;
       renderMealDashboard();
-
-      syncLocalSignature();
-
-
-      showToast(
-        checked
-          ? 'Meal ticket issued'
-          : 'Meal ticket returned'
-      );
-
-
+      showToast(checked ? 'Meal ticket issued' : 'Meal ticket returned');
     } catch (err) {
-
-      if (entry) {
-
-        entry.issued =
-          !checked;
-      }
-
-
-      if (p) {
-
-        p.mealTickets[key] =
-          !checked;
-      }
-
-
+      if (entry) entry.issued = !checked;
+      if (p) p.mealTickets[key] = !checked;
       renderRoster();
-
-
-      if (
-        currentPersonRow === row
-      ) {
-
-        renderDetails(row);
-      }
-
-
+      if (currentPersonRow === row) renderDetails(row);
       handleFailure(err);
-
-
     } finally {
-
-      pendingWrites =
-        Math.max(
-          0,
-          pendingWrites - 1
-        );
+      pendingWrites = Math.max(0, pendingWrites - 1);
     }
   }
 
-
-  async function adjustExtra(
-    key,
-    delta
-  ) {
-
+  async function adjustExtra(key, delta){
     pendingWrites++;
-
-
     try {
-
-      const result =
-        await api(
-          'extraMeal',
-          {
-            token:token,
-            mealKey:key,
-            delta:delta
-          }
-        );
-
-
-      if (!apiOkay(result)) {
-        return;
-      }
-
-
-      mealStats =
-        result.mealStats ||
-        mealStats;
-
-
+      const result = await api('extraMeal', { token, mealKey: key, delta });
+      if (!apiOkay(result)) return;
+      mealStats = result.mealStats || mealStats;
       renderMealDashboard();
-
-      syncLocalSignature();
-
-
-      showToast(
-        delta > 0
-          ? 'Extra meal used'
-          : 'Extra meal restored'
-      );
-
-
+      showToast(delta > 0 ? 'Extra meal used' : 'Extra meal restored');
     } catch (err) {
-
       handleFailure(err);
-
-
     } finally {
-
-      pendingWrites =
-        Math.max(
-          0,
-          pendingWrites - 1
-        );
+      pendingWrites = Math.max(0, pendingWrites - 1);
     }
   }
 
-
-  function openDetails(row) {
-
-    currentPersonRow =
-      row;
-
-
+  function openDetails(row){
+    currentPersonRow = row;
     renderDetails(row);
-
-
-    $('detailDialog')
-      .showModal();
+    $('detailDialog').showModal();
   }
 
+  function renderDetails(row){
+    const p = people.find(x => x.rowNumber === row);
+    if (!p) return;
 
-  function renderDetails(row) {
+    $('modalName').textContent = p.displayName;
+    $('modalBadges').innerHTML = `<span class="badge ${p.category.toLowerCase()}">${esc(p.category)}</span>${p.lodgeFlag ? '<span class="badge lodge">LODGE ROOM</span>' : ''}${p.lateMealRegistration ? '<span class="badge late">MEALS AFTER CUTOFF</span>' : ''}<span class="badge">${esc(p.lodging)}</span>`;
 
-    const p =
-      people.find(
-        x =>
-          x.rowNumber === row
-      );
+    const checkCard = `<div class="status-card"><label><input type="checkbox" ${p.checkedIn ? 'checked' : ''} onchange="toggleCheckIn(${p.rowNumber},this.checked)"> Checked In</label></div>`;
+    const lodgingCard = `<div class="status-card"><label><input type="checkbox" ${p.lodgingAssigned ? 'checked' : ''} onchange="toggleLodgingAssigned(${p.rowNumber},this.checked)"> Lodging Assigned</label></div>`;
+    const mealCards = p.mealEntries.length
+      ? p.mealEntries.map(m => `<div class="status-card"><label><input type="checkbox" ${m.issued ? 'checked' : ''} onchange="toggleMealTicket(${p.rowNumber},'${m.key}',this.checked)"> ${esc(m.label)} Ticket Issued</label></div>`).join('')
+      : '<div class="status-card"><span class="meal-none">No meals registered</span></div>';
 
-
-    if (!p) {
-      return;
-    }
-
-
-    $('modalName').textContent =
-      p.displayName;
-
-
-    $('modalBadges').innerHTML =
-      `
-        <span class="badge ${p.category.toLowerCase()}">
-          ${esc(p.category)}
-        </span>
-
-        ${
-          p.lodgeFlag
-            ? '<span class="badge lodge">LODGE ROOM</span>'
-            : ''
-        }
-
-        <span class="badge">
-          ${esc(p.lodging)}
-        </span>
-      `;
-
-
-    const checkCard =
-      `
-        <div class="status-card">
-
-          <label>
-
-            <input
-              type="checkbox"
-              ${p.checkedIn ? 'checked' : ''}
-              onchange="toggleCheckIn(${p.rowNumber},this.checked)"
-            >
-
-            Checked In
-
-          </label>
-
-        </div>
-      `;
-
-
-    const lodgingCard =
-      `
-        <div class="status-card">
-
-          <label>
-
-            <input
-              type="checkbox"
-              ${p.lodgingAssigned ? 'checked' : ''}
-              onchange="toggleLodgingAssigned(${p.rowNumber},this.checked)"
-            >
-
-            Lodging Assigned
-
-          </label>
-
-        </div>
-      `;
-
-
-    const mealCards =
-      p.mealEntries.length
-        ? p.mealEntries
-            .map(
-              m =>
-                `
-                  <div class="status-card">
-
-                    <label>
-
-                      <input
-                        type="checkbox"
-                        ${m.issued ? 'checked' : ''}
-                        onchange="toggleMealTicket(${p.rowNumber},'${m.key}',this.checked)"
-                      >
-
-                      ${esc(m.label)} Ticket Issued
-
-                    </label>
-
-                  </div>
-                `
-            )
-            .join('')
-        : '<div class="status-card"><span class="meal-none">No meals registered</span></div>';
-
-
-    $('modalStatus').innerHTML =
-      checkCard +
-      lodgingCard +
-      mealCards;
-
-
-    $('modalDetails').innerHTML =
-      p.details
-        .map(
-          d =>
-            `
-              <div class="detail">
-
-                <div class="detail-label">
-                  ${esc(d.label)}
-                </div>
-
-                <div class="detail-value">
-                  ${linkify(esc(d.value))}
-                </div>
-
-              </div>
-            `
-        )
-        .join('');
+    $('modalStatus').innerHTML = checkCard + lodgingCard + mealCards;
+    $('modalDetails').innerHTML = p.details.map(d => `<div class="detail"><div class="detail-label">${esc(d.label)}</div><div class="detail-value">${linkify(esc(d.value))}</div></div>`).join('');
   }
 
+  $('detailDialog').addEventListener('close', () => { currentPersonRow = null; });
 
-  $('detailDialog')
-    .addEventListener(
-      'close',
-      () => {
-
-        currentPersonRow =
-          null;
-      }
-    );
-
-
-  function handleFailure(err) {
-
-    const msg =
-      messageOf(err);
-
-
-    if (
-      msg.includes(
-        'SESSION_EXPIRED'
-      )
-    ) {
-
-      sessionStorage.removeItem(
-        'yc_checkin_token'
-      );
-
-
+  function handleFailure(err){
+    const msg = messageOf(err);
+    if (msg.includes('SESSION_EXPIRED')) {
+      sessionStorage.removeItem('yc_checkin_token');
       token = '';
-
-
-      $('appView')
-        .classList
-        .add('hidden');
-
-
-      $('loginView')
-        .classList
-        .remove('hidden');
-
-
-      $('loginError').textContent =
-        'Your session expired. Enter the passcode again.';
-
-
+      $('appView').classList.add('hidden');
+      $('loginView').classList.remove('hidden');
+      $('loginError').textContent = 'Your session expired. Enter the passcode again.';
       return;
     }
-
-
-    showToast(
-      msg,
-      true,
-      5000
-    );
+    showToast(msg, true, 5000);
   }
 
-
-  function messageOf(err) {
-
-    return (
-      err &&
-      err.message
-    ) ||
-    String(
-      err ||
-      'Unknown error'
-    );
+  function messageOf(err){
+    return (err && err.message) || String(err || 'Unknown error');
   }
 
-
-  function showToast(
-    msg,
-    isError,
-    duration = 2200
-  ) {
-
-    const t =
-      $('toast');
-
-
-    t.textContent =
-      msg;
-
-
-    t.classList.remove(
-      'hidden'
-    );
-
-
-    t.style.background =
-      isError
-        ? '#8f2d20'
-        : '#17202a';
-
-
-    clearTimeout(
-      window.__toastTimer
-    );
-
-
-    window.__toastTimer =
-      setTimeout(
-        () =>
-          t.classList.add(
-            'hidden'
-          ),
-        duration
-      );
+  function showToast(msg, isError, duration = 2200){
+    const t = $('toast');
+    t.textContent = msg;
+    t.classList.remove('hidden');
+    t.style.background = isError ? '#8f2d20' : '#17202a';
+    clearTimeout(window.__toastTimer);
+    window.__toastTimer = setTimeout(() => t.classList.add('hidden'), duration);
   }
 
-
-  function esc(s) {
-
-    return String(
-      s ?? ''
-    ).replace(
-      /[&<>"']/g,
-      c =>
-        ({
-          '&':'&amp;',
-          '<':'&lt;',
-          '>':'&gt;',
-          '"':'&quot;',
-          "'":'&#039;'
-        })[c]
-    );
+  function esc(s){
+    return String(s ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[c]));
   }
 
+  function escAttr(s){ return esc(s).replace(/`/g, '&#096;'); }
 
-  function escAttr(s) {
-
-    return esc(s)
-      .replace(
-        /`/g,
-        '&#096;'
-      );
-  }
-
-
-  function linkify(s) {
-
+  function linkify(s){
     return s
-      .replace(
-        /\b([\w.+-]+@[\w.-]+\.[A-Za-z]{2,})\b/g,
-        '<a href="mailto:$1">$1</a>'
-      )
-      .replace(
-        /\b(\+?\d[\d\s().-]{8,}\d)\b/g,
-        m =>
-          `<a href="tel:${m.replace(/[^\d+]/g,'')}">${m}</a>`
-      );
+      .replace(/\b([\w.+-]+@[\w.-]+\.[A-Za-z]{2,})\b/g, '<a href="mailto:$1">$1</a>')
+      .replace(/\b(\+?\d[\d\s().-]{8,}\d)\b/g, m => `<a href="tel:${m.replace(/[^\d+]/g,'')}">${m}</a>`);
   }
-
 </script>
-
 </body>
 </html>
